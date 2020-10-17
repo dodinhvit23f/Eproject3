@@ -21,6 +21,18 @@ namespace Eproject3.Controllers
             var users = db.Users.Include(u => u.Packs).Include(u => u.Roles);
             return View(await users.ToListAsync());
         }
+        public async Task<ActionResult> Login(string phones, string pwd)
+        {
+            var isValid = db.Users.Where(p => p.UPhone == phones && p.UPass == pwd && DateTime.Compare(p.Exp_Date.Value, DateTime.Now) <= 0);
+            if (isValid!= null)
+            {
+                return RedirectToAction("index","Home");
+            }
+            else
+            {
+                return RedirectToAction("LoginPage");
+            }
+        }
 
         // GET: Users/Details/5
         public async Task<ActionResult> Details(int? id)
