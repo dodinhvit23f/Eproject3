@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
+using System.IO;
 
 namespace Eproject3.Controllers
 {
@@ -49,10 +50,25 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase Url)
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (Url != null)
+                    {
+                        //Luu anh vao folder images
+                        string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                        Url.SaveAs(path);
+                    }
+                }
+                catch (Exception e)
+                {
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+                
+                recipes.Img = Path.GetFileName(Url.FileName);
                 db.Recipes.Add(recipes);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -83,10 +99,25 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase Url)
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (Url != null)
+                    {
+                        //Luu anh vao folder images
+                        string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                        Url.SaveAs(path);
+                    }
+                }
+                catch (Exception e)
+                {
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+
+                recipes.Img = Path.GetFileName(Url.FileName);
                 db.Entry(recipes).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
