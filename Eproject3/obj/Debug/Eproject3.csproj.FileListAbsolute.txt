@@ -126,3 +126,4 @@ D:\Project3\Eproject3\bin\roslyn\System.IO.FileSystem.dll
 D:\Project3\Eproject3\bin\roslyn\System.IO.FileSystem.Primitives.dll
 D:\Project3\Eproject3\bin\roslyn\vbc.exe.config
 D:\Project3\Eproject3\bin\roslyn\vbc.rsp
+D:\Project3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache

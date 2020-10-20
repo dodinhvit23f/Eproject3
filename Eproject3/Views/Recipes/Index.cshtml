@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+     
 }
 
 <h2>Index</h2>
@@ -30,36 +31,76 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @{
-                var ImgList = item.Img.Split(',').ToList();
-                foreach (var i in ImgList) { 
-                       <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+    @foreach (var item in Model)
+    {
+        var ImgList = item.Img.Split(',').ToList();
+        if (Session["Pack_id"].ToString() != "3"||Session["Pack_id"].ToString() != "")
+        {
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @{
+
+                    foreach (var i in ImgList)
+                    {
+                        <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+                    }
                 }
-             }
-           
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.R_Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contester.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.R_Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contester.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+        }
+        else {
+           if (item.R_Status == 0) { 
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @{
+
+                            foreach (var i in ImgList)
+                            {
+                                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.R_Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contester.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </td>
+                </tr>
+            }
+         }
+      }
 
 </table>
