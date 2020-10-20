@@ -30,6 +30,8 @@ namespace Eproject3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Lay feedbacks
+            ViewBag.FeedBack = db.FeedBack.Where(m => m.Recipes_id == id).Include(i => i.Users).ToList();
             Recipes recipes = await db.Recipes.FindAsync(id);
             if (recipes == null)
             {
@@ -50,7 +52,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase Url)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase Url, HttpPostedFileBase Url1, HttpPostedFileBase Url2)
         {
             if (ModelState.IsValid)
             {
@@ -59,16 +61,20 @@ namespace Eproject3.Controllers
                     if (Url != null)
                     {
                         //Luu anh vao folder images
-                        string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
-                        Url.SaveAs(path);
+                        string path1 = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                        string path2 = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url1.FileName));
+                        string path3 = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url2.FileName));
+                        Url.SaveAs(path1);
+                        Url1.SaveAs(path2);
+                        Url2.SaveAs(path3);
                     }
                 }
                 catch (Exception e)
                 {
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
-                
-                recipes.Img = Path.GetFileName(Url.FileName);
+                string img_url = Path.GetFileName(Url.FileName) +","+ Path.GetFileName(Url1.FileName)+"," + Path.GetFileName(Url2.FileName);
+                recipes.Img = img_url;
                 db.Recipes.Add(recipes);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

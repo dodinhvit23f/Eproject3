@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   
 }
 
 <h2>Details</h2>
@@ -32,7 +33,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Img)
+            @*@Html.DisplayFor(model => model.Img)*@
+            
+            @{
+                var ImgList = Model.Img.Split(',').ToList();
+                foreach (var i in ImgList)
+                {
+                   <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+                }
+            }
         </dd>
 
         <dt>
@@ -52,6 +61,13 @@
         </dd>
 
     </dl>
+</div>
+<div>
+    @foreach (var item in ViewBag.FeedBack) { 
+        <h3>
+           @item.Users.UPhone : @item.Content
+        </h3>
+    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
