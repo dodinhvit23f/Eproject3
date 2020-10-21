@@ -37,56 +37,94 @@
     </div>
     <div id="allContent">
         <header>
-            <div class="container header">
 
-                <div class="right">
-                    <p>
+            <nav>
+                <div class="container nav">
+                    <div class="right">
+
                         <i><a href="#" onclick="openForm()">Log In</a></i>
                         <i><a href="#">Register</a></i>
-                    </p>
-                </div>
-            </div>
-        </header>
-        <nav>
-            <div class="container nav">
-                <div class="left">
-                </div>
-                <div class="menu">
-                    <ul>
-                        <li>
-                           @Html.ActionLink("Home", "Index", "Home")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Contact", "Contact", "Home")
-                        </li>
-                        <li>
-                            <a href="#">Recipce</a>
-                            <div class="my-dropdown-menu">
-                                <ul>
-                                    <li><a href="#">Favourite</a></li>
-                                    <li><a href="#">New</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#">FAG</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
+                    </div>
+                    <div class="left">
+                        <img class="logo" src="~/Image/Logo/logo.png" />
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                @Html.ActionLink("Home", "Index", "Home")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Contact", "Contact", "Home")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Recipces", "Recipces", "Home")
+
+                                <div class="my-dropdown-menu">
+                                    <ul>
+                                        <li><a href="#">Favourite</a></li>
+                                        <li><a href="#">New</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                @Html.ActionLink("Tips", "Tip", "Home")
+
+                                <div class="my-dropdown-menu">
+                                    <ul>
+                                        <li><a href="#">Favourite</a></li>
+                                        <li><a href="#">New</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">Contest</a>
+                            </li>
+                            <li>
+                                <a href="#">FAG</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </header>
         <div class="container body-content">
             @RenderBody()
-            
-            <footer class="container footer">
-                <div class="footer">
-                    Create by TienDD
-                </div>
-            </footer>
-        </div>
 
-        
+
+        </div>
+        <footer class="container">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-6">
+                <div class="container">
+                    <div class="col-sm-4">
+                        <h3><b>Home</b></h3>
+                        <h3><b>Contact</b></h3>
+                        <h3><b>Contest</b></h3>
+                        <h3><b>Recipces</b></h3>
+                        <h3><b>Tips</b></h3>
+                    </div>
+                    <div class="col-sm-4">
+                        Create by TienDD
+                    </div>
+                    <div class="col-sm-4">
+                        Create by TienDD
+                    </div>
+                </div>
+                <hr />
+                <div class="container">
+                    <div class="col-sm-4">
+                        Email me:<i><b>TranHuTu@gmail.com</b></i>
+                    </div>
+                </div>
+            <div class="col-sm-3">
+               
+            </div>
+        </footer>
+
     </div>
 
 
