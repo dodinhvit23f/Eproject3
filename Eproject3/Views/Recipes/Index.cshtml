@@ -34,7 +34,7 @@
     @foreach (var item in Model)
     {
         var ImgList = item.Img.Split(',').ToList();
-        if (Session["Pack_id"].ToString() != "3"||Session["Pack_id"].ToString() != "")
+        if (/*Session["Pack_id"].ToString() != "3" ||*/ Session["Pack_id"] != null)
         {
 
 

@@ -24,22 +24,20 @@
             @Html.DisplayNameFor(model => model.Content)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Img)
-        </dt>
+        
 
         <dd>
             @*@Html.DisplayFor(model => model.Img)*@
             
             @{
+                var Content_step = Model.Content.Split(',').ToList();
                 var ImgList = Model.Img.Split(',').ToList();
-                foreach (var i in ImgList)
+                int i = 0;
+                foreach (var image in ImgList)
                 {
-                   <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+                    i++;
+                   <p>@Content_step.ElementAt(i-1) <img src="~/images/@(image)" height="200" width="200" /></p>
                 }
             }
         </dd>

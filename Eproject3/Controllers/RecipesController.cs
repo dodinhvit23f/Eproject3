@@ -52,29 +52,42 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase Url, HttpPostedFileBase Url1, HttpPostedFileBase Url2)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText)
         {
+            string Cont ="";
+            string url_img="" ;
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Url != null)
+                    foreach (HttpPostedFileBase img in Url)
                     {
-                        //Luu anh vao folder images
-                        string path1 = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
-                        string path2 = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url1.FileName));
-                        string path3 = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url2.FileName));
-                        Url.SaveAs(path1);
-                        Url1.SaveAs(path2);
-                        Url2.SaveAs(path3);
+                        if (img != null)
+                        {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
+                            url_img += Path.GetFileName(img.FileName) + ",";
+                        }
                     }
+                        
+                    
                 }
                 catch (Exception e)
                 {
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
-                string img_url = Path.GetFileName(Url.FileName) +","+ Path.GetFileName(Url1.FileName)+"," + Path.GetFileName(Url2.FileName);
-                recipes.Img = img_url;
+                
+                recipes.Img = url_img.Substring(0,url_img.Length-1);
+                
+                foreach (var text in txtText) {
+                    if (text != "")
+                    {
+
+                        Cont += text + ",";
+                    }
+                }
+                Cont = Cont.Substring(0,Cont.Length - 1);
+                recipes.Content = Cont;
                 db.Recipes.Add(recipes);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -105,25 +118,43 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase Url)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText)
         {
+            string Cont = "";
+            string url_img = "";
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Url != null)
+                    foreach (HttpPostedFileBase img in Url)
                     {
-                        //Luu anh vao folder images
-                        string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
-                        Url.SaveAs(path);
+                        if (img != null)
+                        {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
+                            url_img += Path.GetFileName(img.FileName) + ",";
+                        }
                     }
+
+
                 }
                 catch (Exception e)
                 {
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
 
-                recipes.Img = Path.GetFileName(Url.FileName);
+                recipes.Img = url_img.Substring(0, url_img.Length - 1);
+
+                foreach (var text in txtText)
+                {
+                    if (text != "")
+                    {
+
+                        Cont += text + ",";
+                    }
+                }
+                Cont = Cont.Substring(0, Cont.Length - 1);
+                recipes.Content = Cont;
                 db.Entry(recipes).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
