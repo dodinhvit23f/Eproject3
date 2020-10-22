@@ -84,6 +84,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="Database1Model.Users">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="AccNum" ColumnName="AccNum" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="UPhone" ColumnName="UPhone" />
           <ScalarProperty Name="UPass" ColumnName="UPass" />
