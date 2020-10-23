@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
+using System.IO;
 
 namespace Eproject3.Controllers
 {
@@ -60,8 +61,10 @@ namespace Eproject3.Controllers
         public async Task<ActionResult> LogOut()
         {
             Session["user"] = null;
+            Session["isAdmin"] = null;
             return RedirectToAction("index", "Home");
         }
+        
         public async Task<ActionResult> Login(string phones, string pwd)
         {
             string hashed = r.HashPwd(pwd);
@@ -71,6 +74,10 @@ namespace Eproject3.Controllers
                 if (isValid.Roll_id.Value == 1 || DateTime.Compare(isValid.Exp_Date.Value, DateTime.Now) >= 0 || isValid.Pack_id.Value == 3)
                 {
                     Session["user"] = isValid;
+                    if (isValid.Roll_id.Value == 1)
+                    {
+                        Session["isAdmin"] = true;
+                    }
                     return RedirectToAction("index", "Home");
                 }
                 else if (DateTime.Compare(isValid.Exp_Date.Value, DateTime.Now) < 0)
@@ -108,12 +115,7 @@ namespace Eproject3.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            var user = (Users)Session["user"];
-            if (user == null || user.Roll_id != 1)
-            {
-                TempData["AuErr"] = true;
-                return RedirectToAction("LoginView");
-            }
+
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
             return View();
@@ -124,9 +126,10 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,UPhone,UPass,UAdress,Img,Roll_id,Pack_id,Exp_Date,AccNum")] Users users)
+        public async Task<ActionResult> Create([Bind(Include = "id,UPhone,UPass,UAdress,Img,Roll_id,Pack_id,Exp_Date,AccNum")] Users users, HttpPostedFileBase Url)
         {
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
+            string url_img = "";
             if (db.Users.Where(p => p.UPhone == users.UPhone).FirstOrDefault() != null)
             {
                 ViewBag.ExErr = "This phone number has been registered before";
@@ -134,6 +137,17 @@ namespace Eproject3.Controllers
             }
             if (ModelState.IsValid)
             {
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                    Url.SaveAs(path);
+                    url_img += Path.GetFileName(Url.FileName) + ","; 
+                }
+                catch (Exception e)
+                {
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+                users.Img = url_img.Substring(0, url_img.Length - 1);
                 if (users.Pack_id == 1)
                 {
                     users.Exp_Date = DateTime.Now.AddMonths(1);
@@ -145,7 +159,6 @@ namespace Eproject3.Controllers
                 else
                 {
                     users.Exp_Date = DateTime.Now;
-
                 }
                 string hashed = r.HashPwd(users.UPass);
                 users.UPass = hashed;
@@ -154,16 +167,52 @@ namespace Eproject3.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("LoginView");
             }
-
             //ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
             return View(users);
         }
+        //public ActionResult AdminCreate()
+        //{
+        //    if (Session["isAdmin"] == null)
+        //    {
+        //        TempData["AuErr"] = true;
+        //        return RedirectToAction("LoginView");
+        //    }
+        //    if (Session["isAdmin"] == null)
+        //    {
+        //        TempData["AuErr"] = true;
+        //        return RedirectToAction("LoginView");
+        //    }
+        //    ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
+        //    ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
+        //    return View();
+        //}
+
+        //// POST: Users/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> AdminCreate([Bind(Include = "id,UPhone,UPass,UAdress,Img,Roll_id,Pack_id,Exp_Date,AccNum")] Users users)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        string hashed = r.HashPwd(users.UPass);
+        //        users.UPass = hashed;
+        //        db.Users.Add(users);
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
+        //    ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
+        //    return View(users);
+        //}
 
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            var user = (Users)Session["user"];
-            if (user == null || user.Roll_id != 1)
+            var isValid = (Users)Session["user"];
+            if (isValid ==null || (isValid.id != id && Session["isAdmin"] == null))
             {
                 TempData["AuErr"] = true;
                 return RedirectToAction("LoginView");
@@ -204,8 +253,7 @@ namespace Eproject3.Controllers
         // GET: Users/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            var user = (Users)Session["user"];
-            if (user == null || user.Roll_id != 1 )
+            if (Session["isAdmin"] == null)
             {
                 TempData["AuErr"] = true;
                 return RedirectToAction("LoginView");
