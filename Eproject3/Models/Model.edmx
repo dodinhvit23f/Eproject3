@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contest">
           <Key>
             <PropertyRef Name="id" />
@@ -20,6 +20,7 @@
           <Property Name="Use_id" Type="int" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Phone" Type="varchar" MaxLength="10" />
+          <Property Name="Contest_id" Type="int" />
         </EntityType>
         <EntityType Name="Exams">
           <Key>
@@ -60,6 +61,7 @@
           <Property Name="Img" Type="varchar" MaxLength="500" />
           <Property Name="Contester_id" Type="int" />
           <Property Name="R_Status" Type="int" />
+          <Property Name="ingredent" Type="varchar" MaxLength="600" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -90,6 +92,18 @@
           <Property Name="Pack_id" Type="int" />
           <Property Name="Exp_Date" Type="datetime" />
         </EntityType>
+        <Association Name="FK__Contester__Conte__5AEE82B9">
+          <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
+          <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contester">
+              <PropertyRef Name="Contest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Contester__Use_i__2F10007B">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
@@ -232,6 +246,10 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tips" EntityType="Self.Tips" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Self.FK__Contester__Conte__5AEE82B9">
+            <End Role="Contest" EntitySet="Contest" />
+            <End Role="Contester" EntitySet="Contester" />
+          </AssociationSet>
           <AssociationSet Name="FK__Contester__Use_i__2F10007B" Association="Self.FK__Contester__Use_i__2F10007B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Contester" EntitySet="Contester" />
@@ -277,8 +295,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -289,6 +306,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="C_Time" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Contest_i__4222D4EF" FromRole="Contest" ToRole="Exams" />
+          <NavigationProperty Name="Contester" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contest" ToRole="Contester" />
         </EntityType>
         <EntityType Name="Contester">
           <Key>
@@ -301,6 +319,8 @@
           <NavigationProperty Name="Users" Relationship="Self.FK__Contester__Use_i__2F10007B" FromRole="Contester" ToRole="Users" />
           <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Contester__4316F928" FromRole="Contester" ToRole="Exams" />
           <NavigationProperty Name="Recipes" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Contester" ToRole="Recipes" />
+          <Property Name="Contest_id" Type="Int32" />
+          <NavigationProperty Name="Contest" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contester" ToRole="Contest" />
         </EntityType>
         <EntityType Name="Exams">
           <Key>
@@ -351,6 +371,7 @@
           <NavigationProperty Name="Contester" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Recipes" ToRole="Contester" />
           <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Recipes_i__440B1D61" FromRole="Recipes" ToRole="Exams" />
           <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="Recipes" ToRole="FeedBack" />
+          <Property Name="ingredent" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -575,7 +596,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tips" EntitySet="Tips" />
           </AssociationSet>
+          <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Database1Model.FK__Contester__Conte__5AEE82B9">
+            <End Role="Contest" EntitySet="Contest" />
+            <End Role="Contester" EntitySet="Contester" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Contester__Conte__5AEE82B9">
+          <End Type="Database1Model.Contest" Role="Contest" Multiplicity="0..1" />
+          <End Type="Database1Model.Contester" Role="Contester" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contester">
+              <PropertyRef Name="Contest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -593,6 +630,7 @@
           <EntitySetMapping Name="Contester">
             <EntityTypeMapping TypeName="Database1Model.Contester">
               <MappingFragment StoreEntitySet="Contester">
+                <ScalarProperty Name="Contest_id" ColumnName="Contest_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Use_id" ColumnName="Use_id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -635,6 +673,7 @@
           <EntitySetMapping Name="Recipes">
             <EntityTypeMapping TypeName="Database1Model.Recipes">
               <MappingFragment StoreEntitySet="Recipes">
+                <ScalarProperty Name="ingredent" ColumnName="ingredent" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />

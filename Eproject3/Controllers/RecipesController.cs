@@ -52,10 +52,11 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent,int Contester_id)
         {
             string Cont ="";
             string url_img="" ;
+            string ingre = "";
             if (ModelState.IsValid)
             {
                 try
@@ -86,8 +87,18 @@ namespace Eproject3.Controllers
                         Cont += text + ",";
                     }
                 }
+                foreach (var ingredent in txtIgredent)
+                {
+                    if (ingredent != "")
+                    {
+
+                        ingre += ingredent + ",";
+                    }
+                }
                 Cont = Cont.Substring(0,Cont.Length - 1);
                 recipes.Content = Cont;
+                recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                recipes.Contester_id = Contester_id;
                 db.Recipes.Add(recipes);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -118,10 +129,11 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText)
-        {
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent)
+        { 
             string Cont = "";
             string url_img = "";
+            string ingre = "";
             if (ModelState.IsValid)
             {
                 try
@@ -153,8 +165,17 @@ namespace Eproject3.Controllers
                         Cont += text + ",";
                     }
                 }
+                foreach (var ingredent in txtIgredent)
+                {
+                    if (ingredent != "")
+                    {
+
+                        ingre += ingredent + ",";
+                    }
+                }
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 recipes.Content = Cont;
+                recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
                 db.Entry(recipes).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

@@ -15,6 +15,7 @@
     <Property Name="Use_id" Type="int" />
     <Property Name="Name" Type="varchar" MaxLength="50" />
     <Property Name="Phone" Type="varchar" MaxLength="10" />
+    <Property Name="Contest_id" Type="int" />
   </EntityType>
   <EntityType Name="Exams">
     <Key>
@@ -55,6 +56,7 @@
     <Property Name="Img" Type="varchar" MaxLength="500" />
     <Property Name="Contester_id" Type="int" />
     <Property Name="R_Status" Type="int" />
+    <Property Name="ingredent" Type="varchar" MaxLength="600" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -85,6 +87,18 @@
     <Property Name="Pack_id" Type="int" />
     <Property Name="Exp_Date" Type="datetime" />
   </EntityType>
+  <Association Name="FK__Contester__Conte__5AEE82B9">
+    <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
+    <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contest">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contester">
+        <PropertyRef Name="Contest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Contester__Use_i__2F10007B">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
@@ -227,6 +241,10 @@
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tips" EntityType="Self.Tips" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Self.FK__Contester__Conte__5AEE82B9">
+      <End Role="Contest" EntitySet="Contest" />
+      <End Role="Contester" EntitySet="Contester" />
+    </AssociationSet>
     <AssociationSet Name="FK__Contester__Use_i__2F10007B" Association="Self.FK__Contester__Use_i__2F10007B">
       <End Role="Users" EntitySet="Users" />
       <End Role="Contester" EntitySet="Contester" />

@@ -18,6 +18,7 @@ namespace Eproject3.Models
         public Contest()
         {
             this.Exams = new HashSet<Exams>();
+            this.Contester = new HashSet<Contester>();
         }
     
         public int id { get; set; }
@@ -25,5 +26,7 @@ namespace Eproject3.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exams> Exams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contester> Contester { get; set; }
     }
 }

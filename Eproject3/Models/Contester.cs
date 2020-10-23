@@ -25,11 +25,13 @@ namespace Eproject3.Models
         public Nullable<int> Use_id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
+        public Nullable<int> Contest_id { get; set; }
     
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exams> Exams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recipes> Recipes { get; set; }
+        public virtual Contest Contest { get; set; }
     }
 }

@@ -17,7 +17,10 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayNameFor(model => model.ingredent)
+        </th>
+        <th>
+           Cach Lam
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Img)
@@ -38,67 +41,73 @@
         {
 
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ingredent)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @{
 
-                    foreach (var i in ImgList)
-                    {
-                        <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-                    }
-                }
+            foreach (var i in ImgList)
+            {
+                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+            }
+        }
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.R_Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contester.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-            </td>
-        </tr>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.R_Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Contester.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
         }
         else {
            if (item.R_Status == 0) { 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Content)
-                    </td>
-                    <td>
-                        @{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ingredent)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @{
 
-                            foreach (var i in ImgList)
-                            {
-                                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-                            }
-                        }
+            foreach (var i in ImgList)
+            {
+                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+            }
+        }
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.R_Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contester.Name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                    </td>
-                </tr>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.R_Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Contester.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
             }
          }
       }

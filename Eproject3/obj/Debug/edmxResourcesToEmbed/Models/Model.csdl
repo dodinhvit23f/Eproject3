@@ -7,6 +7,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="C_Time" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Contest_i__4222D4EF" FromRole="Contest" ToRole="Exams" />
+    <NavigationProperty Name="Contester" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contest" ToRole="Contester" />
   </EntityType>
   <EntityType Name="Contester">
     <Key>
@@ -19,6 +20,8 @@
     <NavigationProperty Name="Users" Relationship="Self.FK__Contester__Use_i__2F10007B" FromRole="Contester" ToRole="Users" />
     <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Contester__4316F928" FromRole="Contester" ToRole="Exams" />
     <NavigationProperty Name="Recipes" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Contester" ToRole="Recipes" />
+    <Property Name="Contest_id" Type="Int32" />
+    <NavigationProperty Name="Contest" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contester" ToRole="Contest" />
   </EntityType>
   <EntityType Name="Exams">
     <Key>
@@ -69,6 +72,7 @@
     <NavigationProperty Name="Contester" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Recipes" ToRole="Contester" />
     <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Recipes_i__440B1D61" FromRole="Recipes" ToRole="Exams" />
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="Recipes" ToRole="FeedBack" />
+    <Property Name="ingredent" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -293,5 +297,21 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Tips" EntitySet="Tips" />
     </AssociationSet>
+    <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Database1Model.FK__Contester__Conte__5AEE82B9">
+      <End Role="Contest" EntitySet="Contest" />
+      <End Role="Contester" EntitySet="Contester" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK__Contester__Conte__5AEE82B9">
+    <End Type="Database1Model.Contest" Role="Contest" Multiplicity="0..1" />
+    <End Type="Database1Model.Contester" Role="Contester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contest">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contester">
+        <PropertyRef Name="Contest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -38,8 +38,9 @@ namespace Eproject3.Controllers
         }
 
         // GET: Contesters/Create
-        public ActionResult Create()
+        public ActionResult Create(int Contest_id)
         {
+            ViewBag.Contest_id = Contest_id;
             ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone");
             return View();
         }
@@ -49,12 +50,14 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Name,Phone")] Contester contester)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Name,Phone")] Contester contester,int Contest_id)
         {
             if (ModelState.IsValid)
             {
+                contester.Contest_id = Contest_id;
                 db.Contester.Add(contester);
                 await db.SaveChangesAsync();
+                Session["Contest_id"] = contester.id;
                 return RedirectToAction("Index");
             }
 
