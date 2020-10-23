@@ -43,7 +43,7 @@ namespace Eproject3.Controllers
         // GET: Recipes/Create
         public ActionResult Create()
         {
-            ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name");
+           // ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name");
             return View();
         }
 
