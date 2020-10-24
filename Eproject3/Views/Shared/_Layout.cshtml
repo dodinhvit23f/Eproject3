@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Eproject3.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,6 +7,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @{ 
+        var isvalid = (Users)Session["user"];
+    }
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,6 +27,16 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (isvalid != null)
+                    {
+                        <li><a href="/Users/Edit/@isvalid.id">Hello,@isvalid.UAdress</a></li>
+                        <li><a href="/Users/LogOut">Logout</a></li>
+                        }
+                    else
+                    {
+                        <li><a href="/Users/LoginView">Login</a></li>
+                        <li><a href="/Users/Create">Register</a></li>
+                    }
                 </ul>
             </div>
         </div>

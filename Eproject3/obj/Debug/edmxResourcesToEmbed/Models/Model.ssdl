@@ -86,6 +86,7 @@
     <Property Name="Roll_id" Type="int" />
     <Property Name="Pack_id" Type="int" />
     <Property Name="Exp_Date" Type="datetime" />
+    <Property Name="AccNum" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <Association Name="FK__Contester__Conte__5AEE82B9">
     <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />

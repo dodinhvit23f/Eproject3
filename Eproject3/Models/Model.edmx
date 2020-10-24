@@ -91,6 +91,7 @@
           <Property Name="Roll_id" Type="int" />
           <Property Name="Pack_id" Type="int" />
           <Property Name="Exp_Date" Type="datetime" />
+          <Property Name="AccNum" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK__Contester__Conte__5AEE82B9">
           <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
@@ -409,6 +410,7 @@
           <NavigationProperty Name="Packs" Relationship="Self.FK__Users__Pack_id__2C3393D0" FromRole="Users" ToRole="Packs" />
           <NavigationProperty Name="Roles" Relationship="Self.FK__Users__Roll_id__2B3F6F97" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="Tips" Relationship="Self.FK__Tips__Use_id__46E78A0C" FromRole="Users" ToRole="Tips" />
+          <Property Name="AccNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Exams__Contest_i__4222D4EF">
           <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
@@ -704,6 +706,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Database1Model.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AccNum" ColumnName="AccNum" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="UPhone" ColumnName="UPhone" />
                 <ScalarProperty Name="UPass" ColumnName="UPass" />

@@ -39,7 +39,10 @@ namespace Eproject3.Controllers
             }
             return View(recipes);
         }
-
+        /// <summary>
+        /// phan cu hai
+        /// </summary>
+        /// <returns></returns>
         // GET: Recipes/Create
         public ActionResult Create()
         {
