@@ -157,7 +157,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\ContestersController.cs" />
     <Compile Include="Controllers\ContestsController.cs" />
     <Compile Include="Controllers\ExamsController.cs" />
@@ -252,6 +253,8 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -280,53 +283,46 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Packs\Create.cshtml" />
     <Content Include="Views\Packs\Delete.cshtml" />
-    <Content Include="Views\Packs\Details.cshtml" />
     <Content Include="Views\Packs\Edit.cshtml" />
     <Content Include="Views\Packs\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />
-    <Content Include="Views\Contests\Details.cshtml" />
     <Content Include="Views\Contests\Edit.cshtml" />
     <Content Include="Views\Contests\Index.cshtml" />
     <Content Include="Views\Contesters\Create.cshtml" />
     <Content Include="Views\Contesters\Delete.cshtml" />
-    <Content Include="Views\Contesters\Details.cshtml" />
     <Content Include="Views\Contesters\Edit.cshtml" />
     <Content Include="Views\Contesters\Index.cshtml" />
     <Content Include="Views\Exams\Create.cshtml" />
     <Content Include="Views\Exams\Delete.cshtml" />
-    <Content Include="Views\Exams\Details.cshtml" />
     <Content Include="Views\Exams\Edit.cshtml" />
     <Content Include="Views\Exams\Index.cshtml" />
     <Content Include="Views\FeedBacks\Create.cshtml" />
     <Content Include="Views\FeedBacks\Delete.cshtml" />
-    <Content Include="Views\FeedBacks\Details.cshtml" />
     <Content Include="Views\FeedBacks\Edit.cshtml" />
     <Content Include="Views\FeedBacks\Index.cshtml" />
     <Content Include="Views\Recipes\Create.cshtml" />
     <Content Include="Views\Recipes\Delete.cshtml" />
-    <Content Include="Views\Recipes\Details.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
     <Content Include="Views\Tips\Create.cshtml" />
     <Content Include="Views\Tips\Delete.cshtml" />
-    <Content Include="Views\Tips\Details.cshtml" />
     <Content Include="Views\Tips\Edit.cshtml" />
     <Content Include="Views\Tips\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\LoginView.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

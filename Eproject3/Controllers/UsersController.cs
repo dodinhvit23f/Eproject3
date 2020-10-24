@@ -26,7 +26,7 @@ namespace Eproject3.Controllers
                 return RedirectToAction("LoginView");
             }
             var users = db.Users.Include(u => u.Packs).Include(u => u.Roles);
-            return View(await users.ToListAsync());
+            return View(await users.Where(p=>p.id==user.id).ToListAsync());
         }
        
 
@@ -170,44 +170,6 @@ namespace Eproject3.Controllers
             //ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
             return View(users);
         }
-        //public ActionResult AdminCreate()
-        //{
-        //    if (Session["isAdmin"] == null)
-        //    {
-        //        TempData["AuErr"] = true;
-        //        return RedirectToAction("LoginView");
-        //    }
-        //    if (Session["isAdmin"] == null)
-        //    {
-        //        TempData["AuErr"] = true;
-        //        return RedirectToAction("LoginView");
-        //    }
-        //    ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
-        //    ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
-        //    return View();
-        //}
-
-        //// POST: Users/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> AdminCreate([Bind(Include = "id,UPhone,UPass,UAdress,Img,Roll_id,Pack_id,Exp_Date,AccNum")] Users users)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        string hashed = r.HashPwd(users.UPass);
-        //        users.UPass = hashed;
-        //        db.Users.Add(users);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
-        //    ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
-        //    return View(users);
-        //}
-
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -238,8 +200,12 @@ namespace Eproject3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,UPhone,UPass,UAdress,Img,Roll_id,Pack_id,Exp_Date,AccNum")] Users users)
         {
+            var isValid = (Users)Session["user"];
             if (ModelState.IsValid)
             {
+                users.Exp_Date = isValid.Exp_Date;
+                users.Pack_id = isValid.Pack_id;
+                users.Roll_id = isValid.Roll_id;
                 users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
                 await db.SaveChangesAsync();
