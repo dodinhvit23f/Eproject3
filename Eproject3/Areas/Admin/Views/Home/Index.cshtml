@@ -1,9 +1,9 @@
-﻿@*@model Eproject3.Models.Users*@
+﻿@model Eproject3.Models.Users
 @{
     ViewBag.Title = "Index";
 }
 <h2>Index</h2>
-@*@using (Html.BeginForm())
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -56,12 +56,15 @@
         </div>
     </div>
 }
-
+<a>Recipes</a>
+<a>Tips</a>
+<a>Contests</a>
+<a></a>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}*@
+}
 
