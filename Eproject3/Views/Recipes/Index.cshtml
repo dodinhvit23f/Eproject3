@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<Eproject3.Models.Recipes>
+    @using Eproject3.Models;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = (Users)Session["User"];
      
 }
 
@@ -37,10 +39,8 @@
     @foreach (var item in Model)
     {
         var ImgList = item.Img.Split(',').ToList();
-        if (/*Session["Pack_id"].ToString() != "3" ||*/ Session["Pack_id"] != null)
+        if (/*Session["Pack_id"].ToString() != "3" */ /*user.Pack_id != null*/user!=null)
         {
-
-
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.Title)
