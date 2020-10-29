@@ -11,6 +11,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="C_Time" Type="datetime" />
+          <Property Name="exp_time" Type="datetime" />
+          <Property Name="C_Description" Type="text" />
         </EntityType>
         <EntityType Name="Contester">
           <Key>
@@ -61,7 +63,7 @@
           <Property Name="Img" Type="varchar" MaxLength="500" />
           <Property Name="Contester_id" Type="int" />
           <Property Name="R_Status" Type="int" />
-          <Property Name="ingredent" Type="varchar" MaxLength="600" />
+          <Property Name="ingredent" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -308,6 +310,8 @@
           <Property Name="C_Time" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Contest_i__4222D4EF" FromRole="Contest" ToRole="Exams" />
           <NavigationProperty Name="Contester" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contest" ToRole="Contester" />
+          <Property Name="exp_time" Type="DateTime" Precision="3" />
+          <Property Name="C_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Contester">
           <Key>
@@ -372,7 +376,7 @@
           <NavigationProperty Name="Contester" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Recipes" ToRole="Contester" />
           <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Recipes_i__440B1D61" FromRole="Recipes" ToRole="Exams" />
           <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="Recipes" ToRole="FeedBack" />
-          <Property Name="ingredent" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="ingredent" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -624,6 +628,8 @@
           <EntitySetMapping Name="Contest">
             <EntityTypeMapping TypeName="Database1Model.Contest">
               <MappingFragment StoreEntitySet="Contest">
+                <ScalarProperty Name="C_Description" ColumnName="C_Description" />
+                <ScalarProperty Name="exp_time" ColumnName="exp_time" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="C_Time" ColumnName="C_Time" />
               </MappingFragment>

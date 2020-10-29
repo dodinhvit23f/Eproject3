@@ -6,6 +6,8 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="C_Time" Type="datetime" />
+    <Property Name="exp_time" Type="datetime" />
+    <Property Name="C_Description" Type="text" />
   </EntityType>
   <EntityType Name="Contester">
     <Key>
@@ -56,7 +58,7 @@
     <Property Name="Img" Type="varchar" MaxLength="500" />
     <Property Name="Contester_id" Type="int" />
     <Property Name="R_Status" Type="int" />
-    <Property Name="ingredent" Type="varchar" MaxLength="600" />
+    <Property Name="ingredent" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
