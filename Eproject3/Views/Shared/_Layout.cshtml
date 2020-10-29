@@ -7,19 +7,34 @@
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/HomePage.css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <script>
+            function openForm(id) {
+                document.getElementById(id).style.display = "block";
+                document.getElementById("allContent").classList.add("blur")
+            }
+
+            function closeForm(id) {
+                document.getElementById(id).style.display = "none";
+                document.getElementById("allContent").classList.remove("blur")
+            }
+
+
+    </script>
+
 </head>
 <body>
     <div class="form-popup" id="myLoginForm">
-        <form action="" class="form-container">
+        <form action="Login.php" class="form-container" method="POST">
             <h1>Login</h1>
             <hr>
             <label for="email"><b>Email:</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <input type="email" placeholder="Enter Email" name="txtUserName" required>
             <label for="psw"><b>Password:</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" name="pwdPassword" required>
             <hr>
             <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="button" class="btn cancel" onclick="closeForm('myLoginForm')">Close</button>
         </form>
     </div>
     <div class="form-popup" id="myRegisterForm">
@@ -32,19 +47,21 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
             <hr>
             <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="button" class="btn cancel" onclick="closeForm('myRegisterForm')">Close</button>
         </form>
     </div>
+
+
     <div id="allContent">
         <header>
 
             <nav>
                 <div class="container nav">
                     <div class="right">
-
-                        <i><a href="#" onclick="openForm()">Log In</a></i>
-                        <i><a href="#">Register</a></i>
-
+                        <div >
+                            <i><a href="#" onclick="openForm()">Log In</a></i>
+                            <i><a href="#">Register</a></i>
+                        </div>
                     </div>
                     <div class="left">
                         <img class="logo" src="~/Image/Logo/logo.png" />
