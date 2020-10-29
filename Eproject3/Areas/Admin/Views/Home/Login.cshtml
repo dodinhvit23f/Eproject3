@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        <form action="/Admin/Home/Login" method="post">
+            PhoneNumber: <input name="usn" type="text" required="" /></br>
+            Password: <input name="pwd" type="password" required="" /></br>
+            <button>Login</button>
+        </form>
+    </div>
+    @ViewBag.err
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model Eproject3.Models.Users
+@{
+    ViewBag.Title = "LoginView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lErr = ViewBag.lErr;
+    var EpErr = ViewBag.EpErr;
+    var AuErr = ViewBag.AuErr;
+}
+
+<h2>LoginView</h2>
+
+<form action="/Users/Login" method="post">
+    @*PhoneNumber: @Html.TextBoxFor(model => model.UPhone)</br>
+        PassWord:@Html.TextBoxFor(model => model.UPass)</br>*@
+    PhoneNumber:<input name="phones" type="text" /></br>
+    PassWord:<input name="pwd" type="password" /></br>
+    <button>Login</button>
+</form>
+@if (lErr)
+{
+    <a style="color:red">Wrong credential</a>
+}
+@if (EpErr)
+{
+    <a style="color:red">Your account has expired</a>
+
+}
+@if (AuErr)
+{
+    <a style="color:red">Pls login to continue</a>
+}
