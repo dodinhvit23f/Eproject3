@@ -68,6 +68,14 @@
 
     </dl>
 </div>
+<div>
+    @foreach (var item in ViewBag.FeedBack)
+    {
+        <h3>
+            @item.Users.UPhone : @item.Content
+        </h3>
+    }
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
