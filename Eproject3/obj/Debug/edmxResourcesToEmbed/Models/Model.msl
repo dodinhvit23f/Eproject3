@@ -4,6 +4,11 @@
     <EntitySetMapping Name="Contest">
       <EntityTypeMapping TypeName="Database1Model.Contest">
         <MappingFragment StoreEntitySet="Contest">
+          <ScalarProperty Name="id_winner" ColumnName="id_winner" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="C_Description" ColumnName="C_Description" />
+          <ScalarProperty Name="exp_time" ColumnName="exp_time" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="C_Time" ColumnName="C_Time" />
         </MappingFragment>
@@ -12,6 +17,7 @@
     <EntitySetMapping Name="Contester">
       <EntityTypeMapping TypeName="Database1Model.Contester">
         <MappingFragment StoreEntitySet="Contester">
+          <ScalarProperty Name="Contest_id" ColumnName="Contest_id" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Use_id" ColumnName="Use_id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -54,6 +60,7 @@
     <EntitySetMapping Name="Recipes">
       <EntityTypeMapping TypeName="Database1Model.Recipes">
         <MappingFragment StoreEntitySet="Recipes">
+          <ScalarProperty Name="ingredent" ColumnName="ingredent" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
