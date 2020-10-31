@@ -28,6 +28,10 @@ namespace Eproject3.Areas.Admin.Controllers
         }
         public ActionResult Login()
         {
+            if (Session["isAdmin"] != null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
         [HttpPost]

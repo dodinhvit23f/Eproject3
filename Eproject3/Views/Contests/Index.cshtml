@@ -21,6 +21,12 @@
         <th>
             @Html.DisplayNameFor(model => model.C_Description)
         </th>
+<<<<<<< HEAD
+=======
+        <th>
+            Number of Exams
+        </th>
+>>>>>>> HuuTu
         <th></th>
     </tr>
 
@@ -36,6 +42,12 @@
         @Html.DisplayFor(modelItem => item.C_Description)
     </td>
     <td>
+<<<<<<< HEAD
+=======
+        @Html.DisplayFor(modelItem => item.Exams.Count())
+    </td>
+    <td>
+>>>>>>> HuuTu
         @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
         @Html.ActionLink("Details", "Details", new { id = item.id }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.id })

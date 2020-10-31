@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Eproject3.Models.Contest>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.C_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.exp_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.detail)
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Number of Exams
+        </th>
+        <th>
+            Winner
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.C_Time)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.exp_time)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.C_Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.detail)
+    </td>
+    <th>
+        <img src="~/images/@item.img" style="height:50px;width:50px" />
+    </th>
+    <td>
+        <a href="/Admin/Contesters/Contesters?CtID=@item.id">
+            @item.Contester.Count()
+        </a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Contester1.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
+}
+
+</table>
