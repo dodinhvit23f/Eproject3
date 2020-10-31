@@ -9,6 +9,7 @@
     <Property Name="exp_time" Type="datetime" />
     <Property Name="C_Description" Type="text" />
     <Property Name="img" Type="varchar" MaxLength="100" />
+    <Property Name="id_winner" Type="int" />
   </EntityType>
   <EntityType Name="Contester">
     <Key>
@@ -91,6 +92,18 @@
     <Property Name="Exp_Date" Type="datetime" />
     <Property Name="AccNum" Type="nvarchar" MaxLength="20" />
   </EntityType>
+  <Association Name="FK__Contest__id_winn__6E01572D">
+    <End Role="Contester" Type="Self.Contester" Multiplicity="0..1" />
+    <End Role="Contest" Type="Self.Contest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contester">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contest">
+        <PropertyRef Name="id_winner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Contester__Conte__5AEE82B9">
     <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
     <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
@@ -245,6 +258,10 @@
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tips" EntityType="Self.Tips" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Contest__id_winn__6E01572D" Association="Self.FK__Contest__id_winn__6E01572D">
+      <End Role="Contester" EntitySet="Contester" />
+      <End Role="Contest" EntitySet="Contest" />
+    </AssociationSet>
     <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Self.FK__Contester__Conte__5AEE82B9">
       <End Role="Contest" EntitySet="Contest" />
       <End Role="Contester" EntitySet="Contester" />

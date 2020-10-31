@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Contest">
       <EntityTypeMapping TypeName="Database1Model.Contest">
         <MappingFragment StoreEntitySet="Contest">
+          <ScalarProperty Name="id_winner" ColumnName="id_winner" />
           <ScalarProperty Name="img" ColumnName="img" />
           <ScalarProperty Name="C_Description" ColumnName="C_Description" />
           <ScalarProperty Name="exp_time" ColumnName="exp_time" />

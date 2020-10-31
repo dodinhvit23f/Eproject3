@@ -1,8 +1,9 @@
 ﻿@model Eproject3.Models.Recipes
-
+@using Eproject3.Models;
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Users u = (Users)Session["User"];
 }
 
 <h2>Details</h2>
@@ -35,7 +36,7 @@
                     <p>@Content_step.ElementAt(i - 1) <img src="~/images/@(image)" height="200" width="200" /></p>
                 }
             }
-        </dd>        
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.R_Status)
         </dt>
@@ -51,8 +52,9 @@
         <dd>
             @{
                 var Igre = Model.ingredent.Split(',').ToList();
-                foreach (var ingre in Igre) { 
-                <p>@ingre</p>
+                foreach (var ingre in Igre)
+                {
+                    <p>@ingre</p>
                 }
 
             }
@@ -69,6 +71,19 @@
     </dl>
 </div>
 <div>
+    @if(u!= null) { 
+    using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+    {
+      
+            <input type="hidden" value="@u.id" name="Use_id" />
+        <input type="hidden" value="@Model.id" name="Recipes_id" />
+        <input type="text" name="Content" />
+        <input type="submit" value="Comment" />
+
+
+    }
+    }
+    <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
     @foreach (var item in ViewBag.FeedBack)
     {
         <h3>

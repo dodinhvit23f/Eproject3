@@ -26,10 +26,12 @@ namespace Eproject3.Models
         public Nullable<System.DateTime> exp_time { get; set; }
         public string C_Description { get; set; }
         public string img { get; set; }
+        public Nullable<int> id_winner { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exams> Exams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contester> Contester { get; set; }
+        public virtual Contester Contester1 { get; set; }
     }
 }

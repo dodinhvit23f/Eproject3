@@ -14,6 +14,7 @@
           <Property Name="exp_time" Type="datetime" />
           <Property Name="C_Description" Type="text" />
           <Property Name="img" Type="varchar" MaxLength="100" />
+          <Property Name="id_winner" Type="int" />
         </EntityType>
         <EntityType Name="Contester">
           <Key>
@@ -96,6 +97,18 @@
           <Property Name="Exp_Date" Type="datetime" />
           <Property Name="AccNum" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <Association Name="FK__Contest__id_winn__6E01572D">
+          <End Role="Contester" Type="Self.Contester" Multiplicity="0..1" />
+          <End Role="Contest" Type="Self.Contest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contester">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contest">
+              <PropertyRef Name="id_winner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Contester__Conte__5AEE82B9">
           <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
           <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
@@ -250,6 +263,10 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tips" EntityType="Self.Tips" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Contest__id_winn__6E01572D" Association="Self.FK__Contest__id_winn__6E01572D">
+            <End Role="Contester" EntitySet="Contester" />
+            <End Role="Contest" EntitySet="Contest" />
+          </AssociationSet>
           <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Self.FK__Contester__Conte__5AEE82B9">
             <End Role="Contest" EntitySet="Contest" />
             <End Role="Contester" EntitySet="Contester" />
@@ -314,6 +331,8 @@
           <Property Name="exp_time" Type="DateTime" Precision="3" />
           <Property Name="C_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_winner" Type="Int32" />
+          <NavigationProperty Name="Contester1" Relationship="Database1Model.FK__Contest__id_winn__6E01572D" FromRole="Contest" ToRole="Contester" />
         </EntityType>
         <EntityType Name="Contester">
           <Key>
@@ -328,6 +347,7 @@
           <NavigationProperty Name="Recipes" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Contester" ToRole="Recipes" />
           <Property Name="Contest_id" Type="Int32" />
           <NavigationProperty Name="Contest" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contester" ToRole="Contest" />
+          <NavigationProperty Name="Contest1" Relationship="Database1Model.FK__Contest__id_winn__6E01572D" FromRole="Contester" ToRole="Contest" />
         </EntityType>
         <EntityType Name="Exams">
           <Key>
@@ -608,6 +628,10 @@
             <End Role="Contest" EntitySet="Contest" />
             <End Role="Contester" EntitySet="Contester" />
           </AssociationSet>
+          <AssociationSet Name="FK__Contest__id_winn__6E01572D" Association="Database1Model.FK__Contest__id_winn__6E01572D">
+            <End Role="Contester" EntitySet="Contester" />
+            <End Role="Contest" EntitySet="Contest" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK__Contester__Conte__5AEE82B9">
           <End Type="Database1Model.Contest" Role="Contest" Multiplicity="0..1" />
@@ -621,6 +645,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Contest__id_winn__6E01572D">
+          <End Type="Database1Model.Contester" Role="Contester" Multiplicity="0..1" />
+          <End Type="Database1Model.Contest" Role="Contest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contester">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contest">
+              <PropertyRef Name="id_winner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -630,6 +666,7 @@
           <EntitySetMapping Name="Contest">
             <EntityTypeMapping TypeName="Database1Model.Contest">
               <MappingFragment StoreEntitySet="Contest">
+                <ScalarProperty Name="id_winner" ColumnName="id_winner" />
                 <ScalarProperty Name="img" ColumnName="img" />
                 <ScalarProperty Name="C_Description" ColumnName="C_Description" />
                 <ScalarProperty Name="exp_time" ColumnName="exp_time" />
