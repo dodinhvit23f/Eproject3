@@ -11,7 +11,6 @@
     <Property Name="exp_time" Type="DateTime" Precision="3" />
     <Property Name="C_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="detail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="id_winner" Type="Int32" />
     <NavigationProperty Name="Contester1" Relationship="Database1Model.FK__Contest__id_winn__6E01572D" FromRole="Contest" ToRole="Contester" />
   </EntityType>
