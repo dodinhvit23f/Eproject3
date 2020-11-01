@@ -27,6 +27,7 @@ namespace Eproject3.Models
         public string Img { get; set; }
         public Nullable<int> Contester_id { get; set; }
         public Nullable<int> R_Status { get; set; }
+        public string ingredent { get; set; }
     
         public virtual Contester Contester { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

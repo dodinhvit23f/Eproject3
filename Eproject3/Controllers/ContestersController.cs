@@ -53,15 +53,36 @@ namespace Eproject3.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Contester.Add(contester);
                 await db.SaveChangesAsync();
+                
                 return RedirectToAction("Index");
             }
 
             ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", contester.Use_id);
             return View(contester);
         }
+        public ActionResult Regist4Contest(int Contest_id)
+        {
+            ViewBag.Contest_id = Contest_id;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Regist4Contest([Bind(Include = "id,Use_id,Name,Phone")] Contester contester, int Contest_id) {
+            if (ModelState.IsValid)
+            {
+                contester.Contest_id = Contest_id;
+                db.Contester.Add(contester);
+                db.SaveChangesAsync();
+                Session["Contest_id"] = contester.id;
+                return Redirect("~/Recipes/Create");
+            }
 
+            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", contester.Use_id);
+            return View(contester);
+        }
         // GET: Contesters/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {

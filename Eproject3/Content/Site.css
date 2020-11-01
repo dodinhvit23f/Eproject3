@@ -22,3 +22,16 @@ select,
 textarea {
     max-width: 280px;
 }
+.demo-non-form {
+    color: initial;
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    font-family: arial, verdana, sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+}
+
