@@ -13,8 +13,7 @@
           <Property Name="C_Time" Type="datetime" />
           <Property Name="exp_time" Type="datetime" />
           <Property Name="C_Description" Type="text" />
-          <Property Name="img" Type="varchar" MaxLength="200" />
-          <Property Name="detail" Type="varchar" MaxLength="200" />
+          <Property Name="img" Type="varchar" MaxLength="100" />
           <Property Name="id_winner" Type="int" />
         </EntityType>
         <EntityType Name="Contester">
@@ -83,6 +82,7 @@
           <Property Name="Use_id" Type="int" />
           <Property Name="Content" Type="text" />
           <Property Name="Img" Type="varchar" MaxLength="500" />
+          <Property Name="isFree" Type="bit" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -331,7 +331,7 @@
           <NavigationProperty Name="Contester" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contest" ToRole="Contester" />
           <Property Name="exp_time" Type="DateTime" Precision="3" />
           <Property Name="C_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="img" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="detail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="id_winner" Type="Int32" />
           <NavigationProperty Name="Contester1" Relationship="Database1Model.FK__Contest__id_winn__6E01572D" FromRole="Contest" ToRole="Contester" />
@@ -420,6 +420,7 @@
           <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Tip_id__4BAC3F29" FromRole="Tips" ToRole="FeedBack" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Tips__Use_id__46E78A0C" FromRole="Tips" ToRole="Users" />
+          <Property Name="isFree" Type="Boolean" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -669,7 +670,7 @@
             <EntityTypeMapping TypeName="Database1Model.Contest">
               <MappingFragment StoreEntitySet="Contest">
                 <ScalarProperty Name="id_winner" ColumnName="id_winner" />
-                <ScalarProperty Name="detail" ColumnName="detail" />
+
                 <ScalarProperty Name="img" ColumnName="img" />
                 <ScalarProperty Name="C_Description" ColumnName="C_Description" />
                 <ScalarProperty Name="exp_time" ColumnName="exp_time" />
@@ -745,6 +746,7 @@
           <EntitySetMapping Name="Tips">
             <EntityTypeMapping TypeName="Database1Model.Tips">
               <MappingFragment StoreEntitySet="Tips">
+                <ScalarProperty Name="isFree" ColumnName="isFree" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Use_id" ColumnName="Use_id" />
                 <ScalarProperty Name="Content" ColumnName="Content" />

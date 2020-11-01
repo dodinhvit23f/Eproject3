@@ -24,6 +24,7 @@ namespace Eproject3.Models
         public Nullable<int> Use_id { get; set; }
         public string Content { get; set; }
         public string Img { get; set; }
+        public Nullable<bool> isFree { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeedBack> FeedBack { get; set; }

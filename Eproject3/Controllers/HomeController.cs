@@ -15,13 +15,14 @@ namespace Eproject3.Controllers
             var user = (Users)Session["user"];
             if (user == null || user.Pack_id==3)
             {
+                ViewBag.Tips = db.Tips.Where(p=>p.isFree.Value);
                 return View(db.Recipes.Where(p=>p.R_Status==0).ToList());
             }
             else
             {
+                ViewBag.Tips = db.Tips.Where(p => !p.isFree.Value);
                 return View(db.Recipes.Where(p => p.R_Status == 1).ToList());
             }
-
         }
         [Route("Admin")]
         public ActionResult AdminIndex()

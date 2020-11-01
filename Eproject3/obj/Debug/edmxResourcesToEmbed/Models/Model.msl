@@ -5,7 +5,6 @@
       <EntityTypeMapping TypeName="Database1Model.Contest">
         <MappingFragment StoreEntitySet="Contest">
           <ScalarProperty Name="id_winner" ColumnName="id_winner" />
-          <ScalarProperty Name="detail" ColumnName="detail" />
           <ScalarProperty Name="img" ColumnName="img" />
           <ScalarProperty Name="C_Description" ColumnName="C_Description" />
           <ScalarProperty Name="exp_time" ColumnName="exp_time" />
@@ -81,6 +80,7 @@
     <EntitySetMapping Name="Tips">
       <EntityTypeMapping TypeName="Database1Model.Tips">
         <MappingFragment StoreEntitySet="Tips">
+          <ScalarProperty Name="isFree" ColumnName="isFree" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Use_id" ColumnName="Use_id" />
           <ScalarProperty Name="Content" ColumnName="Content" />

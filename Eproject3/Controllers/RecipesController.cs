@@ -55,15 +55,14 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int Contester_id)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int? Contester_id,int txtStatus)
         {
             string Cont = "";
             string url_img = "";
             string ingre = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
-            {
-              
+            {              
                     try
                     {
                         foreach (HttpPostedFileBase img in Url)
@@ -75,14 +74,14 @@ namespace Eproject3.Controllers
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
-                                ViewBag.FileStatus = "Sai";
+                                ViewBag.FileStatus = ex + " is not an image";
                                 return View(recipes);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
                         }
                         else
                         {
-                            ViewBag.FileStatus = "Quen Them Anh ha Ban";
+                            ViewBag.FileStatus = "Content must have image !!!!";
                             return View(recipes);
                         }
                     }
@@ -117,7 +116,11 @@ namespace Eproject3.Controllers
                     Cont = Cont.Substring(0, Cont.Length - 1);
                     recipes.Content = Cont;
                     recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                if (Contester_id != null)
+                {
                     recipes.Contester_id = Contester_id;
+                }
+                recipes.R_Status = txtStatus;
                     db.Recipes.Add(recipes);
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -148,11 +151,12 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent,int txtStatus)
         { 
             string Cont = "";
             string url_img = "";
             string ingre = "";
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
             {
                 try
@@ -163,7 +167,18 @@ namespace Eproject3.Controllers
                         {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
                             img.SaveAs(path);
+                            string ex = Path.GetExtension(img.FileName);
+                            if (!check(ex, formats))
+                            {
+                                ViewBag.FileStatus = ex+" is not an image";
+                                return View(recipes);
+                            }
                             url_img += Path.GetFileName(img.FileName) + ",";
+                        }
+                        else
+                        {
+                            ViewBag.FileStatus = "Image cannot be null !!";
+                            return View(recipes);
                         }
                     }
 
@@ -195,6 +210,7 @@ namespace Eproject3.Controllers
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 recipes.Content = Cont;
                 recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                recipes.R_Status = txtStatus;
                 db.Entry(recipes).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

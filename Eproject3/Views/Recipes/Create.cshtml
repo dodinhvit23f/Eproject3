@@ -13,14 +13,17 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Recipes of @Session["Contest_id"].ToString()</h4>
+
     <hr />
-    <input type="hidden" name="Contester_id" value="@Session["Contest_id"]" />
+    @if (Session["Contest_id"] != null)
+    {
+        <h4>Recipes of @Session["Contest_id"].ToString()</h4>
+        <input type="hidden" name="Contester_id" value="@Session["Contest_id"]" />}
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control",@required="required" } })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -39,7 +42,7 @@
         @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <p id="cont">
-                <input type="text" id="content" name="txtText" />
+                <input type="text" id="content" name="txtText" required/>
                 <input type="file" name="Url" />
             </p>
             <button id="addContent" type="button" class="btn btn-outline-primary btn-lg">+</button>
@@ -50,7 +53,10 @@
     <div class="form-group">
         @Html.LabelFor(model => model.R_Status, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            
+            <select name="txtStatus">
+                <option value ="0">Free</option>
+                <option value="1">Only members can read this recipe</option>
+            </select>
             @Html.ValidationMessageFor(model => model.R_Status, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -72,7 +78,7 @@
 <script>
 
     $("#addContent").click(function e() {
-            $("<p id=\"cont\"> <input type=\"text\" id=\"content\" name=\"txtText\" />"+" <input type=\"file\" name=\"Url\" /></p>").insertBefore("#addContent");
+            $("<p id=\"cont\"> <input type=\"text\" id=\"content\" name=\"txtText\" required />"+" <input type=\"file\" name=\"Url\" /></p>").insertBefore("#addContent");
     });
     $("#RemoveContent").click(function e() {
         $("#RemoveContent").prev().prev().remove();

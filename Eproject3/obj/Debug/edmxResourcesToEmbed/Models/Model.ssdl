@@ -8,8 +8,7 @@
     <Property Name="C_Time" Type="datetime" />
     <Property Name="exp_time" Type="datetime" />
     <Property Name="C_Description" Type="text" />
-    <Property Name="img" Type="varchar" MaxLength="200" />
-    <Property Name="detail" Type="varchar" MaxLength="200" />
+    <Property Name="img" Type="varchar" MaxLength="100" />
     <Property Name="id_winner" Type="int" />
   </EntityType>
   <EntityType Name="Contester">
@@ -78,6 +77,7 @@
     <Property Name="Use_id" Type="int" />
     <Property Name="Content" Type="text" />
     <Property Name="Img" Type="varchar" MaxLength="500" />
+    <Property Name="isFree" Type="bit" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
