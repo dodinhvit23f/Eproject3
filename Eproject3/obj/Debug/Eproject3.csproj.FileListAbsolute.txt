@@ -169,4 +169,3 @@ E:\Projects\Eproject3\Eproject3\bin\Antlr3.Runtime.pdb
 E:\Projects\Eproject3\Eproject3\bin\Newtonsoft.Json.xml
 E:\Projects\Eproject3\Eproject3\obj\Debug\Eproject3.dll
 E:\Projects\Eproject3\Eproject3\obj\Debug\Eproject3.pdb
-E:\Projects\Eproject3\Eproject3\obj\Debug\Eproject3.csprojResolveAssemblyReference.cache
