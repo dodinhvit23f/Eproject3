@@ -9,15 +9,15 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <script>
-            function openForm(id) {
-                document.getElementById(id).style.display = "block";
-                document.getElementById("allContent").classList.add("blur")
-            }
+        function openForm(id) {
+            document.getElementById(id).style.display = "block";
+            document.getElementById("allContent").classList.add("blur")
+        }
 
-            function closeForm(id) {
-                document.getElementById(id).style.display = "none";
-                document.getElementById("allContent").classList.remove("blur")
-            }
+        function closeForm(id) {
+            document.getElementById(id).style.display = "none";
+            document.getElementById("allContent").classList.remove("blur")
+        }
 
 
     </script>
@@ -28,10 +28,14 @@
         <form action="Login.php" class="form-container" method="POST">
             <h1>Login</h1>
             <hr>
-            <label for="email"><b>Email:</b></label>
-            <input type="email" placeholder="Enter Email" name="txtUserName" required>
-            <label for="psw"><b>Password:</b></label>
-            <input type="password" placeholder="Enter Password" name="pwdPassword" required>
+            <div class="box-radius-border">
+                <label for="email"><b>Email:</b></label>
+                <input type="email" placeholder="Enter Email" name="txtUserName" required>
+            </div>
+            <div class="box-radius-border">
+                <label for="psw"><b>Password:</b></label>
+                <input type="password" placeholder="Enter Password" name="pwdPassword" required>
+            </div>
             <hr>
             <button type="submit" class="btn">Login</button>
             <button type="button" class="btn cancel" onclick="closeForm('myLoginForm')">Close</button>
@@ -58,9 +62,9 @@
             <nav>
                 <div class="container nav">
                     <div class="right">
-                        <div >
-                            <i><a href="#" onclick="openForm()">Log In</a></i>
-                            <i><a href="#">Register</a></i>
+                        <div>
+                            <i><a href="#" onclick="openForm('myLoginForm')">Log In</a></i>
+                            <i><a href="#" onclick="openForm('myRegisterForm')">Register</a></i>
                         </div>
                     </div>
                     <div class="left">
@@ -137,15 +141,15 @@
                         Email me:<i><b>TranHuTu@gmail.com</b></i>
                     </div>
                 </div>
-            <div class="col-sm-3">
-               
-            </div>
+                <div class="col-sm-3">
+
+                </div>
         </footer>
 
     </div>
 
 
-  
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
