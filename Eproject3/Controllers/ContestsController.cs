@@ -47,10 +47,16 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,C_Time")] Contest contest)
+        public async Task<ActionResult> Create([Bind(Include = "id,C_Time,exp_time,C_Description")] Contest contest)
         {
             if (ModelState.IsValid)
             {
+               
+                if (DateTime.Compare(contest.C_Time.Value, contest.exp_time.Value) > 0)
+                {
+                    ViewBag.DateError = "Exp date must be later than start date";
+                    return View(contest);
+                }
                 db.Contest.Add(contest);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -79,10 +85,15 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,C_Time")] Contest contest)
+        public async Task<ActionResult> Edit([Bind(Include = "id,C_Time,exp_time,C_Description")] Contest contest)
         {
             if (ModelState.IsValid)
             {
+
+                if (DateTime.Compare(contest.C_Time.Value, contest.exp_time.Value) < 0) {
+                    ViewBag.DateError = "Exp date must be later than start date";
+                    return View(contest);
+                }
                 db.Entry(contest).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

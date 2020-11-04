@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<Eproject3.Models.Tips>
-
+@using Eproject3.Models;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = (Users)Session["User"];
 }
 
 <h2>Index</h2>
@@ -24,23 +25,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Users.UPhone)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var ImgList = item.Img.Split(',').ToList();
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @{
+
+                    foreach (var i in ImgList)
+                    {
+                        <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Users.UPhone)
+            </td>
+            <td>
+                @if (user.id == item.Use_id)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) 
+                    @Html.ActionLink("Detail","Detail",new {id = item.id })
+                     @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

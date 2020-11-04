@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+    <EntitySetMapping Name="Contest">
+      <EntityTypeMapping TypeName="Database1Model.Contest">
+        <MappingFragment StoreEntitySet="Contest">
+          <ScalarProperty Name="id_winner" ColumnName="id_winner" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="C_Description" ColumnName="C_Description" />
+          <ScalarProperty Name="exp_time" ColumnName="exp_time" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="C_Time" ColumnName="C_Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contester">
+      <EntityTypeMapping TypeName="Database1Model.Contester">
+        <MappingFragment StoreEntitySet="Contester">
+          <ScalarProperty Name="Contest_id" ColumnName="Contest_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Use_id" ColumnName="Use_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exams">
+      <EntityTypeMapping TypeName="Database1Model.Exams">
+        <MappingFragment StoreEntitySet="Exams">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Contest_id" ColumnName="Contest_id" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Contester_id" ColumnName="Contester_id" />
+          <ScalarProperty Name="Recipes_id" ColumnName="Recipes_id" />
+          <ScalarProperty Name="E_Status" ColumnName="E_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedBack">
+      <EntityTypeMapping TypeName="Database1Model.FeedBack">
+        <MappingFragment StoreEntitySet="FeedBack">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Use_id" ColumnName="Use_id" />
+          <ScalarProperty Name="Recipes_id" ColumnName="Recipes_id" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Tip_id" ColumnName="Tip_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Packs">
+      <EntityTypeMapping TypeName="Database1Model.Packs">
+        <MappingFragment StoreEntitySet="Packs">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recipes">
+      <EntityTypeMapping TypeName="Database1Model.Recipes">
+        <MappingFragment StoreEntitySet="Recipes">
+          <ScalarProperty Name="ingredent" ColumnName="ingredent" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Contester_id" ColumnName="Contester_id" />
+          <ScalarProperty Name="R_Status" ColumnName="R_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="Database1Model.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tips">
+      <EntityTypeMapping TypeName="Database1Model.Tips">
+        <MappingFragment StoreEntitySet="Tips">
+          <ScalarProperty Name="isFree" ColumnName="isFree" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Use_id" ColumnName="Use_id" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Database1Model.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="AccNum" ColumnName="AccNum" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="UPhone" ColumnName="UPhone" />
+          <ScalarProperty Name="UPass" ColumnName="UPass" />
+          <ScalarProperty Name="UAdress" ColumnName="UAdress" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Roll_id" ColumnName="Roll_id" />
+          <ScalarProperty Name="Pack_id" ColumnName="Pack_id" />
+          <ScalarProperty Name="Exp_Date" ColumnName="Exp_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

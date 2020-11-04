@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/HomePage.css")
+    @Styles.Render("~/Content/DateTimePicker.css")
     @Scripts.Render("~/bundles/modernizr")
 
     <script>
@@ -22,6 +23,9 @@
 
     </script>
 
+    @{
+        var isvalid = (Users)Session["user"];
+    }
 </head>
 <body>
     <div class="form-popup" id="myLoginForm">

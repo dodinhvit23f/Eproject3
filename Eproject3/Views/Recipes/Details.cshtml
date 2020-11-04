@@ -1,0 +1,97 @@
+﻿@model Eproject3.Models.Recipes
+@using Eproject3.Models;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Users u = (Users)Session["User"];
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recipes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @{
+                var Content_step = Model.Content.Split(',').ToList();
+                var ImgList = Model.Img.Split(',').ToList();
+                int i = 0;
+                foreach (var image in ImgList)
+                {
+                    i++;
+                    <p>Step @i</p>
+                    <p>@Content_step.ElementAt(i - 1) <img src="~/images/@(image)" height="200" width="200" /></p>
+                }
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.R_Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ingredent)
+        </dt>
+
+        <dd>
+            @{
+                var Igre = Model.ingredent.Split(',').ToList();
+                foreach (var ingre in Igre)
+                {
+                    <p>@ingre</p>
+                }
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contester.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contester.Name)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @if(u!= null) { 
+    using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+    {
+      
+            <input type="hidden" value="@u.id" name="Use_id" />
+        <input type="hidden" value="@Model.id" name="Recipes_id" />
+        <input type="text" name="Content" />
+        <input type="submit" value="Comment" />
+
+
+    }
+    }
+    <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
+    @foreach (var item in ViewBag.FeedBack)
+    {
+        <h3>
+            @item.Users.UPhone : @item.Content
+        </h3>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
