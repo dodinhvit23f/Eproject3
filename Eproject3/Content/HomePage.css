@@ -54,13 +54,13 @@ footer {
 
 .left {
     position: absolute;
-    left: 120px;
+    left: 5%;
 }
 
 .right {
     position: fixed;
     top: 15px;
-    right: 5%;
+    right: 2%;
 }
 
 .content-img {
@@ -137,7 +137,7 @@ footer {
 }
 
 .menu {
-    margin-left: 200px;
+    margin-left: 12%;
 }
 
 .relative {
@@ -168,7 +168,7 @@ ul {
 
 .menu > ul > li {
     height: 60px;
-    width: 200px;
+    width: 10%;
     display: inline-block;
     text-align: center;
     padding-top: 15px;
@@ -183,10 +183,11 @@ ul {
         color: whitesmoke;
     }
 
-.menu > ul > li:hover .my-dropdown-menu {
+.menu > ul li:hover .my-dropdown-menu {
     display: block;
     background-color: black;
     color: white;
+    z-index:5;
 }
 
 li a {
@@ -200,7 +201,7 @@ a {
 .my-dropdown-menu {
     position: absolute;
     display: none;
-    width: 200px;
+    width: 200%;
     top: 60px;
     left: initial;
 }
