@@ -121,15 +121,15 @@ namespace Eproject3.Controllers
                     Cont = Cont.Substring(0, Cont.Length - 1);
                     recipes.Content = Cont;
                     recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
-                if (Session["user"] != null)
-                {
-                    var isvalid = (Users)Session["user"];
-                    recipes.Contester_id = isvalid.id;
-                }
-                else
-                {
-                    recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-                }
+                    if (Session["user"] != null)
+                    {
+                        var isvalid = (Users)Session["user"];
+                        recipes.Contester_id = isvalid.id;
+                    }
+                    else
+                    {
+                        recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                    }
                 recipes.R_Status = txtStatus;
                 db.Recipes.Add(recipes);
                 await db.SaveChangesAsync();
@@ -195,8 +195,6 @@ namespace Eproject3.Controllers
                             return View(recipes);
                         }
                     }
-
-
                 }
                 catch (Exception e)
                 {

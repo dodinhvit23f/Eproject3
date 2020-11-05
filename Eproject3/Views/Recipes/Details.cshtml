@@ -71,19 +71,23 @@
     </dl>
 </div>
 <div>
-    @if(u!= null) { 
-    using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+    @if (u != null)
     {
-      
+        using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
             <input type="hidden" value="@u.id" name="Use_id" />
-        <input type="hidden" value="@Model.id" name="Recipes_id" />
-        <input type="text" name="Content" />
-        <input type="submit" value="Comment" />
+            <input type="hidden" value="@Model.id" name="Recipes_id" />
+            <input type="text" name="Content" autocomplete="off" />
+            <input type="submit" value="Comment" />
 
 
+        }
     }
+    else
+    {
+        <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
     }
-    <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
     @foreach (var item in ViewBag.FeedBack)
     {
         <h3>
