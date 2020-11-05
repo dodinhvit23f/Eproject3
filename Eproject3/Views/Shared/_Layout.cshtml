@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Eproject3.Models;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,8 +7,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/HomePage.css")
-    @Styles.Render("~/Content/DateTimePicker.css")
-    @Scripts.Render("~/bundles/modernizr")
+   
     @Styles.Render("~/Content/BackgroundAnimation.css")
 
     <script>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="left">
-                        <img class="logo" src="~/Image/Logo/logo.png" />
+                        <img class="logo" src="~/Image/Logo/logo1.png" />
                     </div>
                     <div class="menu">
                         <ul>
@@ -84,7 +84,7 @@
                                 @Html.ActionLink("Contact", "Contact", "Home")
                             </li>
                             <li>
-                                @Html.ActionLink("Recipces", "Recipces", "Home")
+                                @Html.ActionLink("Recipces", "Index", "Recipces")
 
                                 <div class="my-dropdown-menu">
                                     <ul>
