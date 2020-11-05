@@ -34,5 +34,6 @@ namespace Eproject3.Models
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Tips> Tips { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
     }
 }

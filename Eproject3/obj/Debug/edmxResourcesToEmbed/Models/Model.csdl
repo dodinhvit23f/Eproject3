@@ -80,6 +80,9 @@
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="Recipes" ToRole="FeedBack" />
     <Property Name="ingredent" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Users" Relationship="Database1Model.FK__Recipes__User__3F466844" FromRole="Recipes" ToRole="Users" />
+    <Property Name="Levels" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Cate_id" Type="Int32" />
+    <NavigationProperty Name="Categories" Relationship="Database1Model.FK__Recipes__Cate_id__2739D489" FromRole="Recipes" ToRole="Categories" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -100,6 +103,10 @@
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Tip_id__4BAC3F29" FromRole="Tips" ToRole="FeedBack" />
     <NavigationProperty Name="Users" Relationship="Self.FK__Tips__Use_id__46E78A0C" FromRole="Tips" ToRole="Users" />
     <Property Name="isFree" Type="Boolean" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Levels" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Cate_id" Type="Int32" />
+    <NavigationProperty Name="Categories" Relationship="Database1Model.FK__Tips__Cate_id__282DF8C2" FromRole="Tips" ToRole="Categories" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -319,6 +326,15 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Recipes" EntitySet="Recipes" />
     </AssociationSet>
+    <EntitySet Name="Categories" EntityType="Database1Model.Categories" />
+    <AssociationSet Name="FK__Recipes__Cate_id__2739D489" Association="Database1Model.FK__Recipes__Cate_id__2739D489">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Recipes" EntitySet="Recipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tips__Cate_id__282DF8C2" Association="Database1Model.FK__Tips__Cate_id__282DF8C2">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Tips" EntitySet="Tips" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK__Contester__Conte__5AEE82B9">
     <End Type="Database1Model.Contest" Role="Contest" Multiplicity="0..1" />
@@ -353,6 +369,39 @@
       </Principal>
       <Dependent Role="Recipes">
         <PropertyRef Name="Contester_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cate_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Recipes" Relationship="Database1Model.FK__Recipes__Cate_id__2739D489" FromRole="Categories" ToRole="Recipes" />
+    <NavigationProperty Name="Tips" Relationship="Database1Model.FK__Tips__Cate_id__282DF8C2" FromRole="Categories" ToRole="Tips" />
+  </EntityType>
+  <Association Name="FK__Recipes__Cate_id__2739D489">
+    <End Type="Database1Model.Categories" Role="Categories" Multiplicity="0..1" />
+    <End Type="Database1Model.Recipes" Role="Recipes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Recipes">
+        <PropertyRef Name="Cate_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tips__Cate_id__282DF8C2">
+    <End Type="Database1Model.Categories" Role="Categories" Multiplicity="0..1" />
+    <End Type="Database1Model.Tips" Role="Tips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tips">
+        <PropertyRef Name="Cate_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

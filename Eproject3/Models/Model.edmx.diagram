@@ -28,6 +28,9 @@
         <AssociationConnector Association="Database1Model.FK__Contester__Conte__5AEE82B9" />
         <AssociationConnector Association="Database1Model.FK__Contest__id_winn__6E01572D" />
         <AssociationConnector Association="Database1Model.FK__Recipes__User__3F466844" />
+        <EntityTypeShape EntityType="Database1Model.Categories" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="Database1Model.FK__Recipes__Cate_id__2739D489" />
+        <AssociationConnector Association="Database1Model.FK__Tips__Cate_id__282DF8C2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

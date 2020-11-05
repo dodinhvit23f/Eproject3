@@ -53,14 +53,14 @@ namespace Eproject3.Controllers
             ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", contester.Use_id);
             if (ModelState.IsValid)
             {
-                if (Session["user"] != null)
+                if (Session["user"] != null )
                 {
                     var isValid = (Users)Session["user"];
                     contester.Use_id = isValid.id;
                     contester.Phone = isValid.UPhone;
                     contester.Name = isValid.UAdress;
                 }
-                else if (db.Contester.Where(p => p.Phone == contester.Phone).FirstOrDefault() != null)
+                if (db.Contester.Where(p => p.Phone == contester.Phone).FirstOrDefault() != null)
                 {
                     ViewBag.exist = "This phone number has been registered before,Pls try another one";
                     return View(contester);
