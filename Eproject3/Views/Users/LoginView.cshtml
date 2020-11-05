@@ -8,14 +8,15 @@
 }
 
 <h2>LoginView</h2>
-
+<a class="alert-info">@ViewBag.done</a>
 <form action="/Users/Login" method="post">
     @*PhoneNumber: @Html.TextBoxFor(model => model.UPhone)</br>
         PassWord:@Html.TextBoxFor(model => model.UPass)</br>*@
-    PhoneNumber:<input name="phones" type="text" /></br>
-    PassWord:<input name="pwd" type="password" /></br>
+    PhoneNumber:<input name="phones" type="text" /><br />
+    PassWord:<input name="pwd" type="password" /><br />
     <button>Login</button>
 </form>
+<a href="/Users/ForgetPwd">Forget password</a><br />
 @if (lErr)
 {
     <a style="color:red">Wrong credential</a>

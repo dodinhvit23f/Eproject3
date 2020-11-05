@@ -14,18 +14,25 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
         public async Task<ActionResult> Index()
         {
-            var user = (Users)Session["user"];
-            if (user == null || user.Pack_id == 3)
+            if (TempData["done"] != null)
             {
-                var isValid = db.Recipes.Where(p => p.R_Status == 0);
-                //ViewBag.Tips = db.Tips.Where(p=>p.isFree.Value).ToList();
-                return View(await isValid.ToListAsync());
+                ViewBag.done = "Done,you have submit your exams successfully";
+            }
+            var contests = db.Contest;
+            DateTime next7days = DateTime.Today.AddDays(7);
+            ViewBag.contests = db.Contest.Where(p=>p.exp_time>DateTime.Now||p.C_Time== next7days);
+            var user = (Users)Session["user"];
+            if (user == null || user.Pack_id==3)
+            {
+                ViewBag.Tips = db.Tips.Where(p=>p.isFree.Value);
+                var isvalid = db.Recipes.Where(p => p.R_Status == 0);
+                return View(await isvalid.ToListAsync());
             }
             else
             {
-                //ViewBag.Tips = db.Tips.Where(p => !p.isFree.Value).ToList();
-                var isValid = db.Recipes.Where(p => p.R_Status == 1);
-                return View(await isValid.ToListAsync());
+                ViewBag.Tips = db.Tips.Where(p => !p.isFree.Value);
+                var isvalid = db.Recipes.Where(p => p.R_Status == 1);
+                return View(await isvalid.ToListAsync());
             }
         }
         [Route("Admin")]

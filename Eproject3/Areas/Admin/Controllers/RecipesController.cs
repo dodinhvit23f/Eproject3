@@ -19,7 +19,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Contester);
+            var recipes = db.Recipes.Include(r => r.Users);
             return View(await recipes.ToListAsync());
         }
 
@@ -55,7 +55,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int Contester_id)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int Contester_id, int txtStatus)
         {
             string Cont = "";
             string url_img = "";
@@ -75,57 +75,61 @@ namespace Eproject3.Areas.Admin.Controllers
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
-                                ViewBag.FileStatus = "Sai";
+                                ViewBag.FileStatus = ex + " is not an image";
                                 return View(recipes);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
                         }
                         else
                         {
-                            ViewBag.FileStatus = "Quen Them Anh ha Ban";
+                            ViewBag.FileStatus = "Content must have image !!!!";
                             return View(recipes);
                         }
                     }
-                            
-                        
 
 
-                    }
-                    catch (Exception e)
+
+
+                }
+                catch (Exception e)
+                {
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+
+                recipes.Img = url_img.Substring(0, url_img.Length - 1);
+
+                foreach (var text in txtText)
+                {
+                    if (text != "")
                     {
-                        ViewBag.FileStatus = "Error while file uploading.";
+
+                        Cont += text + ",";
                     }
-
-                    recipes.Img = url_img.Substring(0, url_img.Length - 1);
-
-                    foreach (var text in txtText)
+                }
+                foreach (var ingredent in txtIgredent)
+                {
+                    if (ingredent != "")
                     {
-                        if (text != "")
-                        {
 
-                            Cont += text + ",";
-                        }
+                        ingre += ingredent + ",";
                     }
-                    foreach (var ingredent in txtIgredent)
-                    {
-                        if (ingredent != "")
-                        {
-
-                            ingre += ingredent + ",";
-                        }
-                    }
-                    Cont = Cont.Substring(0, Cont.Length - 1);
-                    recipes.Content = Cont;
-                    recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                }
+                Cont = Cont.Substring(0, Cont.Length - 1);
+                recipes.Content = Cont;
+                recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                if (Contester_id != null)
+                {
                     recipes.Contester_id = Contester_id;
-                    db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                
+                }
+                recipes.R_Status = txtStatus;
+                db.Recipes.Add(recipes);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+
             }
-                ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
-                return View(recipes);
-            
+            ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
+            return View(recipes);
+
         }
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -148,11 +152,12 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent)
-        { 
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent, int txtStatus)
+        {
             string Cont = "";
             string url_img = "";
             string ingre = "";
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
             {
                 try
@@ -163,7 +168,18 @@ namespace Eproject3.Areas.Admin.Controllers
                         {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
                             img.SaveAs(path);
+                            string ex = Path.GetExtension(img.FileName);
+                            if (!check(ex, formats))
+                            {
+                                ViewBag.FileStatus = ex + " is not an image";
+                                return View(recipes);
+                            }
                             url_img += Path.GetFileName(img.FileName) + ",";
+                        }
+                        else
+                        {
+                            ViewBag.FileStatus = "Image cannot be null !!";
+                            return View(recipes);
                         }
                     }
 
@@ -195,6 +211,7 @@ namespace Eproject3.Areas.Admin.Controllers
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 recipes.Content = Cont;
                 recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                recipes.R_Status = txtStatus;
                 db.Entry(recipes).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

@@ -21,7 +21,7 @@ namespace Eproject3.Areas.Admin.Controllers
             {
                 return RedirectToAction("Login");
             }
-            Users user = (Users)Session["uses"];
+            Users user = (Users)Session["user"];
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", user.Pack_id);
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", user.Roll_id);
             return View(user);
@@ -32,8 +32,14 @@ namespace Eproject3.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
+            if (TempData["done"] != null)
+            {
+                ViewBag.done = TempData["done"];
+            }
+
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(string usn,string pwd)
         {
@@ -48,7 +54,7 @@ namespace Eproject3.Areas.Admin.Controllers
                 ViewBag.err = "You are not permited here";
                 return View();
             }
-            Session["uses"] = isValid;
+            Session["user"] = isValid;
             Session["isAdmin"] = true;
             return RedirectToAction("Index");
         }

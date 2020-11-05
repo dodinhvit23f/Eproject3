@@ -19,8 +19,17 @@ namespace Eproject3.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Contester);
-            return View(await recipes.ToListAsync());
+            var isValid = (Users)Session["user"];
+            if (isValid != null)
+            {
+                var recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users);
+                return View(await recipes.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction("LoginView","Users");
+            }
+            
         }
 
         // GET: Recipes/Details/5
@@ -85,10 +94,6 @@ namespace Eproject3.Controllers
                             return View(recipes);
                         }
                     }
-                            
-                        
-
-
                     }
                     catch (Exception e)
                     {
@@ -116,15 +121,24 @@ namespace Eproject3.Controllers
                     Cont = Cont.Substring(0, Cont.Length - 1);
                     recipes.Content = Cont;
                     recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
-                if (Contester_id != null)
-                {
-                    recipes.Contester_id = Contester_id;
-                }
+                    if (Session["user"] != null)
+                    {
+                        var isvalid = (Users)Session["user"];
+                        recipes.Contester_id = isvalid.id;
+                    }
+                    else
+                    {
+                        recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                    }
                 recipes.R_Status = txtStatus;
-                    db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                
+                db.Recipes.Add(recipes);
+                await db.SaveChangesAsync();
+                if (TempData["Supplement"] != null)
+                {
+                    TempData["reId"] = recipes.id;
+                    return RedirectToAction("Create", "Exams");
+                }
+                return RedirectToAction("Index");               
             }
                 ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
                 return View(recipes);
@@ -181,8 +195,6 @@ namespace Eproject3.Controllers
                             return View(recipes);
                         }
                     }
-
-
                 }
                 catch (Exception e)
                 {

@@ -67,9 +67,9 @@ namespace Eproject3.Controllers
                 feedBack.Tip_id = Tip_id;
                 db.FeedBack.Add(feedBack);
                 await db.SaveChangesAsync();
-                return Redirect("~/Recipes/Details/id=" + Recipes_id);
+                return Redirect(Request.Headers["Referer"].ToString());
             }
-            return Redirect("~/Recipes/Details/id=" + Recipes_id);
+            return Redirect(Request.Headers["Referer"].ToString());
 
 
             //ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);

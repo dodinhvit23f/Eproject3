@@ -180,6 +180,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Categories.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Contest.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -303,6 +306,8 @@
     <Content Include="Areas\Admin\Views\Contests\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Contests\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Contesters\Contesters.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChangePwd.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ForgetPwd.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -367,6 +372,10 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\LoginView.cshtml" />
     <Content Include="Views\Recipes\Details.cshtml" />
+    <Content Include="Views\Contests\Details.cshtml" />
+    <Content Include="Views\Exams\Details.cshtml" />
+    <Content Include="Views\Users\ChangePwd.cshtml" />
+    <Content Include="Views\Users\ForgetPwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
