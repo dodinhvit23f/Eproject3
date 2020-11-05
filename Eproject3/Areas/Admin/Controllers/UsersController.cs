@@ -89,12 +89,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            var isValid = (Users)Session["user"];
-            if (isValid ==null || (isValid.id != id && Session["isAdmin"] == null))
-            {
-                TempData["AuErr"] = true;
-                return RedirectToAction("LoginView");
-            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,7 +117,7 @@ namespace Eproject3.Areas.Admin.Controllers
                 users.Exp_Date = isValid.Exp_Date;
                 users.Pack_id = isValid.Pack_id;
                 users.Roll_id = isValid.Roll_id;
-                users.UPass = r.HashPwd(users.UPass);
+                //users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -135,11 +130,6 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (Session["isAdmin"] == null)
-            {
-                TempData["AuErr"] = true;
-                return RedirectToAction("LoginView");
-            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -170,6 +160,56 @@ namespace Eproject3.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult ChangePwd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePwd(string oldp, string newp)
+        {
+            var user = (Users)Session["user"];
+            string hashed = r.HashPwd(oldp);
+            var isvalid = db.Users.Where(p => p.UPhone == user.UPhone && p.UPass == hashed).FirstOrDefault();
+            ViewBag.old = oldp;
+            ViewBag.newp = newp;
+            if (user != null && isvalid != null)
+            {
+                if (newp.Length < 8 || newp.Length > 50)
+                {
+                    ViewBag.err = "Password must be a 8-50 characters string ";
+                    return View();
+                }
+                isvalid.UPass = r.HashPwd(newp);
+                db.SaveChanges();
+                return RedirectToAction("index", "Home");
+            }
+            ViewBag.err = "Wrong credential";
+            return View();
+        }
+        public ActionResult ForgetPwd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgetPwd(string phone)
+        {
+            ViewBag.phone = phone;
+            var isvalid = db.Users.Where(p => p.UPhone == phone).FirstOrDefault();
+            if (isvalid != null)
+            {
+                Guid newPass = new Guid();
+                isvalid.UPass = r.HashPwd(newPass.ToString());
+                //Send sms to User to send new password
+                db.SaveChanges();
+                TempData["done"] = "Check your inbox in your phone to receive new password ";
+                return RedirectToAction("Login","Home");
+            }
+            else
+            {
+                ViewBag.err = "No phone number found";
+                return View();
+            }
         }
     }
 }

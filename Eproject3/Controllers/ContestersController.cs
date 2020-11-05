@@ -21,7 +21,6 @@ namespace Eproject3.Controllers
             var contester = db.Contester.Include(c => c.Users);
             return View(await contester.ToListAsync());
         }
-
         // GET: Contesters/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -51,16 +50,32 @@ namespace Eproject3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Name,Phone")] Contester contester)
         {
+            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", contester.Use_id);
             if (ModelState.IsValid)
             {
-                
+                if (Session["user"] != null )
+                {
+                    var isValid = (Users)Session["user"];
+                    contester.Use_id = isValid.id;
+                    contester.Phone = isValid.UPhone;
+                    contester.Name = isValid.UAdress;
+                }
+                if (db.Contester.Where(p => p.Phone == contester.Phone).FirstOrDefault() != null)
+                {
+                    ViewBag.exist = "This phone number has been registered before,Pls try another one";
+                    return View(contester);
+                }
+                else
+                {
+                    contester.Use_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                }
+                contester.Contest_id = (int)TempData["ctId"];
                 db.Contester.Add(contester);
                 await db.SaveChangesAsync();
-                
-                return RedirectToAction("Index");
+                TempData["cterId"] = contester.id;
+                TempData["ctID"] = contester.Contest_id;
+                return RedirectToAction("Create","Exams");
             }
-
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", contester.Use_id);
             return View(contester);
         }
         public ActionResult Regist4Contest(int Contest_id)

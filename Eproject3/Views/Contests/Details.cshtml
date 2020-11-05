@@ -1,0 +1,88 @@
+﻿@model Eproject3.Models.Contest
+@using Eproject3.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var exams = (IEnumerable<Exams>)ViewBag.exams;
+}
+
+<h2>Details</h2>
+
+<div>
+    <a style="color:red">@ViewBag.early</a>
+    <h4>Contest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.C_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.exp_time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.exp_time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+
+        <dd>
+            <img style="height:80px;width:100px" src="~/images/@Html.DisplayFor(model => model.img)" />
+        </dd>
+
+        <dt>
+            Winner:
+        </dt>
+
+        <dd>
+            @{
+                var x = @Html.DisplayFor(model => model.Contester1.Name);
+            }
+            @if (String.IsNullOrEmpty(x.ToString()))
+            {
+                <a>Undecided yet</a>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Contester1.Name)
+            }
+
+        </dd>
+        <dt>
+            <a href="/Contests/Join/@Html.DisplayFor(model => model.id)">Join this contest</a>
+        </dt>
+    </dl>
+    Exams:
+    @if (exams != null)
+    {
+        foreach (var items in exams)
+        {
+           <a href="/Recipes/Details/@items.Recipes_id" >
+               <div>
+                    @items.Recipes.Title <br />
+                     <img style="height:100px;width:80px" src="~/images/@items.Recipes.Img" />                   
+               </div>
+           </a>
+        }
+    }
+    else
+    {
+        <h4>No Exams yet </h4>
+    }
+</div>
+

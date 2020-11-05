@@ -28,11 +28,15 @@ namespace Eproject3.Models
         public Nullable<int> Contester_id { get; set; }
         public Nullable<int> R_Status { get; set; }
         public string ingredent { get; set; }
+        public string Levels { get; set; }
+        public Nullable<int> Cate_id { get; set; }
     
         public virtual Contester Contester { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exams> Exams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeedBack> FeedBack { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual Categories Categories { get; set; }
     }
 }
