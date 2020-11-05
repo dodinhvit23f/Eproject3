@@ -201,11 +201,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Recipes__Contest__3F466844">
-    <End Role="Contester" Type="Self.Contester" Multiplicity="0..1" />
+  <Association Name="FK__Recipes__User__3F466844">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Contester">
+      <Principal Role="Users">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Recipes">
@@ -295,8 +295,8 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="FeedBack" EntitySet="FeedBack" />
     </AssociationSet>
-    <AssociationSet Name="FK__Recipes__Contest__3F466844" Association="Self.FK__Recipes__Contest__3F466844">
-      <End Role="Contester" EntitySet="Contester" />
+    <AssociationSet Name="FK__Recipes__User__3F466844" Association="Self.FK__Recipes__User__3F466844">
+      <End Role="Users" EntitySet="Users" />
       <End Role="Recipes" EntitySet="Recipes" />
     </AssociationSet>
     <AssociationSet Name="FK__Tips__Use_id__46E78A0C" Association="Self.FK__Tips__Use_id__46E78A0C">

@@ -19,7 +19,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Contester);
+            var recipes = db.Recipes.Include(r => r.Users);
             return View(await recipes.ToListAsync());
         }
 
@@ -62,8 +62,7 @@ namespace Eproject3.Areas.Admin.Controllers
             string ingre = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
-            {
-              
+            {              
                     try
                     {
                         foreach (HttpPostedFileBase img in Url)

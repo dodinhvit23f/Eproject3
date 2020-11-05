@@ -75,7 +75,7 @@ namespace Eproject3.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+               
                 db.Contester.Add(contester);
                 await db.SaveChangesAsync();
                 

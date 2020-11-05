@@ -79,6 +79,7 @@
     <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Recipes_i__440B1D61" FromRole="Recipes" ToRole="Exams" />
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="Recipes" ToRole="FeedBack" />
     <Property Name="ingredent" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="Database1Model.FK__Recipes__User__3F466844" FromRole="Recipes" ToRole="Users" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -118,6 +119,7 @@
     <NavigationProperty Name="Roles" Relationship="Self.FK__Users__Roll_id__2B3F6F97" FromRole="Users" ToRole="Roles" />
     <NavigationProperty Name="Tips" Relationship="Self.FK__Tips__Use_id__46E78A0C" FromRole="Users" ToRole="Tips" />
     <Property Name="AccNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Recipes" Relationship="Database1Model.FK__Recipes__User__3F466844" FromRole="Users" ToRole="Recipes" />
   </EntityType>
   <Association Name="FK__Exams__Contest_i__4222D4EF">
     <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
@@ -313,6 +315,10 @@
       <End Role="Contester" EntitySet="Contester" />
       <End Role="Contest" EntitySet="Contest" />
     </AssociationSet>
+    <AssociationSet Name="FK__Recipes__User__3F466844" Association="Database1Model.FK__Recipes__User__3F466844">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Recipes" EntitySet="Recipes" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK__Contester__Conte__5AEE82B9">
     <End Type="Database1Model.Contest" Role="Contest" Multiplicity="0..1" />
@@ -335,6 +341,18 @@
       </Principal>
       <Dependent Role="Contest">
         <PropertyRef Name="id_winner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipes__User__3F466844">
+    <End Type="Database1Model.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="Database1Model.Recipes" Role="Recipes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Recipes">
+        <PropertyRef Name="Contester_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -21,7 +21,6 @@ namespace Eproject3.Controllers
             var exams = db.Exams.Include(e => e.Contest).Include(e => e.Contester).Include(e => e.Recipes);
             return View(await exams.ToListAsync());
         }
-
         // GET: Exams/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -42,8 +41,24 @@ namespace Eproject3.Controllers
         {
             ViewBag.Contest_id = new SelectList(db.Contest, "id", "id");
             ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name");
-            ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title");
+            if (Session["user"] != null  )
+            {
+                //int cterId = (int)TempData["cterId"];
+                var isvalid = (Users)Session["user"];
+                ViewBag.Recipes_id = new SelectList(db.Recipes.Where(p=>p.Contester_id== isvalid.id), "id", "Title");
+            }
+            //giai quyet tai sao de ko dang nhao cx hien ra select list
+            if (TempData["reId"] != null)
+            {
+                int reID = (int)TempData["reId"];
+                ViewBag.Recipes_id = new SelectList(db.Recipes.Where(p => p.id == reID), "id", "Title");
+            }
             return View();
+        }
+        public ActionResult Supplement()
+        {
+            TempData["Supplement"] = true;
+            return RedirectToAction("Create","Recipes");
         }
 
         // POST: Exams/Create
@@ -55,9 +70,15 @@ namespace Eproject3.Controllers
         {
             if (ModelState.IsValid)
             {
+                TempData.Keep("cterId");
+                exams.Contester_id =(int)TempData["cterId"];
+                exams.Contest_id = (int)TempData["ctID"];
+                exams.E_Status = 0;
+                exams.Mark = 0;
                 db.Exams.Add(exams);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                TempData["done"] = true;
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.Contest_id = new SelectList(db.Contest, "id", "id", exams.Contest_id);

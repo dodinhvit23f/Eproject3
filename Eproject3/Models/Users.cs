@@ -11,7 +11,8 @@ namespace Eproject3.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,16 +21,24 @@ namespace Eproject3.Models
             this.Contester = new HashSet<Contester>();
             this.FeedBack = new HashSet<FeedBack>();
             this.Tips = new HashSet<Tips>();
+            this.Recipes = new HashSet<Recipes>();
         }
     
         public int id { get; set; }
+        [Required]
+        
         public string UPhone { get; set; }
+        [MaxLength(50)]
+        [MinLength(8)]
+        [Required]
         public string UPass { get; set; }
+        [Required]
         public string UAdress { get; set; }
         public string Img { get; set; }
         public Nullable<int> Roll_id { get; set; }
         public Nullable<int> Pack_id { get; set; }
         public Nullable<System.DateTime> Exp_Date { get; set; }
+
         public string AccNum { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,5 +49,7 @@ namespace Eproject3.Models
         public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tips> Tips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recipes> Recipes { get; set; }
     }
 }
