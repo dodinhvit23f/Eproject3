@@ -19,8 +19,17 @@ namespace Eproject3.Controllers
         // GET: Tips
         public async Task<ActionResult> Index()
         {
-            var tips = db.Tips.Include(t => t.Users);
-            return View(await tips.ToListAsync());
+            var isValid = (Users)Session["user"];
+            if (isValid != null)
+            {
+                var tips = db.Tips.Where(p=>p.Use_id==isValid.id).Include(t => t.Users);
+                return View(await tips.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction("LoginView", "Users");
+            }
+
         }
 
         // GET: Tips/Details/5

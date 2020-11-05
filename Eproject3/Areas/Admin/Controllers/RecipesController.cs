@@ -19,7 +19,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Contester);
+            var recipes = db.Recipes.Include(r => r.Users);
             return View(await recipes.ToListAsync());
         }
 
@@ -62,12 +62,15 @@ namespace Eproject3.Areas.Admin.Controllers
             string ingre = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
+
             {
 
                 try
                 {
                     foreach (HttpPostedFileBase img in Url)
-                    {
+
+                          
+                  
                         if (img != null)
                         {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
@@ -84,12 +87,7 @@ namespace Eproject3.Areas.Admin.Controllers
                         {
                             ViewBag.FileStatus = "Content must have image !!!!";
                             return View(recipes);
-                        }
-                    }
-
-
-
-
+                        }                  
                 }
                 catch (Exception e)
                 {

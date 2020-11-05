@@ -235,6 +235,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Rate.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -305,6 +306,8 @@
     <Content Include="Areas\Admin\Views\Contests\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Contests\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Contesters\Contesters.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChangePwd.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ForgetPwd.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -369,6 +372,10 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\LoginView.cshtml" />
     <Content Include="Views\Recipes\Details.cshtml" />
+    <Content Include="Views\Contests\Details.cshtml" />
+    <Content Include="Views\Exams\Details.cshtml" />
+    <Content Include="Views\Users\ChangePwd.cshtml" />
+    <Content Include="Views\Users\ForgetPwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

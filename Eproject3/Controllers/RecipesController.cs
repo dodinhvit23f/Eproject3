@@ -19,8 +19,17 @@ namespace Eproject3.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Contester);
-            return View(await recipes.ToListAsync());
+            var isValid = (Users)Session["user"];
+            if (isValid != null)
+            {
+                var recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users);
+                return View(await recipes.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction("LoginView","Users");
+            }
+            
         }
 
         // GET: Recipes/Details/5
@@ -59,15 +68,14 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int? Contester_id,int txtStatus)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int? Contester_id,int txtStatus,string rate)
         {
             string Cont = "";
             string url_img = "";
             string ingre = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
-            {
-              
+            {              
                     try
                     {
                         foreach (HttpPostedFileBase img in Url)
@@ -90,10 +98,6 @@ namespace Eproject3.Controllers
                             return View(recipes);
                         }
                     }
-                            
-                        
-
-
                     }
                     catch (Exception e)
                     {
@@ -121,15 +125,25 @@ namespace Eproject3.Controllers
                     Cont = Cont.Substring(0, Cont.Length - 1);
                     recipes.Content = Cont;
                     recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
-                if (Contester_id != null)
+                if (Session["user"] != null)
                 {
-                    recipes.Contester_id = Contester_id;
+                    var isvalid = (Users)Session["user"];
+                    recipes.Contester_id = isvalid.id;
                 }
+                else
+                {
+                    recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                }
+                recipes.Levels = rate;
                 recipes.R_Status = txtStatus;
-                    db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                
+                db.Recipes.Add(recipes);
+                await db.SaveChangesAsync();
+                if (TempData["Supplement"] != null)
+                {
+                    TempData["reId"] = recipes.id;
+                    return RedirectToAction("Create", "Exams");
+                }
+                return RedirectToAction("Index");               
             }
                 ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
                 return View(recipes);
@@ -156,7 +170,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent,int txtStatus)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent,int txtStatus,string rate)
         { 
             string Cont = "";
             string url_img = "";
@@ -212,6 +226,7 @@ namespace Eproject3.Controllers
                         ingre += ingredent + ",";
                     }
                 }
+                recipes.Levels = rate;
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 recipes.Content = Cont;
                 recipes.ingredent = ingre.Substring(0, ingre.Length - 1);

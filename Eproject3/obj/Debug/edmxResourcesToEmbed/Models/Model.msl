@@ -82,6 +82,7 @@
     <EntitySetMapping Name="Tips">
       <EntityTypeMapping TypeName="Database1Model.Tips">
         <MappingFragment StoreEntitySet="Tips">
+          <ScalarProperty Name="isFree" ColumnName="isFree" />
           <ScalarProperty Name="Cate_id" ColumnName="Cate_id" />
           <ScalarProperty Name="Levels" ColumnName="Levels" />
           <ScalarProperty Name="Title" ColumnName="Title" />

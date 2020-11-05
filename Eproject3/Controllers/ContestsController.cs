@@ -24,6 +24,15 @@ namespace Eproject3.Controllers
         // GET: Contests/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            ViewBag.exams = db.Exams.Where(p=>p.Contest_id==id);
+            if (TempData["over"] != null)
+            {
+                ViewBag.over = TempData["over"];
+            }
+            if (TempData["early"] != null)
+            {
+                ViewBag.early = TempData["early"];
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -34,6 +43,21 @@ namespace Eproject3.Controllers
                 return HttpNotFound();
             }
             return View(contest);
+        }
+        public ActionResult Join(int id)
+        {
+            var isvalid = db.Contest.Find(id);
+            if (isvalid.exp_time<DateTime.Now)
+            {
+                TempData["over"] = "This contest is over";
+                return RedirectToAction("Details/" + id);
+            }else if (isvalid.C_Time>DateTime.Now)
+            {
+                TempData["early"] = "This contest has not begun yet";
+                return RedirectToAction("Details/" + id);
+            }
+            TempData["ctId"] = id;           
+            return RedirectToAction("Create","Contesters");
         }
 
         // GET: Contests/Create

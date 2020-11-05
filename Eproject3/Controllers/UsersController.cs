@@ -28,10 +28,71 @@ namespace Eproject3.Controllers
             var users = db.Users.Include(u => u.Packs).Include(u => u.Roles);
             return View(await users.Where(p=>p.id==user.id).ToListAsync());
         }
-       
-
-        public async Task<ActionResult> LoginView()
+        public async Task<ActionResult> Recipes(int userID)
         {
+            return View(await db.Recipes.Where(p=>p.Contester_id==userID).ToListAsync());
+        }
+        public async Task<ActionResult> Tips(int userID)
+        {
+            return View(await db.Tips.Where(p => p.Use_id == userID).ToListAsync());
+        }
+        public ActionResult ChangePwd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePwd(string oldp,string newp)
+        {
+            var user = (Users)Session["user"];
+            string hashed = r.HashPwd(oldp);
+            var isvalid = db.Users.Where(p=>p.UPhone==user.UPhone && p.UPass== hashed).FirstOrDefault();
+            ViewBag.old = oldp;
+            ViewBag.newp = newp;
+            if (user != null && isvalid != null)
+            {
+                if (newp.Length < 8 || newp.Length >50)
+                {
+                    ViewBag.err = "Password must be a 8-50 characters string ";
+                    return View();
+                }
+                isvalid.UPass = r.HashPwd(newp);
+                db.SaveChanges();
+                return RedirectToAction("index","Home");
+            }          
+            ViewBag.err = "Wrong credential";
+            return View();
+            
+        }
+        public ActionResult ForgetPwd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgetPwd(string phone)
+        {
+            ViewBag.phone = phone;
+            var isvalid = db.Users.Where(p => p.UPhone == phone).FirstOrDefault();
+            if (isvalid != null)
+            {
+                Guid newPass = new Guid();
+                isvalid.UPass = r.HashPwd(newPass.ToString());
+                //Send sms to User to send new password
+                db.SaveChanges();
+                TempData["done"] = "Check your inbox in your phone to receive new password ";
+                return RedirectToAction("LoginView");
+            }
+            else
+            {
+                ViewBag.err = "No phone number found";
+                return View();
+            }
+        }
+            public async Task<ActionResult> LoginView()
+        {
+            if (TempData["done"] != null)
+            {
+                ViewBag.done = TempData["done"];
+            }
             if (TempData["AuErr"] !=null)
             {
                 ViewBag.AuErr = true;
@@ -63,8 +124,7 @@ namespace Eproject3.Controllers
             Session["user"] = null;
             Session["isAdmin"] = null;
             return RedirectToAction("index", "Home");
-        }
-        
+        }        
         public async Task<ActionResult> Login(string phones, string pwd)
         {
             string hashed = r.HashPwd(pwd);
@@ -115,7 +175,6 @@ namespace Eproject3.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
             return View();
@@ -174,7 +233,7 @@ namespace Eproject3.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             var isValid = (Users)Session["user"];
-            if (isValid ==null || (isValid.id != id && Session["isAdmin"] == null))
+            if (isValid ==null || isValid.id != id)
             {
                 TempData["AuErr"] = true;
                 return RedirectToAction("LoginView");
@@ -206,10 +265,10 @@ namespace Eproject3.Controllers
                 users.Exp_Date = isValid.Exp_Date;
                 users.Pack_id = isValid.Pack_id;
                 users.Roll_id = isValid.Roll_id;
-                users.UPass = r.HashPwd(users.UPass);
+                //users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);

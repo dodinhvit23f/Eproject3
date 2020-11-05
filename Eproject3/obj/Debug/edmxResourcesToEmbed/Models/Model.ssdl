@@ -90,6 +90,7 @@
     <Property Name="Title" Type="varchar" MaxLength="100" />
     <Property Name="Levels" Type="varchar" MaxLength="20" />
     <Property Name="Cate_id" Type="int" />
+    <Property Name="isFree" Type="bit" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

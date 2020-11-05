@@ -27,6 +27,7 @@ namespace Eproject3.Models
         public string Title { get; set; }
         public string Levels { get; set; }
         public Nullable<int> Cate_id { get; set; }
+        public Nullable<bool> isFree { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeedBack> FeedBack { get; set; }
