@@ -12,26 +12,21 @@ namespace Eproject3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Contest
+    public partial class Categories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Contest()
+        public Categories()
         {
-            this.Exams = new HashSet<Exams>();
-            this.Contester = new HashSet<Contester>();
+            this.Recipes = new HashSet<Recipes>();
+            this.Tips = new HashSet<Tips>();
         }
     
         public int id { get; set; }
-        public Nullable<System.DateTime> C_Time { get; set; }
-        public Nullable<System.DateTime> exp_time { get; set; }
-        public string C_Description { get; set; }
-        public string img { get; set; }
-        public Nullable<int> id_winner { get; set; }
+        public string Cate_Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Exams> Exams { get; set; }
+        public virtual ICollection<Recipes> Recipes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contester> Contester { get; set; }
-        public virtual Contester Contester1 { get; set; }
+        public virtual ICollection<Tips> Tips { get; set; }
     }
 }

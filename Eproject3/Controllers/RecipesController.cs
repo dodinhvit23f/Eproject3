@@ -46,8 +46,12 @@ namespace Eproject3.Controllers
         // GET: Recipes/Create
         public ActionResult Create()
         {
-           // ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name");
-            return View();
+            Users u = (Users)Session["User"];
+            if (u != null)
+            {             
+                return View();
+            }
+            return Redirect("~/Users/LoginView");
         }
 
         // POST: Recipes/Create
