@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Users u = (Users)Session["User"];
 }
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h2>Details</h2>
 
 <div>
@@ -61,11 +61,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Contester.Name)
+            @Html.DisplayNameFor(model => model.Categories)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Contester.Name)
+            @Html.DisplayFor(model => model.Categories.Cate_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Levels)
+        </dt>
+
+        <dd>
+            <span class="fa fa-star " id="rate"></span>
+            <span class="fa fa-star "id="rate"></span>
+            <span class="fa fa-star "id="rate"></span>
+            <span class="fa fa-star "id="rate"></span>
+            <span class="fa fa-star "id="rate"></span>
         </dd>
 
     </dl>
@@ -99,3 +111,14 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        var Level = @Model.Levels;
+        console.log(Level)
+        for (var i = 0; i < Level; i++) {
+            $("#rate").eq(i).attr("class", "fa fa-star checked");
+        }
+ 
+    });
+    </script>

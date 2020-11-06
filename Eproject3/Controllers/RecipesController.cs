@@ -57,7 +57,8 @@ namespace Eproject3.Controllers
         {
             Users u = (Users)Session["User"];
             if (u != null)
-            {             
+            {           
+                ViewBag.Cate_id = new SelectList(db.Categories, "id", "Cate_name");
                 return View();
             }
             return Redirect("~/Users/LoginView");
@@ -68,7 +69,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int? Contester_id,int txtStatus,string rate)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status,Cate_id")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int? Contester_id,int txtStatus,string rate)
         {
             string Cont = "";
             string url_img = "";
@@ -161,7 +162,7 @@ namespace Eproject3.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
+            ViewBag.Cate_id = new SelectList(db.Categories, "id", "Cate_name");
             return View(recipes);
         }
 
@@ -170,7 +171,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent,int txtStatus,string rate)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status,Cate_id")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent,int txtStatus,string rate)
         { 
             string Cont = "";
             string url_img = "";

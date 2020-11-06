@@ -28,10 +28,10 @@
             @Html.DisplayNameFor(model => model.Img)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.R_Status)
+            @Html.DisplayNameFor(model => model.Levels)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Contester.Name)
+            @Html.DisplayNameFor(model => model.Categories)
         </th>
         <th></th>
     </tr>
@@ -39,7 +39,7 @@
     @foreach (var item in Model)
     {
         var ImgList = item.Img.Split(',').ToList();
-        if (/*Session["Pack_id"].ToString() != "3" */ /*user.Pack_id != null*/user!=null)
+        if (user!=null)
         {
 <tr>
     <td>
@@ -62,10 +62,10 @@
 
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.R_Status)
+        @Html.DisplayFor(modelItem => item.Levels)/5
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Contester.Name)
+        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
@@ -97,10 +97,10 @@
 
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.R_Status)
+        @Html.DisplayFor(modelItem => item.Levels)/5
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Contester.Name)
+        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
