@@ -66,6 +66,7 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Contester_id" ColumnName="Contester_id" />
           <ScalarProperty Name="R_Status" ColumnName="R_Status" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -41,14 +41,18 @@
             @Html.ValidationMessageFor(model => model.AccNum, "", new { @class = "text-danger" })
         </div>
     </div>
-
+    @Html.HiddenFor(model => model.Img, new { htmlAttributes = new { @class = "form-control" } })
     <div class="form-group">
-        @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Packs.name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Img, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })
+            @Html.DisplayFor(model => model.Packs.name, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-        
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Exp_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Exp_Date, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -64,11 +68,6 @@
 @*<form action="/Users/ChangePass">
     <img src="/images/@Html.DisplayFor(model=>model.Img)" />
 </form>*@
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/bootstrap.min.css")
-    @Styles.Render("~/Content/HomePage.css")
-   
+    @Styles.Render("~/Content/HomePage.css")   
     @Styles.Render("~/Content/BackgroundAnimation.css")
-
+    @{ 
+        var isvalid = (Users)Session["user"];
+    }
     <script>
         function openForm(id) {
             document.getElementById(id).style.display = "block";
@@ -20,26 +21,20 @@
             document.getElementById(id).style.display = "none";
             document.getElementById("allContent").classList.remove("blur")
         }
-
-
     </script>
-
-    @{
-        var isvalid = (Users)Session["user"];
-    }
 </head>
 <body>
     <div class="form-popup" id="myLoginForm">
-        <form action="Login.php" class="form-container" method="POST">
+        <form action="/Users/Login" class="form-container" method="POST">
             <h1>Login</h1>
             <hr>
             <div class="box-radius-border">
-                <label for="email"><b>Email:</b></label>
-                <input type="email" placeholder="Enter Email" name="txtUserName" required>
+                <label for="email"><b>Phone:</b></label>
+                <input type="text" placeholder="Enter Phonenumber" name="phones" required>
             </div>
             <div class="box-radius-border">
                 <label for="psw"><b>Password:</b></label>
-                <input type="password" placeholder="Enter Password" name="pwdPassword" required>
+                <input type="password" placeholder="Enter Password" name="pwd" required>
             </div>
             <hr>
             <button type="submit" class="btn">Login</button>
@@ -47,7 +42,7 @@
         </form>
     </div>
     <div class="form-popup" id="myRegisterForm">
-        <form action="" class="form-container">
+        <form action="/Users/Create" class="form-container">
             <h1>Register</h1>
             <hr>
             <label for="email"><b>Email:</b></label>
@@ -59,8 +54,6 @@
             <button type="button" class="btn cancel" onclick="closeForm('myRegisterForm')">Close</button>
         </form>
     </div>
-
-
     <div id="allContent">
         <header>
 
@@ -68,8 +61,18 @@
                 <div class="container nav">
                     <div class="right">
                         <div>
-                            <i><a href="#" onclick="openForm('myLoginForm')">Log In</a></i>
-                            <i><a href="#" onclick="openForm('myRegisterForm')">Register</a></i>
+                            @if (isvalid != null)
+                            {
+                                <i><a href="/Users/Edit/@isvalid.id">Hello,@isvalid.UAdress</a></i>
+                                <i><a href="/Users/LogOut">Logout</a></i>
+                            }
+                            else
+                            {
+                                @*href="/Users/LoginView"*@
+                                <i><a onclick="openForm('myLoginForm')" >Login</a></i>
+                                //href="/Users/Create"
+                                <i><a onclick="openForm('myRegisterForm')" >Register</a></i>
+                            }
                         </div>
                     </div>
                     <div class="left">

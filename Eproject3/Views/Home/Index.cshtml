@@ -35,8 +35,6 @@
                }
                         <a href="/Recipes/Details/@items.id">
                             <div class="col-sm-3 box-item relative">
-
-
                                 <div class="item">
                                     <div class="blur-hover">
                                         <h1>@items.Title</h1>
@@ -68,9 +66,7 @@
                             <img src="~/images/@items.Img.Split(',').First()">
                         </div>
                     </a>
-
                 </div>
-
             }
         </div>
     </div>
@@ -80,7 +76,6 @@
         <div class="container">
             Contest
             @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay*@
-
             @foreach (var items in contests)
             {
                 <div class="box-item relative">
@@ -92,9 +87,7 @@
                             <div class="blur-hover">
                                 Expired Date:@items.exp_time
                             </div>
-
                             <img src="~/images/@items.img" />
-
                         </div>
                     </a>
                 </div>
