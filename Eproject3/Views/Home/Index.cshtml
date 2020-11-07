@@ -29,21 +29,18 @@
             @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
             @foreach (var items in Model)
             {
-                if (@count == 3)
-                {
-                <div class="row"> </div>
-               }
-                        <a href="/Recipes/Details/@items.id">
-                            <div class="col-sm-3 box-item relative">
-                                <div class="item">
-                                    <div class="blur-hover">
-                                        <h1>@items.Title</h1>
-                                    </div>
-                                    <img src="~/images/@items.Img.Split(',').First()">
-                                </div>
+
+                <a href="/Recipes/Details/@items.id">
+                    <div class="col-sm-3 box-item relative">
+                        <div class="item">
+                            <div class="blur-hover">
+                                <h1>@items.Title</h1>
                             </div>
-                        </a>
-                
+                            <img src="~/images/@items.Img.Split(',').First()">
+                        </div>
+                    </div>
+                </a>
+
 
             }
         </div>
@@ -63,7 +60,7 @@
                             <div class="blur-hover">
                                 <h1>@items.Content</h1>
                             </div>
-                            <img src="~/images/@items.Img.Split(',').First()">
+                            <img src="~/images/@items.Img.Split(',').First()" alt="...">
                         </div>
                     </a>
                 </div>
@@ -82,9 +79,9 @@
                     <a href="/Contests/Details/@items.id">
                         <div class="item">
                             <div class="blur-hover">
-                                Starting Date:@items.C_Time
-                            </div>
-                            <div class="blur-hover">
+                                <p>
+                                    Starting Date:@items.C_Time
+                                </p>
                                 Expired Date:@items.exp_time
                             </div>
                             <img src="~/images/@items.img" />
