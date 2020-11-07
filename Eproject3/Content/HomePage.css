@@ -38,16 +38,21 @@ body {
 }
 
 footer{
-    clear:both;
-    position: absolute;
+    position: relative;
     display:table;
     width:100%;
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/ws_Recipe_Book.jpg');
+    background: linear-gradient(
+          rgba(0, 0, 0, 0.9), 
+          rgba(0, 0, 0, 0.7)
+        ),url('../images/ws_Recipe_Book.jpg') no-repeat;   
     background-position:center top;
+    background-size:cover;
     height:550px;
-    color:white;
-    
+    color:white; 
+    z-index:-1;
 }
+
+
 @media screen and (min-width: 1366px){
     footer {
         font-size: 19px;
@@ -59,6 +64,8 @@ footer a{
     z-index:3;
    
 }
+
+
 
 footer a:hover{
      color:white;
