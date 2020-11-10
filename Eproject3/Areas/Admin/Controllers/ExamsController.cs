@@ -36,7 +36,22 @@ namespace Eproject3.Areas.Admin.Controllers
             }
             return View(exams);
         }
-
+        public async Task<ActionResult> Marking(int? id,int mark)
+        {            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Exams exams = await db.Exams.FindAsync(id);
+            if (exams == null)
+            {
+                return HttpNotFound();
+            }
+            exams.E_Status = 1;
+            exams.Mark = mark;
+            db.SaveChanges();
+            return RedirectToAction("Contesters/"+ exams.Contest_id, "Contesters");
+        }
         // GET: Exams/Create
         public ActionResult Create()
         {

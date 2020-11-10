@@ -60,14 +60,13 @@ namespace Eproject3.Controllers
                     contester.Phone = isValid.UPhone;
                     contester.Name = isValid.UAdress;
                 }
+                else {
+                    contester.Use_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                }
                 if (db.Contester.Where(p => p.Phone == contester.Phone).FirstOrDefault() != null)
                 {
                     ViewBag.exist = "This phone number has been registered before,Pls try another one";
                     return View(contester);
-                }
-                else
-                {
-                    contester.Use_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
                 }
                 contester.Contest_id = (int)TempData["ctId"];
                 db.Contester.Add(contester);

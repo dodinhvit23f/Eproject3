@@ -17,6 +17,8 @@
     <Property Name="C_Description" Type="text" />
     <Property Name="img" Type="varchar" MaxLength="100" />
     <Property Name="id_winner" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="200" />
+    <Property Name="requirement" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="Contester">
     <Key>
