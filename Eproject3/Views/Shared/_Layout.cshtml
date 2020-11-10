@@ -9,20 +9,13 @@
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/HomePage.css")
     @Styles.Render("~/Content/BackgroundAnimation.css")
+   
 
     @{
         var isvalid = (Users)Session["user"];
     }
     <script>
-        function openForm(id) {
-            document.getElementById(id).style.display = "block";
-            document.getElementById("allContent").classList.add("blur")
-        }
 
-        function closeForm(id) {
-            document.getElementById(id).style.display = "none";
-            document.getElementById("allContent").classList.remove("blur")
-        }
 
         function goto(path) {
             window.location.href = path;
