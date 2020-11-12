@@ -10,6 +10,7 @@
     -webkit-animation: Animation 10s ease infinite;
     -moz-animation: Animation 10s ease infinite;
     animation: Animation 10s ease infinite;
+    position:relative;
 }
 
 @-webkit-keyframes Animation {
@@ -83,6 +84,8 @@
     padding-left: 0px;
     margin-left: auto;
     margin-bottom:15px;
+
+    font-size:20px;
 }
 
 .user-icon {
@@ -123,10 +126,12 @@
 
 .blog-img {
     margin-top: 10px;
+  
 }
 
     .blog-img img {
         object-fit: cover;
+          max-height: 500px;
     }
 
 .blog-content {
@@ -173,11 +178,19 @@
 }
 
 .center-content img {
-    width:70%;
-    height:50%;
+    max-width:60%;
+    max-height:30%;
     object-fit:cover;
-    margin-left:15%
+   
+   
 }
+
+.center-content{
+    vertical-align:middle;
+    margin-left:15px;
+    text-align:center;
+}
+
 .send-feedback {
     width:100%;
 }
@@ -186,4 +199,21 @@
     height:30px;
     border:none;
     background-color:#b5b5b6;
+}
+.center{
+    margin-top:auto;
+    margin-left:auto;
+    vertical-align:middle;
+}
+
+.winner{
+    position:absolute;
+    left:38%;
+    background-color:#db1d17;
+    height:60px;
+    padding-top:19px;
+    top:97%;
+    vertical-align:middle;
+    z-index:4;
+  
 }
