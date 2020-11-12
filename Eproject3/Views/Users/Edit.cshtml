@@ -20,7 +20,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.UPhone, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.UPhone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.UPhone, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.UPhone, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -42,6 +42,8 @@
         </div>
     </div>
     @Html.HiddenFor(model => model.Img, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.HiddenFor(model => model.UPhone, new { htmlAttributes = new { @class = "form-control" } })
+
     <div class="form-group">
         @Html.LabelFor(model => model.Packs.name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -64,7 +66,7 @@
 <a href="/Recipes/">Your recipes</a>|
 <a href="/Tips/">Your Tips</a>|
 <a href="/Users/ChangePwd">Change Password</a>|
-<a>Change Profile Photo</a>
+<a href="/Users/ChangePhoto">Change Profile Picture</a>
 @*<form action="/Users/ChangePass">
     <img src="/images/@Html.DisplayFor(model=>model.Img)" />
 </form>*@

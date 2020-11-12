@@ -1,0 +1,76 @@
+﻿@model Eproject3.Models.Recipes
+
+@{
+    ViewBag.Title = "Exams";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Exams</h2>
+
+<div>
+    <h4>Recipes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+        <dd>
+            <img style="height:200px;width:180px" src="~/images/@Html.DisplayFor(model => model.Img)" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ingredent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ingredent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Levels)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Levels)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Categories.Cate_Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Categories.Cate_Name)
+        </dd>
+        @if (ViewBag.marked != null)
+        {
+            <dt>
+                Your mark:
+            </dt>
+            <dd>
+                @ViewBag.mark
+            </dd>
+        }
+        else
+        {
+            <form action="/Admin/Exams/Marking/">
+                <input type="hidden" name="id" value="@ViewBag.id" />
+                <dt>
+                    Your mark:
+                </dt>
+                <dd>
+                    <input type="number" name="mark" /><button>Submit</button>
+                </dd>
+            </form>
+        }
+
+    </dl>
+</div>

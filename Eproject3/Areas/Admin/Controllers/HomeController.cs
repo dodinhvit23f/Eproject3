@@ -45,6 +45,8 @@ namespace Eproject3.Areas.Admin.Controllers
         {
             string hashed = r.HashPwd(pwd);
             var isValid = db.Users.Where(p=>p.UPhone==usn && p.UPass== hashed).FirstOrDefault();
+            ViewBag.usn = usn;
+            ViewBag.pwd = pwd;
             if (isValid == null)
             {
                 ViewBag.err = "Wrong credential";
@@ -64,9 +66,10 @@ namespace Eproject3.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                users.UPass = r.HashPwd(users.UPass);
+                //users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                Session["user"] = users;
                 return RedirectToAction("Index");
             }
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);

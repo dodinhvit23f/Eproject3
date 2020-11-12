@@ -22,7 +22,9 @@
         </div>
 
     </div>
-
+    <form method="get" action="/Home/Search">
+        Tips/Recipes:<input name="kw" required type="text" /><button>Search</button>
+    </form>
     <div class="content">
         Recipes
         <div class="container">
@@ -58,7 +60,7 @@
                     <a href="/Tips/Details/@items.id">
                         <div class="item">
                             <div class="blur-hover">
-                                <h1>@items.Content</h1>
+                                <h1>@items.Title</h1>
                             </div>
                             <img src="~/images/@items.Img.Split(',').First()" alt="...">
                         </div>
@@ -79,10 +81,7 @@
                     <a href="/Contests/Details/@items.id">
                         <div class="item">
                             <div class="blur-hover">
-                                <p>
-                                    Starting Date:@items.C_Time
-                                </p>
-                                Expired Date:@items.exp_time
+                                @items.title                               
                             </div>
                             <img src="~/images/@items.img" />
                         </div>

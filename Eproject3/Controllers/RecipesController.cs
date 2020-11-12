@@ -125,6 +125,7 @@ namespace Eproject3.Controllers
                     {
                         var isvalid = (Users)Session["user"];
                         recipes.Contester_id = isvalid.id;
+                        
                     }
                     else
                     {

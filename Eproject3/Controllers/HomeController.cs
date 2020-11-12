@@ -22,7 +22,7 @@ namespace Eproject3.Controllers
             DateTime next7days = DateTime.Today.AddDays(7);
             ViewBag.contests = db.Contest.Where(p=>p.exp_time>DateTime.Now||p.C_Time== next7days);
             var user = (Users)Session["user"];
-            if (user == null || user.Pack_id==3)
+            if (user == null || user.Pack_id==3 || user.Roll_id !=1)
             {
                 ViewBag.Tips = db.Tips.Where(p=>p.isFree.Value);
                 var isvalid = db.Recipes.Where(p => p.R_Status == 0);
@@ -30,14 +30,19 @@ namespace Eproject3.Controllers
             }
             else
             {
-                ViewBag.Tips = db.Tips.Where(p => !p.isFree.Value);
-                var isvalid = db.Recipes.Where(p => p.R_Status == 1);
+                ViewBag.Tips = db.Tips;
+                var isvalid = db.Recipes;
                 return View(await isvalid.ToListAsync());
             }
         }
-        [Route("Admin")]
-        public ActionResult AdminIndex()
+        [HttpGet]
+        public ActionResult Search(string kw)
         {
+            var tips = db.Tips.Where(p=>p.Title.Contains(kw));
+            var recipes = db.Recipes.Where(p=>p.Title.Contains(kw));
+            ViewBag.tips = tips;
+            ViewBag.recipes = recipes;
+            ViewBag.kw = kw;
             return View();
         }
         public ActionResult About()

@@ -1,0 +1,14 @@
+﻿@using Eproject3.Models
+@{
+    ViewBag.Title = "ChangePhoto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isvalid = (Users)Session["user"];
+}
+
+<h2>ChangePhoto</h2>
+@ViewBag.FileStatus
+<form method="post" enctype="multipart/form-data" action="/Users/ChangePhoto">
+    Old Photo:<img style="width:200px;height:160px" src="/images/@isvalid.Img" />
+    <input type="file"  name="url" /><br />
+    <button>Change</button>
+</form>

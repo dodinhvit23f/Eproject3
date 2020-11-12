@@ -86,6 +86,56 @@ namespace Eproject3.Areas.Admin.Controllers
             //ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
             return View(users);
         }
+        public ActionResult ChangePhoto()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePhoto(HttpPostedFileBase Url)
+        {
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
+            string url_img = "";
+            var users = (Users)Session["user"];
+            if (users != null)
+            {
+                if (Url != null)
+                {
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                        Url.SaveAs(path);
+                        url_img += Path.GetFileName(Url.FileName) + ",";
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.FileStatus = "Error while file uploading.";
+                    }
+                    string ex = Path.GetExtension(Url.FileName);
+
+                    if (!r.check(ex.ToLower(), formats))
+                    {
+                        ViewBag.FileStatus = ex + " is not an image";
+                        return View();
+                    }
+                    users.Img = url_img.Substring(0, url_img.Length - 1);
+                    db.SaveChangesAsync();
+                    Session["user"] = users;
+                    return RedirectToAction("Index","Home");
+                }
+                else
+                {
+                    ViewBag.FileStatus = "You must upload an image";
+                    return View();
+                }
+            }
+            else
+            {
+                return RedirectToAction("LoginView");
+            }
+        }
+
+
+
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2">Create new recipes</h2>
 
 
 @using (Html.BeginForm("Create", "Recipes", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -69,14 +69,8 @@
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script>
-
     $("#addContent").click(function e() {
             $("<p id=\"cont\"> <input type=\"text\" id=\"content\" name=\"txtText\" required />"+" <input type=\"file\" name=\"Url\" /></p>").insertBefore("#addContent");
     });
@@ -89,5 +83,4 @@
     $("#RemoveIgre").click(function e() {
         $("#RemoveIgre").prev().prev().remove();
     });
-
 </script>
