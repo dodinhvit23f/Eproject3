@@ -44,10 +44,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.isFree, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select name="isFree">
-                <option value="0">Free</option>
-                <option value="1">Only members can read this recipe</option>
-            </select>
+            @Html.DropDownListFor(x => x.isFree, new SelectList(new[] { new { Value = "true", Text = "Free" }, new { Value = "false", Text = "Must be member for read" }, }, "Value", "Text", Model))
             @Html.ValidationMessageFor(model => model.isFree, "", new { @class = "text-danger" })
         </div>
     </div>

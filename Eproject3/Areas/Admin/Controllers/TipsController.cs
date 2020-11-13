@@ -55,7 +55,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int isFree, string rate)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int Free, string rate)
         {
             int flag = 0;
             string Cont = "";
@@ -75,6 +75,7 @@ namespace Eproject3.Areas.Admin.Controllers
                             {
                                 flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
+                                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(tips);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
@@ -83,6 +84,7 @@ namespace Eproject3.Areas.Admin.Controllers
                         {
                             flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
+                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(tips);
                         }
                         if (flag != 1)
@@ -111,7 +113,7 @@ namespace Eproject3.Areas.Admin.Controllers
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
                 tips.Use_id = isvalid.id;
-                if (isFree == 0)
+                if (Free == 0)
                 {
                     tips.isFree = true;
                 }
@@ -119,13 +121,21 @@ namespace Eproject3.Areas.Admin.Controllers
                 {
                     tips.isFree = false;
                 }
-                tips.Levels = rate;
-                db.Tips.Add(tips);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (flag != 1)
+                {
+                    tips.Levels = rate;
+                    db.Tips.Add(tips);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(tips);
+                }
             }
 
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 
@@ -150,7 +160,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int isFree, string rate)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int Free, string rate)
         {
             int flag = 0;
             string Cont = "";
@@ -170,6 +180,7 @@ namespace Eproject3.Areas.Admin.Controllers
                             {
                                 flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
+                                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(tips);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
@@ -178,6 +189,7 @@ namespace Eproject3.Areas.Admin.Controllers
                         {
                             flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
+                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(tips);
                         }
                         if (flag != 1)
@@ -206,7 +218,7 @@ namespace Eproject3.Areas.Admin.Controllers
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
                 tips.Use_id = isvalid.id;
-                if (isFree == 0)
+                if (Free == 0)
                 {
                     tips.isFree = true;
                 }
@@ -214,12 +226,20 @@ namespace Eproject3.Areas.Admin.Controllers
                 {
                     tips.isFree = false;
                 }
-                tips.Levels = rate;
-                db.Entry(tips).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (flag != 1)
+                {
+                    tips.Levels = rate;
+                    db.Entry(tips).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(tips);
+                }
             }
             //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 

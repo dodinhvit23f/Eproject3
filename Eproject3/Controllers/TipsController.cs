@@ -64,7 +64,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText,int isFree, string rate)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, string rate)
         {
             int flag = 0;
             string Cont = "";
@@ -84,6 +84,7 @@ namespace Eproject3.Controllers
                             {
                                 flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
+                                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(tips);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
@@ -92,6 +93,7 @@ namespace Eproject3.Controllers
                         {
                             flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
+                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(tips);
                         }
                         if (flag != 1)
@@ -120,20 +122,21 @@ namespace Eproject3.Controllers
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
                 tips.Use_id = isvalid.id;
-                if (isFree == 0)
+                
+                if (flag != 1)
                 {
-                    tips.isFree = true;
+                    tips.Levels = rate;
+                    db.Tips.Add(tips);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
                 else {
-                    tips.isFree = false;
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(tips);
                 }
-                tips.Levels = rate;
-                db.Tips.Add(tips);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 
@@ -158,7 +161,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "iid,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int isFree, string rate)
+        public async Task<ActionResult> Edit([Bind(Include = "iid,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, string rate)
         {
             int flag = 0;
             string Cont = "";
@@ -214,20 +217,21 @@ namespace Eproject3.Controllers
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
                 tips.Use_id = isvalid.id;
-                if (isFree == 0)
+                
+                if (flag != 1)
                 {
-                    tips.isFree = true;
+                    tips.Levels = rate;
+                    db.Entry(tips).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    tips.isFree = false;
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(tips);
                 }
-                tips.Levels = rate;
-                db.Entry(tips).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
             }
-            //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 

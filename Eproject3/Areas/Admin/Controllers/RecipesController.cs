@@ -90,7 +90,9 @@ namespace Eproject3.Areas.Admin.Controllers
                             {
                                 flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
+                                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
+                                
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
                         }
@@ -98,7 +100,9 @@ namespace Eproject3.Areas.Admin.Controllers
                         {
                             flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
+                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(recipes);
+                        
                         }
                         if (flag != 1) {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
@@ -141,12 +145,19 @@ namespace Eproject3.Areas.Admin.Controllers
                 {
                     recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
                 }
-                recipes.Levels = rate;
-                recipes.R_Status = txtStatus;
-                db.Recipes.Add(recipes);
-                await db.SaveChangesAsync();
+                if (flag != 1)
+                {
+                    recipes.Levels = rate;
+                    recipes.R_Status = txtStatus;
+                    db.Recipes.Add(recipes);
+                    await db.SaveChangesAsync();
+                }
+                else {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(recipes);
+                }
             }
-            ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(recipes);
 
         }
@@ -192,6 +203,7 @@ namespace Eproject3.Areas.Admin.Controllers
                             {
                                 flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
+                                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
@@ -200,6 +212,7 @@ namespace Eproject3.Areas.Admin.Controllers
                         {
                             flag = 1;
                             ViewBag.FileStatus = "Image cannot be null !!";
+                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(recipes);
                         }
                         if (flag != 1)
@@ -239,16 +252,23 @@ namespace Eproject3.Areas.Admin.Controllers
                     var isvalid = (Users)Session["user"];
                     recipes.Contester_id = isvalid.id;
                 }
-                recipes.Levels = rate;
-                Cont = Cont.Substring(0, Cont.Length - 1);
-                recipes.Content = Cont;
-                recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
-                recipes.R_Status = txtStatus;
-                db.Entry(recipes).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (flag != 1)
+                {
+                    recipes.Levels = rate;
+                    Cont = Cont.Substring(0, Cont.Length - 1);
+                    recipes.Content = Cont;
+                    recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
+                    recipes.R_Status = txtStatus;
+                    db.Entry(recipes).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(recipes);
+                }
             }
-            ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name", recipes.Contester_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(recipes);
         }
             // GET: Recipes/Delete/5
