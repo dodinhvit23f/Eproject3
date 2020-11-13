@@ -53,7 +53,7 @@ namespace Eproject3.Controllers
             Users u = (Users)Session["User"];
             if (u != null)
             {
-                ViewBag.Cate_id = new SelectList(db.Categories, "id", "Cate_name");
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                 return View();
             }
             return Redirect("~/Users/LoginView");
@@ -149,7 +149,7 @@ namespace Eproject3.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 
@@ -158,7 +158,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Content,Img")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int isFree, string rate)
+        public async Task<ActionResult> Edit([Bind(Include = "iid,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int isFree, string rate)
         {
             int flag = 0;
             string Cont = "";

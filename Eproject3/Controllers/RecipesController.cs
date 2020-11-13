@@ -58,7 +58,7 @@ namespace Eproject3.Controllers
             Users u = (Users)Session["User"];
             if (u != null)
             {           
-                ViewBag.Cate_id = new SelectList(db.Categories, "id", "Cate_name");
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                 return View();
             }
             return Redirect("~/Users/LoginView");
@@ -168,7 +168,7 @@ namespace Eproject3.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Cate_id = new SelectList(db.Categories, "id", "Cate_name");
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(recipes);
         }
 
