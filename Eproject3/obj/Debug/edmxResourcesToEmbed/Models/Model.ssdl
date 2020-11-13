@@ -18,6 +18,8 @@
     <Property Name="img" Type="varchar" MaxLength="100" />
     <Property Name="id_winner" Type="int" />
     <Property Name="detail" Type="varchar" MaxLength="200" />
+    <Property Name="title" Type="varchar" MaxLength="200" />
+    <Property Name="requirement" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="Contester">
     <Key>

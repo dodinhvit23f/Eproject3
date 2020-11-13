@@ -27,6 +27,8 @@ namespace Eproject3.Models
         public string C_Description { get; set; }
         public string img { get; set; }
         public Nullable<int> id_winner { get; set; }
+        public string title { get; set; }
+        public string requirement { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exams> Exams { get; set; }
