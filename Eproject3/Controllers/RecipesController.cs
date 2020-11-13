@@ -69,8 +69,9 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status,Cate_id")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent, int? Contester_id,int txtStatus,string rate)
+        public async Task<ActionResult> Create([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status,Cate_id")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText, string[] txtIgredent,int txtStatus,string rate)
         {
+            int flag = 0;
             string Cont = "";
             string url_img = "";
             string ingre = "";
@@ -83,11 +84,11 @@ namespace Eproject3.Controllers
                         {
                         if (img != null)
                         {
-                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
-                            img.SaveAs(path);
+                            
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
+                                flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
                                 return View(recipes);
                             }
@@ -95,8 +96,13 @@ namespace Eproject3.Controllers
                         }
                         else
                         {
+                            flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
                             return View(recipes);
+                        }
+                        if (flag != 1) {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
                         }
                     }
                     }
@@ -172,7 +178,8 @@ namespace Eproject3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,Title,Content,Img,Contester_id,R_Status,Cate_id")] Recipes recipes, HttpPostedFileBase[] Url, string[] txtText,string[] txtIgredent,int txtStatus,string rate)
-        { 
+        {
+            int flag=0;
             string Cont = "";
             string url_img = "";
             string ingre = "";
@@ -185,11 +192,11 @@ namespace Eproject3.Controllers
                     {
                         if (img != null)
                         {
-                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
-                            img.SaveAs(path);
+                            
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
+                                flag = 1;
                                 ViewBag.FileStatus = ex+" is not an image";
                                 return View(recipes);
                             }
@@ -197,8 +204,13 @@ namespace Eproject3.Controllers
                         }
                         else
                         {
+                            flag = 1;
                             ViewBag.FileStatus = "Image cannot be null !!";
                             return View(recipes);
+                        }
+                        if (flag != 1) {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
                         }
                     }
 
@@ -226,6 +238,11 @@ namespace Eproject3.Controllers
 
                         ingre += ingredent + ",";
                     }
+                }
+                if (Session["user"] != null)
+                {
+                    var isvalid = (Users)Session["user"];
+                    recipes.Contester_id = isvalid.id;
                 }
                 recipes.Levels = rate;
                 Cont = Cont.Substring(0, Cont.Length - 1);

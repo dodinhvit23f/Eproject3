@@ -73,11 +73,11 @@
         </dt>
 
         <dd>
-            <span class="fa fa-star " id="rate"></span>
-            <span class="fa fa-star "id="rate"></span>
-            <span class="fa fa-star "id="rate"></span>
-            <span class="fa fa-star "id="rate"></span>
-            <span class="fa fa-star "id="rate"></span>
+            <span class="fa fa-star" id="rate"></span>
+            <span class="fa fa-star"id="rate"></span>
+            <span class="fa fa-star"id="rate"></span>
+            <span class="fa fa-star"id="rate"></span>
+            <span class="fa fa-star"id="rate"></span>
         </dd>
 
     </dl>
@@ -92,8 +92,6 @@
             <input type="hidden" value="@Model.id" name="Recipes_id" />
             <input type="text" name="Content" autocomplete="off" />
             <input type="submit" value="Comment" />
-
-
         }
     }
     else
@@ -115,9 +113,15 @@
 <script>
     $(document).ready(function () {
         var Level = @Model.Levels;
-        console.log(Level)
-        for (var i = 0; i < Level; i++) {
-            $("#rate").eq(i).attr("class", "fa fa-star checked");
+        var i = 0;
+        while (i < Level) {
+            $("#rate").each(function () {  
+                $(this).addClass('checked');
+                console.log(this)
+                     console.log(i)
+                i++; 
+            });
+            
         }
  
     });
