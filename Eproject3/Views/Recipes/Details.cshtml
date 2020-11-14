@@ -6,44 +6,10 @@
     Users u = (Users)Session["User"];
     List<string> ingre = Html.DisplayNameFor(model => model.ingredent).ToString().Split(',').ToList();
     List<string> reci = Html.DisplayNameFor(model => model.Content).ToString().Split('.').ToList();
-    bool itEmpty = true;
+
 }
 
-<script>
-    function sendFeedback(event, id) {
 
-        if (event.keyCode == 13) {
-            sendFeedbackWithClick(id);
-        }
-    }
-
-    function sendFeedbackWithClick(id) {    
-
-        var itEmpty = document.getElementById("ck_U").value;
-       
-        if (itEmpty == false || itEmpty == 'False') {
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "FeedBacks/Create", true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(
-                JSON.stringify({
-                    "Use_id": u.id,
-                    "Recipes_id": Model.id,
-                    "Content": document.getElementById(id).value
-                })
-             );
-
-        }
-
-        if (itEmpty === true || itEmpty === 'True') {
-            alert("điều hướng trang");
-            this.goto('../../Users/LoginView');
-        }
-
-    }
-
-</script>
 
 <div class="col-sm-12" id="detail-background">
     <div class="col-sm-2"></div>
@@ -73,7 +39,7 @@
                     <ul>
                         @foreach (var items in ingre)
                         {
-                        <li>@items</li>
+                            <li>@items</li>
                         }
                     </ul>
                 </div>
@@ -88,7 +54,7 @@
                     <ul>
                         @foreach (var items in reci)
                         {
-                        <li>@items</li>
+                            <li>@items</li>
                         }
                     </ul>
                 </div>
@@ -106,10 +72,10 @@
                 foreach (var image in ImgList)
                 {
                     i++;
-            <div class="col-sm-12">
-                <p>Step @i: @Content_step.ElementAt(i - 1)</p>
-            </div>
-            <div class="center-content"> <img src="~/images/@(image)" alt="Food" /> </div>
+                    <div class="col-sm-12">
+                        <p>Step @i: @Content_step.ElementAt(i - 1)</p>
+                    </div>
+                    <div class="center-content"> <img src="~/images/@image" alt="Food" /> </div>
 
                 }
             }
@@ -131,29 +97,28 @@
         <div class="col-sm-12 feedback-content">
             <div class="col-sm-2">
                 <div class="user-icon-feedback">
-                    <img src=".\Image\Logo\logo.png" alt="Avatar" />
+                    <img src="~/images/@u.Img" alt="Avatar" />
                 </div>
             </div>
             <div class="col-sm-10 comment">
                 <div class="col-sm-8 send-feedback">
-                    @if (u != null)
-                    {
-                        itEmpty = false;
-                    }
-                    <input id="ck_U" type="hidden" value='@itEmpty.ToString()'/>
-                  
-                    <input type="text" id="yourFeedback" name="Content" autocomplete="off"  placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
+
+
+
+
+
+                    <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
                     <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
                 </div>
                 <div class="col-sm-2">
-                    
+
                 </div>
             </div>
 
             <div class="col-sm-12 feedback-content">
                 <div class="col-sm-2">
                     <div class="user-icon-feedback">
-                        <img src=".\Image\Logo\logo.png" alt="Avatar" />
+                        <img src="~/images/@u.Img" alt="Avatar" />
                     </div>
 
                 </div>
@@ -161,8 +126,25 @@
                     <strong>Đỗ Đình Tiến</strong><br />
                     <i>Cá Hấp Bia</i>
                 </div>
-            </div>
 
+            </div>
+            @foreach (var item in ViewBag.FeedBack)
+            {
+                <div class="col-sm-12 feedback-content">
+                    <div class="col-sm-2">
+                        <div class="user-icon-feedback">
+                            <img src="~/images/@item.Users.Img" alt="Avatar" />
+                        </div>
+
+                    </div>
+                    <div class="col-sm-9 comment">
+                        <strong>@* Dien vao user name*@</strong><br />
+                        <i>@item.Content</i>
+                    </div>
+
+                </div>
+
+            }
 
 
 
@@ -171,29 +153,103 @@
     </div>
     <div>
 
-       @* @if (u != null)
-        {
-            using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+        @* @if (u != null)
             {
-                @Html.AntiForgeryToken()
-                <input type="hidden" value="@u.id" name="Use_id" />
-                <input type="hidden" value="" name="" />
-                <input type="text" name="" autocomplete="off" />
-                <input type="submit" value="Comment" />
+                using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" value="@u.id" name="Use_id" />
+                    <input type="hidden" value="" name="" />
+                    <input type="text" name="" autocomplete="off" />
+                    <input type="submit" value="Comment" />
 
 
+                }
             }
-        }
-        else
-        {
-            <button type="button" onclick=")">Login for comment</button>
-        }
-           *@
-        @foreach (var item in ViewBag.FeedBack)
-        {
-            <h3>
-                @item.Users.Img : @item.Content
-            </h3>
-        }
+            else
+            {
+                <button type="button" onclick=")">Login for comment</button>
+            }
+        *@
+
+
+
     </div>
 </div>
+@if (u != null)
+{
+    <script>
+        async function sendFeedback(event, id) {
+
+            if (event.keyCode == 13) {
+                sendFeedbackWithClick(id);
+            }
+        }
+
+        async function sendFeedbackWithClick(id) {
+
+
+
+
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../../FeedBacks/CreateRecipce", true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            @*
+                var data = new FormData();
+                data.append('Use_id', @u.id.ToString());
+                data.append('Recipes_id', @Model.id.ToString());
+                data.append('Content', document.getElementById(id).value);
+
+                xhr.send(data)
+                    *@
+
+            alert( JSON.stringify({
+                "Use_id": @u.id.ToString(),
+                "Recipes_id": @Model.id.ToString(),
+                "Content": document.getElementById(id).value
+            }))
+            try{
+                await xhr.send(
+                JSON.stringify({
+                    "Use_id":  @u.id.ToString(),
+                    "Recipes_id": @Model.id.ToString(),
+                    "Content": document.getElementById(id).value
+                })
+
+             );
+              
+            } catch(e){
+
+            }
+
+            
+            setTimeout(function(){
+                window.location.reload();
+            },4000)
+
+
+        }
+
+
+
+
+    </script>
+}
+else
+{
+    <script>
+        function sendFeedback(event, id) {
+
+            if (event.keyCode == 13) {
+                sendFeedbackWithClick(id);
+            }
+        }
+
+        function sendFeedbackWithClick(id) {
+            alert("điều hướng trang");
+            this.goto('../../Users/LoginView');
+        }
+
+    </script>
+}
