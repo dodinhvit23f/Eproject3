@@ -48,7 +48,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,C_Time,exp_time,C_Description,detail,img")] Contest contest, HttpPostedFileBase Url)
+        public async Task<ActionResult> Create([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,detail,img")] Contest contest, HttpPostedFileBase Url)
         {
             if (DateTime.Compare(contest.C_Time.Value,contest.exp_time.Value) >0)
             {
@@ -97,7 +97,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,C_Time,exp_time,C_Description,detail,img")] Contest contest, HttpPostedFileBase Url)
+        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,detail,img")] Contest contest, HttpPostedFileBase Url)
         {
             if (DateTime.Compare(contest.C_Time.Value, contest.exp_time.Value) > 0)
             {
@@ -117,7 +117,10 @@ namespace Eproject3.Areas.Admin.Controllers
                 {
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
-                contest.img = url_img.Substring(0, url_img.Length - 1);
+                if (Url != null)
+                {
+                    contest.img = url_img.Substring(0, url_img.Length - 1);
+                }
                 db.Entry(contest).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

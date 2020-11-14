@@ -171,14 +171,60 @@ namespace Eproject3.Controllers
             }
             return View(users);
         }
-
-        // GET: Users/Create
-        public ActionResult Create()
+         public ActionResult ChangePhoto()
         {
-            ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
-            ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
             return View();
         }
+        [HttpPost]
+        public ActionResult ChangePhoto(HttpPostedFileBase Url)
+        {
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
+            string url_img = "";
+            var users = (Users)Session["user"];
+            if (users != null)
+            {
+                if (Url != null)
+                {
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                        Url.SaveAs(path);
+                        url_img += Path.GetFileName(Url.FileName) + ",";
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.FileStatus = "Error while file uploading.";
+                    }
+                    string ex = Path.GetExtension(Url.FileName);
+
+                    if (!r.check(ex.ToLower(), formats))
+                    {
+                        ViewBag.FileStatus = ex + " is not an image";
+                        return View();
+                    }
+                    users.Img = url_img.Substring(0, url_img.Length - 1);
+                    db.SaveChangesAsync();
+                    Session["user"] = users;
+                    return RedirectToAction("Edit/" + users.id);
+                }
+                else
+                {
+                    ViewBag.FileStatus = "You must upload an image";
+                    return View();
+                }
+            }
+            else
+            {
+                return RedirectToAction("LoginView");
+            }
+        }
+            // GET: Users/Create
+            public ActionResult Create()
+            {
+                ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
+                ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
+                return View();
+            }
 
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -267,6 +313,7 @@ namespace Eproject3.Controllers
                 users.Roll_id = isValid.Roll_id;
                 //users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
+                Session["user"] = users;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index","Home");
             }
@@ -314,5 +361,9 @@ namespace Eproject3.Controllers
             }
             base.Dispose(disposing);
         }
+        
+
+
+
     }
 }

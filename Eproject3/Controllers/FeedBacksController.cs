@@ -22,6 +22,7 @@ namespace Eproject3.Controllers
             return View(await feedBack.ToListAsync());
         }
 
+
         // GET: FeedBacks/Details/5
         public async Task<ActionResult> Details(int? id)
         {

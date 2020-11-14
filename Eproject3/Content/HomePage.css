@@ -1,0 +1,337 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    object-fit: contain;
+    font-family: Bahnschrift;
+}
+
+body {
+    background-color: whitesmoke;
+    height:100%;    
+}
+
+.container {
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+    max-width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    position:relative;
+}
+
+.header {
+    height: 60px;
+    position: fixed;
+    top: 0px;
+}
+
+.nav {
+    height: 60px;
+}
+
+.blur {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    opacity: 0.9;
+}
+
+footer {
+    clear: both;
+    position: absolute;
+    height: 310px;
+    background-color: black;
+    bottom:0px;
+    color: white;
+    
+}
+
+.background-black {
+    background-color: #11111;
+}
+
+.left {
+    position: absolute;
+    left: 5%;
+}
+
+.right {
+    position: fixed;
+    top: 15px;
+    right: 2%;
+}
+
+.content-img {
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 450px;
+    min-height: 300px;
+    background-image: url("../Image/GRUNDIG_KTCHN_kitchen-wallpaper_1-1280x720.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 450px;
+}
+
+.item {
+    position: static;
+    border: 5px solid whitesmoke;
+    margin-top:10px;
+    width:100%;
+    height:100%;
+}
+
+    .item:hover img {
+        filter: blur(2px);
+        -webkit-filter: blur(2px);
+        opacity: 0.9;
+    }
+
+.blur-hover:hover .item {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    opacity: 0.9;
+}
+
+.box-item:hover .blur-hover {
+    display: block;
+}
+
+.item > img {
+    max-width: 100%;
+    position: relative;
+    object-fit: contain;
+    
+}
+
+.item > div {
+    margin: auto;
+}
+
+.box-item {
+    width: 500px;
+    height: 400px;
+    
+    float: left;
+    margin-right: 15px;
+}
+
+    .box-item .relative {
+        left: 0px;
+        margin-right: 0px;
+    }
+
+.block {
+    max-width: 50%;
+    width: 49%;
+    display: inline-block;
+    object-fit: contain;
+}
+
+.content {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position:relative;
+}
+
+.menu {
+    margin-left: 12%;
+}
+
+.relative {
+    position: relative;
+}
+
+.inline {
+    display: inline-block;
+}
+
+
+
+div a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    height: 60px;
+}
+
+
+.menu li > * {
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0px;
+}
+
+.menu > ul > li {
+    height: 60px;
+    width: 10%;
+    display: inline-block;
+    text-align: center;
+    padding-top: 15px;
+    position: relative;
+}
+
+.menu li:hover {
+    background-color: #000000;
+}
+
+    .menu li:hover a {
+        color: whitesmoke;
+    }
+
+.menu > ul li:hover .my-dropdown-menu {
+    display: block;
+    background-color: black;
+    color: white;
+    z-index:5;
+}
+
+li a {
+}
+
+a {
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.my-dropdown-menu {
+    position: absolute;
+    display: none;
+    width: 200%;
+    top: 60px;
+    left: initial;
+}
+
+    .my-dropdown-menu > ul {
+        height: 60px;
+    }
+
+        .my-dropdown-menu > ul > li {
+            height: 60px;
+            background-color: black;
+            list-style: none;
+            text-align: left;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+            .my-dropdown-menu > ul > li:hover {
+                background-color: #fcfcfc;
+                color: black;
+            }
+
+                .my-dropdown-menu > ul > li:hover > * {
+                    color: black;
+                }
+
+.blur-hover {
+    text-align: center;
+    position: absolute;
+    opacity: 1;
+    font-weight: bold;
+    width: 100%;
+    z-index: 4;
+    top: 40%;
+    color: whitesmoke;
+    display: none;
+    transition: 1s;
+}
+
+.form-popup {
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    display: none;
+    z-index: 7;
+}
+
+    .form-popup > form > input {
+        height: 30px;
+        width: 200px;
+    }
+
+    .form-popup > form {
+        background: white;
+        color: black;
+        width: 450px;
+        height: 350px;
+        border-radius: 5px;
+    }
+
+        .form-popup > form > h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-top: 15px;
+        }
+
+        .form-popup > form > button {
+            width: 100px;
+            height: 30px;
+            background-color: black;
+            opacity: 0.5;
+            border: none;
+            margin-left: 15%;
+            color: whitesmoke;
+            margin-top: 25px;
+        }
+
+.myLoginForm > form > * {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.box-radius-border {
+    width: 95%;
+    height: 50px;
+    border: 2px solid #1f1b1b;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+    .box-radius-border:focus {
+        border: 2px solid #68bcfb;
+    }
+
+    .box-radius-border input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 80%;
+        height: 100%;
+    }
+
+    .box-radius-border:focus-within {
+        border: 1px solid #1fa2ee;
+    }
+
+        .box-radius-border:focus-within label {
+            transition: 0.3s;
+            transform: translate(50%,-110%);
+            background-color: white;
+            width: auto;
+        }
+
+    .box-radius-border label {
+        width: 70px;
+    }
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+.infor{
+    display:inline-block;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
+.infor img{
+    max-width:200px;
+    max-height:200px;
+    border-radius:100px;
+}

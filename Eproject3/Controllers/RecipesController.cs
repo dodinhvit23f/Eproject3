@@ -146,6 +146,20 @@ namespace Eproject3.Controllers
                     recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
                 }
                 if (flag != 1)
+                    if (Session["user"] != null)
+                    {
+                        var isvalid = (Users)Session["user"];
+                        recipes.Contester_id = isvalid.id;
+                        
+                    }
+                    else
+                    {
+                        recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                    }
+                recipes.R_Status = txtStatus;
+                db.Recipes.Add(recipes);
+                await db.SaveChangesAsync();
+                if (TempData["Supplement"] != null)
                 {
                   
                     recipes.Levels = rate;
@@ -225,8 +239,6 @@ namespace Eproject3.Controllers
                             img.SaveAs(path);
                         }
                     }
-
-
                 }
                 catch (Exception e)
                 {

@@ -23,6 +23,17 @@ namespace Eproject3.Repo
             }
             return sBuilder.ToString();
         }
+        public bool check(string extension, string[] format)
+        {
+            foreach (string exten in format)
+            {
+                if (extension.Contains(exten))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }

@@ -29,6 +29,25 @@ namespace Eproject3.Areas.Admin.Controllers
             var contester = db.Contester.Include(c => c.Users);
             return View(await contester.ToListAsync());
         }
+        public async Task<ActionResult> Exams(int cterID)
+        {
+            var isValid = db.Exams.Where(p => p.Contester_id == cterID).FirstOrDefault();
+            if (isValid == null)
+            {
+                return RedirectToAction("Index","Contests");
+            }
+            else
+            {
+                if (isValid.Mark != 0)
+                {
+                    ViewBag.marked = true;
+                    ViewBag.mark = isValid.Mark;
+                }
+                ViewBag.id = isValid.id;
+                return View(isValid.Recipes);
+            }
+        }
+
         public async Task<ActionResult> Contesters(int CtID)
         {
             var isValid = db.Contest.Where(p => p.id == CtID).FirstOrDefault().Contester;
@@ -39,6 +58,7 @@ namespace Eproject3.Areas.Admin.Controllers
             }
             else
             {
+                TempData["ctID"] = CtID;
                 return View(isValid);
 
             }

@@ -84,7 +84,7 @@ namespace Eproject3.Areas.Admin.Controllers
                     {
                         if (img != null)
                         {
-                           
+
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
@@ -92,7 +92,7 @@ namespace Eproject3.Areas.Admin.Controllers
                                 ViewBag.FileStatus = ex + " is not an image";
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
-                                
+
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
                         }
@@ -102,9 +102,10 @@ namespace Eproject3.Areas.Admin.Controllers
                             ViewBag.FileStatus = "Content must have image !!!!";
                             ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(recipes);
-                        
+
                         }
-                        if (flag != 1) {
+                        if (flag != 1)
+                        {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
                             img.SaveAs(path);
                         }
@@ -152,14 +153,15 @@ namespace Eproject3.Areas.Admin.Controllers
                     db.Recipes.Add(recipes);
                     await db.SaveChangesAsync();
                 }
-                else {
-                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                    return View(recipes);
-                }
-            }
-            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-            return View(recipes);
+                else
+                {
 
+                }
+                recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                return View(recipes);
+            }
+            return View();//check again
         }
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)

@@ -1,6 +1,6 @@
 ﻿@model Eproject3.Models.Recipes
 @using Eproject3.Models;
-@{
+@{   
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Users u = (Users)Session["User"];
@@ -44,19 +44,43 @@
         <dd>
             @Html.DisplayFor(model => model.R_Status)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ingredent)
-        </dt>
-
-        <dd>
-            @{
-                var Igre = Model.ingredent.Split(',').ToList();
-                foreach (var ingre in Igre)
-                {
-                    <p>@ingre</p>
+    List<string> ingre = Html.DisplayNameFor(model => model.ingredent).ToString().Split(',').ToList();
+    List<string> reci = Html.DisplayNameFor(model => model.Content).ToString().Split('.').ToList();
+}
+<div class="col-sm-12" id="detail-background">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8" id="detail-content">
+        <h1><i>@Html.DisplayFor(model => model.Title)</i></h1>
+        <div class="col-sm-12">
+            <div class="col-sm-5">
+                @{
+                    var Content_step = Model.Content.Split(',').ToList();
+                    var ImgList = Model.Img.Split(',').ToList();
+                    int i = 0;
+                    foreach (var image in ImgList)
+                    {
+                        i++;
+                        <p>Step @i</p>
+                        <p>@Content_step.ElementAt(i - 1) <img src="~/images/@(image)"  /></p>
+                    }
                 }
-
+            </div>
+            <div class="col-sm-7">
+                <h3>Ingredents</h3>
+                <ul>
+                    @foreach (var items in ingre)
+                    {
+                        <li>@items</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <hr>
+            <h3>How to do</h3>
+            @foreach (var items in reci)
+            {
+                <li>@items</li>
             }
         </dd>
 
@@ -92,6 +116,9 @@
         </dd>
 
     </dl>
+       </div>
+    </div>
+    <div class="col-sm-2"></div>
 </div>
 <div>
     @if (u != null)
@@ -137,4 +164,4 @@
             $("#rate").eq(i).attr("class", "fa fa-star checked");
         }
     });
-    </script>
+</script>

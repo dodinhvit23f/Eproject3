@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Eproject3.Models.Contester>
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
 }
 
 <!DOCTYPE html>
@@ -12,48 +13,81 @@
     <title>Contesters</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users.UPhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contest.C_Description)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Users.UPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contest.C_Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.id })
-            </td>
-        </tr>
-    }
-    
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Contestant's Name
+                </th>
+                <th>
+                    Contestant's Phone number
+                </th>
+                <th>
+                    Contest
+                </th>
+                <th>
+                    Exam
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (int.Parse(item.Exams.Where(p => p.Contester_id == item.id).FirstOrDefault().E_Status.ToString()) == 0)
+                {
+                    <tr style="background-color:cadetblue">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contest.title)
+                        </td>
+                        <td>
+                            <a href="/Admin/Contesters/Exams?cterID=@item.id">
+                                Click here
+                            </a>
+                        </td>
+                        <td style="color:red">
+                            Not marked
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+                else{
+                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contest.title)
+                        </td>
+                        <td>
+                            <a href="/Admin/Contesters/Exams?cterID=@item.id">
+                                Click here
+                            </a>
+                        </td>
+                        <td>
+                            marked
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>   
     </table>
 </body>
 </html>
