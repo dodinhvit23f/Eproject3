@@ -50,10 +50,13 @@
         <div class="col-md-10">
             @*@Html.EditorFor(model => model.Img, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
             @{
-                var Content_step = Model.Content.Split(',').ToList();
-                foreach (var i in Content_step)
-                {
-                    <p>  <input type="text" name="txtText" value="@i" class="form-control" autocomplete="off" required /> <input type="file" name="Url" class="form-control" required /></p>
+                    var ImgList = Model.Img.Split(',').ToList();
+                    var Content_step = Model.Content.Split(',').ToList();
+                    int j = 0;
+                    foreach (var i in Content_step)
+                    {
+                        j++;
+                    <p>  <input type="text" name="txtText" value="@i" class="form-control" autocomplete="off" required /> <input type="file" name="Url" value="@ImgList.ElementAt(j - 1)" class="form-control" required  /><img src="~/images/@ImgList.ElementAt(j - 1)"height="100" width="100"/></p>
                 }
                 <button id="addContent" type="button" class="btn btn-outline-primary btn-lg">+</button>
                 <button id="RemoveContent" type="button" class="btn btn-outline-primary btn-lg">-</button>

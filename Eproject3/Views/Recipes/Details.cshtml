@@ -73,11 +73,22 @@
         </dt>
 
         <dd>
-            <span class="fa fa-star" id="rate"></span>
-            <span class="fa fa-star"id="rate"></span>
-            <span class="fa fa-star"id="rate"></span>
-            <span class="fa fa-star"id="rate"></span>
-            <span class="fa fa-star"id="rate"></span>
+            @{
+                for (int index = 0; index < 5; index++)
+                {
+                    if (index < Convert.ToInt32(Model.Levels))
+                    {
+                        <span class="fa fa-star checked" id="rate"></span>
+                    }
+                    else
+                    {
+                        <span class="fa fa-star" id="rate"></span>
+                    }
+
+                }
+            }
+
+
         </dd>
 
     </dl>
@@ -101,28 +112,29 @@
     @foreach (var item in ViewBag.FeedBack)
     {
         <h3>
-            @item.Users.UPhone : @item.Content
+            @item.Users.UAdress : @item.Content
         </h3>
     }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @{
+        /*
+        if (u.UAdress == Model.Users.UAdress)
+        {
+            Html.ActionLink("Edit", "Edit", new { id = Model.id })
+        }
+        Html.ActionLink("Back to List", "Index")
+        */
+    }
+
 </p>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script>
     $(document).ready(function () {
-        var Level = @Model.Levels;
-        var i = 0;
-        while (i < Level) {
-            $("#rate").each(function () {  
-                $(this).addClass('checked');
-                console.log(this)
-                     console.log(i)
-                i++; 
-            });
-            
+        var Level = @Model.Levels;       
+        console.log(Level);
+        for (var i = 0; i < Level; i++) {
+            $("#rate").eq(i).attr("class", "fa fa-star checked");
         }
- 
     });
     </script>
