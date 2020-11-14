@@ -20,6 +20,7 @@ namespace Eproject3.Models
             this.Contester = new HashSet<Contester>();
             this.FeedBack = new HashSet<FeedBack>();
             this.Tips = new HashSet<Tips>();
+            this.Recipes = new HashSet<Recipes>();
         }
     
         public int id { get; set; }
@@ -30,6 +31,7 @@ namespace Eproject3.Models
         public Nullable<int> Roll_id { get; set; }
         public Nullable<int> Pack_id { get; set; }
         public Nullable<System.DateTime> Exp_Date { get; set; }
+        public string AccNum { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contester> Contester { get; set; }
@@ -39,5 +41,7 @@ namespace Eproject3.Models
         public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tips> Tips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recipes> Recipes { get; set; }
     }
 }

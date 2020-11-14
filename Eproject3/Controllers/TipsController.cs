@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
+using System.IO;
 
 namespace Eproject3.Controllers
 {
@@ -18,8 +19,17 @@ namespace Eproject3.Controllers
         // GET: Tips
         public async Task<ActionResult> Index()
         {
-            var tips = db.Tips.Include(t => t.Users);
-            return View(await tips.ToListAsync());
+            var isValid = (Users)Session["user"];
+            if (isValid != null)
+            {
+                var tips = db.Tips.Where(p=>p.Use_id==isValid.id).Include(t => t.Users);
+                return View(await tips.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction("LoginView", "Users");
+            }
+
         }
 
         // GET: Tips/Details/5
@@ -40,7 +50,12 @@ namespace Eproject3.Controllers
         // GET: Tips/Create
         public ActionResult Create()
         {
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone");
+            Users u = (Users)Session["User"];
+            if (u == null) {
+                return Redirect("Index");
+            }
+            ViewBag.Use_id = u.id;
+
             return View();
         }
 
@@ -49,10 +64,54 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img")] Tips tips)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img")] Tips tips, HttpPostedFileBase[] Url, string[] txtText,int Use_id)
         {
+            string Cont = "";
+            string url_img = "";
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
             {
+                try
+                {
+                    foreach (HttpPostedFileBase img in Url)
+                    {
+                        if (img != null)
+                        {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
+                            string ex = Path.GetExtension(img.FileName);
+                            if (!check(ex, formats))
+                            {
+                                ViewBag.FileStatus = ex + " is not an image";
+                                return View(tips);
+                            }
+                            url_img += Path.GetFileName(img.FileName) + ",";
+                        }
+                        else
+                        {
+                            ViewBag.FileStatus = "Content must have image !!!!";
+                            return View(tips);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+
+                tips.Img = url_img.Substring(0, url_img.Length - 1);
+
+                foreach (var text in txtText)
+                {
+                    if (text != "")
+                    {
+
+                        Cont += text + ",";
+                    }
+                }
+                Cont = Cont.Substring(0, Cont.Length - 1);
+                tips.Content = Cont;
+                tips.Use_id = Use_id;
                 db.Tips.Add(tips);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -83,15 +142,58 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Content,Img")] Tips tips)
+        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Content,Img")] Tips tips, HttpPostedFileBase[] Url, string[] txtText)
         {
+            string Cont = "";
+            string url_img = "";
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             if (ModelState.IsValid)
             {
+                try
+                {
+                    foreach (HttpPostedFileBase img in Url)
+                    {
+                        if (img != null)
+                        {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
+                            string ex = Path.GetExtension(img.FileName);
+                            if (!check(ex, formats))
+                            {
+                                ViewBag.FileStatus = ex + " is not an image";
+                                return View(tips);
+                            }
+                            url_img += Path.GetFileName(img.FileName) + ",";
+                        }
+                        else
+                        {
+                            ViewBag.FileStatus = "Content must have image !!!!";
+                            return View(tips);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+
+                tips.Img = url_img.Substring(0, url_img.Length - 1);
+
+                foreach (var text in txtText)
+                {
+                    if (text != "")
+                    {
+
+                        Cont += text + ",";
+                    }
+                }
+                Cont = Cont.Substring(0, Cont.Length - 1);
+                tips.Content = Cont;
                 db.Entry(tips).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
             return View(tips);
         }
 
@@ -120,7 +222,17 @@ namespace Eproject3.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        public bool check(string extension, string[] format)
+        {
+            foreach (string exten in format)
+            {
+                if (extension.Contains(exten))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

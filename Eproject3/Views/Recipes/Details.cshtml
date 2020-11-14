@@ -1,59 +1,200 @@
 ﻿@model Eproject3.Models.Recipes
-
+@using Eproject3.Models;
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Users u = (Users)Session["User"];
+    List<string> ingre = Html.DisplayNameFor(model => model.ingredent).ToString().Split(',').ToList();
+    List<string> reci = Html.DisplayNameFor(model => model.Content).ToString().Split('.').ToList();
+    bool itEmpty = true;
 }
 
-<h2>Details</h2>
+<script>
+    function sendFeedback(event, id) {
 
-<div>
-    <h4>Recipes</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+        if (event.keyCode == 13) {
+            sendFeedbackWithClick(id);
+        }
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+    function sendFeedbackWithClick(id) {    
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+        var itEmpty = document.getElementById("ck_U").value;
+       
+        if (itEmpty == false || itEmpty == 'False') {
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "FeedBacks/Create", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(
+                JSON.stringify({
+                    "Use_id": u.id,
+                    "Recipes_id": Model.id,
+                    "Content": document.getElementById(id).value
+                })
+             );
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Img)
-        </dt>
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Img)
-        </dd>
+        if (itEmpty === true || itEmpty === 'True') {
+            alert("điều hướng trang");
+            this.goto('../../Users/LoginView');
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.R_Status)
-        </dt>
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.R_Status)
-        </dd>
+z
+</script>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contester.Name)
-        </dt>
+<div class="col-sm-12" id="detail-background">
+    <div class="col-sm-2"></div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contester.Name)
-        </dd>
+    <div class="col-sm-8 content-detail">
+        <div class="col-sm-12">
 
-    </dl>
+            <div class="col-sm-2">
+                <div class="user-icon">
+                    <img src=".\Image\Logo\logo-white.png" alt="Avatar" />
+                </div>
+
+            </div>
+
+            <div class="col-sm-10 title">
+                <i>@Html.DisplayFor(model => model.Title)</i>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="col-sm-12 blog-content-detail">
+            <div class="col-sm-12">
+                <h3>Ingredents</h3>
+                <div class="col-sm-12">
+                    <ul>
+                        @foreach (var items in ingre)
+                        {
+                        <li>@items</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <div class="col-sm-12 blog-content-detail">
+            <div class="col-sm-12">
+                <h3>How to do</h3>
+                <div class="col-sm-12">
+                    <ul>
+                        @foreach (var items in reci)
+                        {
+                        <li>@items</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="blog-img">
+
+            @{
+                var Content_step = Model.Content.Split(',').ToList();
+                var ImgList = Model.Img.Split(',').ToList();
+                int i = 0;
+                foreach (var image in ImgList)
+                {
+                    i++;
+            <div class="col-sm-12">
+                <p>Step @i: @Content_step.ElementAt(i - 1)</p>
+            </div>
+            <div class="center-content"> <img src="~/images/@(image)" alt="Food" /> </div>
+
+                }
+            }
+        </div>
+
+
+        <div class="col-sm-12 bar">
+            <div class="col-sm-12">
+
+                <div class="col-sm-6">
+                    Like
+                </div>
+                <div class="col-sm-6">
+                    FeedBack
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="col-sm-12 feedback-content">
+            <div class="col-sm-2">
+                <div class="user-icon-feedback">
+                    <img src=".\Image\Logo\logo.png" alt="Avatar" />
+                </div>
+            </div>
+            <div class="col-sm-10 comment">
+                <div class="col-sm-8 send-feedback">
+                    @if (u != null)
+                    {
+                        itEmpty = false;
+                    }
+                    <input id="ck_U" type="hidden" value='@itEmpty.ToString()'/>
+                  
+                    <input type="text" id="yourFeedback" name="Content" autocomplete="off"  placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
+                    <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                </div>
+                <div class="col-sm-2">
+                    
+                </div>
+            </div>
+
+            <div class="col-sm-12 feedback-content">
+                <div class="col-sm-2">
+                    <div class="user-icon-feedback">
+                        <img src=".\Image\Logo\logo.png" alt="Avatar" />
+                    </div>
+
+                </div>
+                <div class="col-sm-9 comment">
+                    <strong>Đỗ Đình Tiến</strong><br />
+                    <i>Cá Hấp Bia</i>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+    <div>
+
+       @* @if (u != null)
+        {
+            using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" value="@u.id" name="Use_id" />
+                <input type="hidden" value="" name="" />
+                <input type="text" name="" autocomplete="off" />
+                <input type="submit" value="Comment" />
+
+
+            }
+        }
+        else
+        {
+            <button type="button" onclick=")">Login for comment</button>
+        }
+           *@
+        @foreach (var item in ViewBag.FeedBack)
+        {
+            <h3>
+                @item.Users.Img : @item.Content
+            </h3>
+        }
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,31 +1,93 @@
-﻿@{
+﻿@model IEnumerable<Eproject3.Models.Recipes>
+@using Eproject3.Models
+@{
     ViewBag.Title = "Home Page";
+    var contests = (IEnumerable<Contest>)ViewBag.contests;
+    var tips = (IEnumerable<Tips>)ViewBag.Tips;
+    var count = 0;
 }
+<a class="alert-info">@ViewBag.done</a>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="container">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="content-img">
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <div class="content  infor">
+
+        <div class="col-sm-3"><img src="~/images/unnamed.jpg" /></div>
+        @*phan nay la phan gioi thieu thang James Thew nhe Tien*@
+        <div class="col-sm-9 introduct">
+            James Thew is famous in Sweden and around the world thanks to head chef Magnus Nilsson. Voted among the worlds 50 best restaurants in 2012, Faviken is in north of Stockholm and offers accommodations for diners and travelers. As this location experiences long winters, Nilsson is able to get the best out of the long-stored vegetables and meat. He juggles himself from being a hunter, a fisherman, a farmer and an outstanding chef. Diners savor specialties like the 18 month-old scallops served (like most of the dishes) with wine. Nilsson has much to share in the culinary world and his innovations have opened doors to this part of Sweden were food enthusiasts cannot wait for a try.
+        </div>
+
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <form method="get" action="/Home/Search">
+        Tips/Recipes:<input name="kw" required type="text" /><button>Search</button>
+    </form>
+    <div class="content">
+        Recipes
+        <div class="container">
+            @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
+            @foreach (var items in Model)
+            {
+
+                <a href="/Recipes/Details/@items.id">
+                    <div class="col-sm-4 box-item relative">
+                        <div class="item">
+                            <div class="blur-hover">
+                                <h1>@items.Title</h1>
+                            </div>
+                            <img src="~/images/@items.Img.Split(',').First()">
+                        </div>
+                    </div>
+                </a>
+
+
+            }
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
+            Tips
+            @foreach (var items in tips)
+            {
+
+
+
+                <div class="box-item relative">
+                    <a href="/Tips/Details/@items.id">
+                        <div class="item">
+                            <div class="blur-hover">
+                                <h1>@items.Title</h1>
+                            </div>
+                            <img src="~/images/@items.Img.Split(',').First()" alt="...">
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="container">
+            Contest
+            @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay*@
+            @foreach (var items in contests)
+            {
+                <div class="box-item relative">
+                    <a href="/Contests/Details/@items.id">
+                        <div class="item">
+                            <div class="blur-hover">
+                                @items.title                               
+                            </div>
+                            <img src="~/images/@items.img" />
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
 </div>

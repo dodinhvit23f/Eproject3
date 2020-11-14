@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <!--<Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.<Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />-->
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -80,7 +79,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <!--<HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>-->
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -157,6 +156,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContestersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContestsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ExamsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeedBacksController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PacksController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RecipesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TipsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\ContestersController.cs" />
     <Compile Include="Controllers\ContestsController.cs" />
     <Compile Include="Controllers\ExamsController.cs" />
@@ -169,6 +179,9 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categories.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Contest.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -213,18 +226,91 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\AdminStyle\css\main.css" />
+    <Content Include="Content\AdminStyle\css\util.css" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\OFL.txt" />
+    <Content Include="Content\AdminStyle\images\icons\favicon.ico" />
+    <Content Include="Content\AdminStyle\images\img-01.png" />
+    <Content Include="Content\AdminStyle\js\main.js" />
+    <Content Include="Content\AdminStyle\vendor\animate\animate.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\js\popper.js" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Content\AdminStyle\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="Content\AdminStyle\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Content\AdminStyle\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Content\AdminStyle\vendor\select2\select2.css" />
+    <Content Include="Content\AdminStyle\vendor\select2\select2.js" />
+    <Content Include="Content\AdminStyle\vendor\select2\select2.min.css" />
+    <Content Include="Content\AdminStyle\vendor\select2\select2.min.js" />
+    <Content Include="Content\AdminStyle\vendor\tilt\tilt.jquery.min.js" />
+    <Content Include="Content\content\bootstrap.min.css" />
+    <Content Include="Content\content\demo.css" />
+    <Content Include="Content\content\light-bootstrap-dashboard.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\demo.css" />
+    <Content Include="Content\css\light-bootstrap-dashboard.css" />
+    <Content Include="Content\fonts\nucleo-icons.svg" />
+    <Content Include="Content\img\apple-icon.png" />
+    <Content Include="Content\img\default-avatar.png" />
+    <Content Include="Content\img\faces\face-0.jpg" />
+    <Content Include="Content\img\faces\face-1.jpg" />
+    <Content Include="Content\img\faces\face-2.jpg" />
+    <Content Include="Content\img\faces\face-3.jpg" />
+    <Content Include="Content\img\faces\face-4.jpg" />
+    <Content Include="Content\img\faces\face-5.jpg" />
+    <Content Include="Content\img\faces\face-6.jpg" />
+    <Content Include="Content\img\faces\face-7.jpg" />
+    <Content Include="Content\img\faces\tim_vector.jpe" />
+    <Content Include="Content\img\favicon.ico" />
+    <Content Include="Content\img\full-screen-image-3.jpg" />
+    <Content Include="Content\img\loading-bubbles.svg" />
+    <Content Include="Content\img\mask.png" />
+    <Content Include="Content\img\new_logo.png" />
+    <Content Include="Content\img\sidebar-1.jpg" />
+    <Content Include="Content\img\sidebar-2.jpg" />
+    <Content Include="Content\img\sidebar-3.jpg" />
+    <Content Include="Content\img\sidebar-4.jpg" />
+    <Content Include="Content\img\sidebar-5.jpg" />
+    <Content Include="Content\img\tim_80x80.png" />
+    <Content Include="Content\js\core\bootstrap.min.js" />
+    <Content Include="Content\js\core\jquery.3.2.1.min.js" />
+    <Content Include="Content\js\core\popper.min.js" />
+    <Content Include="Content\js\demo.js" />
+    <Content Include="Content\js\light-bootstrap-dashboard.js" />
+    <Content Include="Content\js\plugins\bootstrap-datepicker.js" />
+    <Content Include="Content\js\plugins\bootstrap-notify.js" />
+    <Content Include="Content\js\plugins\bootstrap-switch.js" />
+    <Content Include="Content\js\plugins\chartist.min.js" />
+    <Content Include="Content\js\plugins\nouislider.min.js" />
+    <Content Include="Content\BackgroundAnimation.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\TranDan.JPG" />
+    <Content Include="images\unnamed.jpg" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
@@ -249,6 +335,162 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Contesters\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Contesters\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Contesters\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Contesters\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Exams\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Exams\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Exams\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Exams\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBacks\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBacks\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBacks\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBacks\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Packs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Packs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Packs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Packs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Recipes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Recipes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Recipes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Recipes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Tips\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Tips\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Tips\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tips\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contests\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Contests\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Contests\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Contests\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contesters\Contesters.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChangePwd.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ForgetPwd.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChangePhoto.cshtml" />
+    <Content Include="Content\fonts\nucleo-icons.eot" />
+    <Content Include="Content\fonts\nucleo-icons.ttf" />
+    <Content Include="Content\fonts\nucleo-icons.woff" />
+    <Content Include="Content\fonts\nucleo-icons.woff2" />
+    <Content Include="Content\sass\lbd\mixins\_buttons.scss" />
+    <Content Include="Content\sass\lbd\mixins\_cards.scss" />
+    <Content Include="Content\sass\lbd\mixins\_chartist.scss" />
+    <Content Include="Content\sass\lbd\mixins\_icons.scss" />
+    <Content Include="Content\sass\lbd\mixins\_inputs.scss" />
+    <Content Include="Content\sass\lbd\mixins\_labels.scss" />
+    <Content Include="Content\sass\lbd\mixins\_morphing-buttons.scss" />
+    <Content Include="Content\sass\lbd\mixins\_navbars.scss" />
+    <Content Include="Content\sass\lbd\mixins\_social-buttons.scss" />
+    <Content Include="Content\sass\lbd\mixins\_tabs.scss" />
+    <Content Include="Content\sass\lbd\mixins\_transparency.scss" />
+    <Content Include="Content\sass\lbd\mixins\_vendor-prefixes.scss" />
+    <Content Include="Content\sass\lbd\plugins\_animate.scss" />
+    <Content Include="Content\sass\lbd\plugins\_datetime-picker.scss" />
+    <Content Include="Content\sass\lbd\_alerts.scss" />
+    <Content Include="Content\sass\lbd\_bootstrap-switch.scss" />
+    <Content Include="Content\sass\lbd\_buttons.scss" />
+    <Content Include="Content\sass\lbd\_cards.scss" />
+    <Content Include="Content\sass\lbd\_chartist.scss" />
+    <Content Include="Content\sass\lbd\_checkbox-radio-switch.scss" />
+    <Content Include="Content\sass\lbd\_dropdown.scss" />
+    <Content Include="Content\sass\lbd\_footers.scss" />
+    <Content Include="Content\sass\lbd\_inputs.scss" />
+    <Content Include="Content\sass\lbd\_misc.scss" />
+    <Content Include="Content\sass\lbd\_mixins.scss" />
+    <Content Include="Content\sass\lbd\_navbars.scss" />
+    <Content Include="Content\sass\lbd\_partial-nucleo-icons.scss" />
+    <Content Include="Content\sass\lbd\_responsive.scss" />
+    <Content Include="Content\sass\lbd\_sidebar-and-main-panel.scss" />
+    <Content Include="Content\sass\lbd\_tables.scss" />
+    <Content Include="Content\sass\lbd\_typography.scss" />
+    <Content Include="Content\sass\lbd\_variables.scss" />
+    <Content Include="Content\sass\light-bootstrap-dashboard.scss" />
+    <Content Include="Areas\Admin\Views\Contesters\Exams.cshtml" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\AdminStyle\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="Content\AdminStyle\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="Content\AdminStyle\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\AdminStyle\vendor\bootstrap\css\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -277,56 +519,55 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Packs\Create.cshtml" />
     <Content Include="Views\Packs\Delete.cshtml" />
-    <Content Include="Views\Packs\Details.cshtml" />
     <Content Include="Views\Packs\Edit.cshtml" />
     <Content Include="Views\Packs\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />
-    <Content Include="Views\Contests\Details.cshtml" />
     <Content Include="Views\Contests\Edit.cshtml" />
     <Content Include="Views\Contests\Index.cshtml" />
     <Content Include="Views\Contesters\Create.cshtml" />
     <Content Include="Views\Contesters\Delete.cshtml" />
-    <Content Include="Views\Contesters\Details.cshtml" />
     <Content Include="Views\Contesters\Edit.cshtml" />
     <Content Include="Views\Contesters\Index.cshtml" />
     <Content Include="Views\Exams\Create.cshtml" />
     <Content Include="Views\Exams\Delete.cshtml" />
-    <Content Include="Views\Exams\Details.cshtml" />
     <Content Include="Views\Exams\Edit.cshtml" />
     <Content Include="Views\Exams\Index.cshtml" />
     <Content Include="Views\FeedBacks\Create.cshtml" />
     <Content Include="Views\FeedBacks\Delete.cshtml" />
-    <Content Include="Views\FeedBacks\Details.cshtml" />
     <Content Include="Views\FeedBacks\Edit.cshtml" />
     <Content Include="Views\FeedBacks\Index.cshtml" />
     <Content Include="Views\Recipes\Create.cshtml" />
     <Content Include="Views\Recipes\Delete.cshtml" />
-    <Content Include="Views\Recipes\Details.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
-    <Content Include="Views\Roles1\Create.cshtml" />
-    <Content Include="Views\Roles1\Delete.cshtml" />
-    <Content Include="Views\Roles1\Details.cshtml" />
-    <Content Include="Views\Roles1\Edit.cshtml" />
-    <Content Include="Views\Roles1\Index.cshtml" />
     <Content Include="Views\Tips\Create.cshtml" />
     <Content Include="Views\Tips\Delete.cshtml" />
-    <Content Include="Views\Tips\Details.cshtml" />
     <Content Include="Views\Tips\Edit.cshtml" />
     <Content Include="Views\Tips\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\LoginView.cshtml" />
+    <Content Include="Views\Recipes\Details.cshtml" />
+    <Content Include="Views\Contests\Details.cshtml" />
+    <Content Include="Views\Exams\Details.cshtml" />
+    <Content Include="Views\Users\ChangePwd.cshtml" />
+    <Content Include="Views\Users\ForgetPwd.cshtml" />
+    <Content Include="Views\Users\ChangePhoto.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Content\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -370,8 +611,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

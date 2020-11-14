@@ -18,12 +18,21 @@ namespace Eproject3.Models
         public Contest()
         {
             this.Exams = new HashSet<Exams>();
-        }
-    
+            this.Contester = new HashSet<Contester>();
+        }    
         public int id { get; set; }
         public Nullable<System.DateTime> C_Time { get; set; }
+        public Nullable<System.DateTime> exp_time { get; set; }
+        public string C_Description { get; set; }
+        public string img { get; set; }
+        public Nullable<int> id_winner { get; set; }
+        public string title { get; set; }
+        public string requirement { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exams> Exams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contester> Contester { get; set; }
+        public virtual Contester Contester1 { get; set; }
     }
 }

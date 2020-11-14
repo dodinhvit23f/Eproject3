@@ -22,6 +22,7 @@ namespace Eproject3.Controllers
             return View(await feedBack.ToListAsync());
         }
 
+
         // GET: FeedBacks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -51,19 +52,30 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Recipes_id,Content,Tip_id")] FeedBack feedBack)
+        public async Task<ActionResult> Create(int? Use_id,int Recipes_id,string Content,int?Tip_id)
         {
             if (ModelState.IsValid)
             {
+                if (Use_id == null)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
+                FeedBack feedBack = new FeedBack();
+                feedBack.Use_id = Use_id;
+                feedBack.Recipes_id = Recipes_id;
+                feedBack.Content = Content;
+                feedBack.Tip_id = Tip_id;
                 db.FeedBack.Add(feedBack);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Redirect(Request.Headers["Referer"].ToString());
             }
+            return Redirect(Request.Headers["Referer"].ToString());
 
-            ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);
-            ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content", feedBack.Tip_id);
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
-            return View(feedBack);
+
+            //ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);
+            //ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content", feedBack.Tip_id);
+            //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
+            //return View(feedBack);
         }
 
         // GET: FeedBacks/Edit/5

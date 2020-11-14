@@ -1,27 +1,66 @@
 ﻿@model Eproject3.Models.Contest
-
+@using Eproject3.Models
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var exams = (IEnumerable<Exams>)ViewBag.exams;
 }
 
-<h2>Details</h2>
+<div class="col-sm-12" id="detail-background">
+    <div class="col-sm-2"></div>
 
-<div>
-    <h4>Contest</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.C_Time)
-        </dt>
+    <div class="col-sm-8 content-detail">
+        <div class="col-sm-12">
+            <a style="color:red">@ViewBag.early</a>
+            <div class="center"><h1>@Html.DisplayFor(model => model.title)</h1></div>
+            <hr />
+            <p><b>Description</b></p>
+            <div class="col-sm-12">
+                @Html.DisplayFor(model => model.C_Description)
+            </div>
+            <p><b>Requirement</b></p>
+            <div class="col-sm-12">
+                @Html.DisplayFor(model => model.requirement)
+            </div>
+            <p><b>Duration</b></p>
+            <div class="col-sm-12">
+                @Html.DisplayFor(model => model.C_Time) to @Html.DisplayFor(model => model.exp_time)
+            </div>
+            <div class="col-sm-12">
+                <div class="center-content">
+                    <img class="blog-img" src="~/images/@Html.DisplayFor(model => model.img)" />
+                </div>
+            </div>
+            <div class="winner">
+                @{
+                    var x = @Html.DisplayFor(model => model.Contester1.Name);
+                }
+                @if (String.IsNullOrEmpty(x.ToString()))
+                {
+                    <a href="/Contests/Join/@Html.DisplayFor(model => model.id)">Join this contest</a>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Contester1.Name)
+                }
+            </div>
+        </div>
+    </div>
+    @if (exams != null)
+            {
+                foreach (var items in exams)
+                {
+            <a href="/Recipes/Details/@items.Recipes_id">
 
-        <dd>
-            @Html.DisplayFor(model => model.C_Time)
-        </dd>
-
-    </dl>
+            </a>
+        }
+    }
+    else
+    {
+        <h4>No Exams yet </h4>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+

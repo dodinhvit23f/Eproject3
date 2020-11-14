@@ -4,6 +4,10 @@
     <EntitySetMapping Name="Contest">
       <EntityTypeMapping TypeName="Database1Model.Contest">
         <MappingFragment StoreEntitySet="Contest">
+          <ScalarProperty Name="id_winner" ColumnName="id_winner" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="C_Description" ColumnName="C_Description" />
+          <ScalarProperty Name="exp_time" ColumnName="exp_time" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="C_Time" ColumnName="C_Time" />
         </MappingFragment>
@@ -12,6 +16,7 @@
     <EntitySetMapping Name="Contester">
       <EntityTypeMapping TypeName="Database1Model.Contester">
         <MappingFragment StoreEntitySet="Contester">
+          <ScalarProperty Name="Contest_id" ColumnName="Contest_id" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Use_id" ColumnName="Use_id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -54,6 +59,9 @@
     <EntitySetMapping Name="Recipes">
       <EntityTypeMapping TypeName="Database1Model.Recipes">
         <MappingFragment StoreEntitySet="Recipes">
+          <ScalarProperty Name="Cate_id" ColumnName="Cate_id" />
+          <ScalarProperty Name="Levels" ColumnName="Levels" />
+          <ScalarProperty Name="ingredent" ColumnName="ingredent" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
@@ -74,6 +82,10 @@
     <EntitySetMapping Name="Tips">
       <EntityTypeMapping TypeName="Database1Model.Tips">
         <MappingFragment StoreEntitySet="Tips">
+          <ScalarProperty Name="Cate_id" ColumnName="Cate_id" />
+          <ScalarProperty Name="Levels" ColumnName="Levels" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="isFree" ColumnName="isFree" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Use_id" ColumnName="Use_id" />
           <ScalarProperty Name="Content" ColumnName="Content" />
@@ -84,6 +96,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="Database1Model.Users">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="AccNum" ColumnName="AccNum" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="UPhone" ColumnName="UPhone" />
           <ScalarProperty Name="UPass" ColumnName="UPass" />
@@ -92,6 +105,14 @@
           <ScalarProperty Name="Roll_id" ColumnName="Roll_id" />
           <ScalarProperty Name="Pack_id" ColumnName="Pack_id" />
           <ScalarProperty Name="Exp_Date" ColumnName="Exp_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="Database1Model.Categories">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Cate_Name" ColumnName="Cate_Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

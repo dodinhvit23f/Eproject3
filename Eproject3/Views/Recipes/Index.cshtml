@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<Eproject3.Models.Recipes>
+    @using Eproject3.Models;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = (Users)Session["User"];
+     
 }
 
 <h2>Index</h2>
@@ -16,7 +19,10 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayNameFor(model => model.ingredent)
+        </th>
+        <th>
+           Cach Lam
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Img)
@@ -30,29 +36,80 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.R_Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contester.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var ImgList = item.Img.Split(',').ToList();
+        if (/*Session["Pack_id"].ToString() != "3" */ /*user.Pack_id != null*/user!=null)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ingredent)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @{
+
+            foreach (var i in ImgList)
+            {
+                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+            }
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.R_Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Contester.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
+        }
+        else {
+           if (item.R_Status == 0) { 
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ingredent)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @{
+
+            foreach (var i in ImgList)
+            {
+                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+            }
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.R_Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Contester.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
+            }
+         }
+      }
 
 </table>

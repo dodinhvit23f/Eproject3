@@ -15,20 +15,37 @@
         <th>
             @Html.DisplayNameFor(model => model.C_Time)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.exp_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_Description)
+        </th>       
+        <th>
+            Number of Exams
+        </th>
         <th></th>
     </tr>
-
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.C_Time)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.C_Time)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.exp_time)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.C_Description)
+    </td>
+    <td>
+        @item.Exams.Count()
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
 }
 
 </table>
