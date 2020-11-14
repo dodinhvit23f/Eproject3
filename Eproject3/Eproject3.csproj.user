@@ -3,8 +3,6 @@
   <PropertyGroup>
     <UseIISExpress>true</UseIISExpress>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
-<<<<<<< HEAD
-=======
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -26,7 +24,6 @@
     <WebStackScaffolding_IsAsyncSelected>True</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <WebStackScaffolding_AreaDialogWidth>600</WebStackScaffolding_AreaDialogWidth>
->>>>>>> 55fa1a32af54ad9346b95e8d1106d10373067486
   </PropertyGroup>
   <ProjectExtensions />
 </Project>
