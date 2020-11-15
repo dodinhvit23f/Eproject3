@@ -1,13 +1,20 @@
 ﻿@model Eproject3.Models.Recipes
 @using Eproject3.Models;
-@{
+@{   
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Users u = (Users)Session["User"];
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Details</h2>
+
+<div>
+    <h4>Recipes</h4>
+    <hr />
+   @{ 
     List<string> ingre = Html.DisplayNameFor(model => model.ingredent).ToString().Split(',').ToList();
     List<string> reci = Html.DisplayNameFor(model => model.Content).ToString().Split('.').ToList();
-
-}
+    }
 
 
 
@@ -253,3 +260,93 @@ else
 
     </script>
 }
+        <div class="col-sm-12">
+            <hr>
+            <h3>How to do</h3>
+            @foreach (var items in reci)
+            {
+                <li>@items</li>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categories.Cate_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Levels)
+        </dt>
+
+        <dd>
+            @{
+                for (int index = 0; index < 5; index++)
+                {
+                    if (index < Convert.ToInt32(Model.Levels))
+                    {
+                        <span class="fa fa-star checked" id="rate"></span>
+                    }
+                    else
+                    {
+                        <span class="fa fa-star" id="rate"></span>
+                    }
+
+                }
+            }
+
+
+        </dd>
+
+    </dl>
+       </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+<div>
+    @if (u != null)
+    {
+        using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" value="@u.id" name="Use_id" />
+            <input type="hidden" value="@Model.id" name="Recipes_id" />
+            <input type="text" name="Content" autocomplete="off" />
+            <input type="submit" value="Comment" />
+        }
+    }
+    else
+    {
+        <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
+    }
+    @foreach (var item in ViewBag.FeedBack)
+    {
+        <h3>
+            @item.Users.UAdress : @item.Content
+        </h3>
+    }
+</div>
+<p>
+    @{
+        /*
+        if (u.UAdress == Model.Users.UAdress)
+        {
+            Html.ActionLink("Edit", "Edit", new { id = Model.id })
+        }
+        Html.ActionLink("Back to List", "Index")
+        */
+    }
+
+</p>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        var Level = @Model.Levels;       
+        console.log(Level);
+        for (var i = 0; i < Level; i++) {
+            $("#rate").eq(i).attr("class", "fa fa-star checked");
+        }
+    });
+</script>

@@ -140,7 +140,6 @@ D:\Project3\Eproject3\bin\System.Web.WebPages.Deployment.xml
 D:\Project3\Eproject3\bin\System.Web.WebPages.Razor.xml
 D:\Project3\Eproject3\bin\Antlr3.Runtime.pdb
 D:\Project3\Eproject3\bin\Newtonsoft.Json.xml
-D:\Project3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache
 D:\Project3\Eproject3\obj\Debug\Eproject3.csproj.CopyComplete
 D:\Aptech\Eproject3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache
 E:\Projects\Eproject3\Eproject3\bin\ApplicationInsights.config

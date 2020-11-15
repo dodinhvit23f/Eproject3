@@ -102,11 +102,11 @@
     <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Tip_id__4BAC3F29" FromRole="Tips" ToRole="FeedBack" />
     <NavigationProperty Name="Users" Relationship="Self.FK__Tips__Use_id__46E78A0C" FromRole="Tips" ToRole="Users" />
-    <Property Name="isFree" Type="Boolean" />
     <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Levels" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Cate_id" Type="Int32" />
     <NavigationProperty Name="Categories" Relationship="Database1Model.FK__Tips__Cate_id__282DF8C2" FromRole="Tips" ToRole="Categories" />
+    <Property Name="isFree" Type="Boolean" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
