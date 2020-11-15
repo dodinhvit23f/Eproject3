@@ -6,97 +6,53 @@
     var exams = (IEnumerable<Exams>)ViewBag.exams;
 }
 
-<h2>Details</h2>
+<div class="col-sm-12" id="detail-background">
+    <div class="col-sm-2"></div>
 
-<div>
-    <a style="color:red">@ViewBag.early</a>
-    <h4>Contest</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.C_Time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C_Time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.exp_time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.exp_time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.C_Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C_Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.requirement)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.requirement)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.C_Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C_Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.img)
-        </dt>
-
-        <dd>
-            <img style="height:80px;width:100px" src="~/images/@Html.DisplayFor(model => model.img)" />
-        </dd>
-
-        <dt>
-            Winner:
-        </dt>
-
-        <dd>
-            @{
-                var x = @Html.DisplayFor(model => model.Contester1.Name);
-            }
-            @if (String.IsNullOrEmpty(x.ToString()))
-            {
-                <a>Undecided yet</a>
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.Contester1.Name)
-            }
-
-        </dd>
-        <dt>
-            <a href="/Contests/Join/@Html.DisplayFor(model => model.id)">Join this contest</a>
-        </dt>
-    </dl>
+    <div class="col-sm-8 content-detail">
+        <div class="col-sm-12">
+            <a style="color:red">@ViewBag.early</a>
+            <div class="center"><h1>@Html.DisplayFor(model => model.title)</h1></div>
+            <hr />
+            <p><b>Description</b></p>
+            <div class="col-sm-12">
+                @Html.DisplayFor(model => model.C_Description)
+            </div>
+            <p><b>Requirement</b></p>
+            <div class="col-sm-12">
+                @Html.DisplayFor(model => model.requirement)
+            </div>
+            <p><b>Duration</b></p>
+            <div class="col-sm-12">
+                @Html.DisplayFor(model => model.C_Time) to @Html.DisplayFor(model => model.exp_time)
+            </div>
+            <div class="col-sm-12">
+                <div class="center-content">
+                    <img class="blog-img" src="~/images/@Html.DisplayFor(model => model.img)" />
+                </div>
+            </div>
+            <div class="winner">
+                @{
+                    var x = @Html.DisplayFor(model => model.Contester1.Name);
+                }
+                @if (String.IsNullOrEmpty(x.ToString()))
+                {
+                    <a href="/Contests/Join/@Html.DisplayFor(model => model.id)">Join this contest</a>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Contester1.Name)
+                }
+            </div>
+        </div>
+    </div>
     @if (exams != null)
-    {
-        foreach (var items in exams)
-        {
-           <a href="/Recipes/Details/@items.Recipes_id" >
-               <div>
-                    @items.Recipes.Title <br />
-                     <img style="height:100px;width:80px" src="~/images/@items.Recipes.Img" />                   
-               </div>
-           </a>
+            {
+                foreach (var items in exams)
+                {
+            <a href="/Recipes/Details/@items.Recipes_id">
+
+            </a>
         }
     }
     else
@@ -104,4 +60,7 @@
         <h4>No Exams yet </h4>
     }
 </div>
+
+
+
 

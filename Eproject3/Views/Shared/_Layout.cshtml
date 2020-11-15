@@ -5,157 +5,130 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+
     @Styles.Render("~/Content/bootstrap.min.css")
-    @Styles.Render("~/Content/HomePage.css")   
+    @Styles.Render("~/Content/HomePage.css")
     @Styles.Render("~/Content/BackgroundAnimation.css")
-    @{ 
+   
+
+    @{
         var isvalid = (Users)Session["user"];
     }
     <script>
-        function openForm(id) {
-            document.getElementById(id).style.display = "block";
-            document.getElementById("allContent").classList.add("blur")
+
+
+        function goto(path) {
+            window.location.href = path;
         }
 
-        function closeForm(id) {
-            document.getElementById(id).style.display = "none";
-            document.getElementById("allContent").classList.remove("blur")
-        }
     </script>
 </head>
 <body>
-    <div class="form-popup" id="myLoginForm">
-        <form action="/Users/Login" class="form-container" method="POST">
-            <h1>Login</h1>
-            <hr>
-            <div class="box-radius-border">
-                <label for="email"><b>Phone:</b></label>
-                <input type="text" placeholder="Enter Phonenumber" name="phones" required>
-            </div>
-            <div class="box-radius-border">
-                <label for="psw"><b>Password:</b></label>
-                <input type="password" placeholder="Enter Password" name="pwd" required>
-            </div>
-            <hr>
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm('myLoginForm')">Close</button>
-        </form>
-    </div>
-    <div class="form-popup" id="myRegisterForm">
-        <form action="/Users/Create" class="form-container">
-            <h1>Register</h1>
-            <hr>
-            <label for="email"><b>Email:</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
-            <label for="psw"><b>Password:</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-            <hr>
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm('myRegisterForm')">Close</button>
-        </form>
-    </div>
-    <div id="allContent">
-        <header>
 
-            <nav>
-                <div class="container nav">
-                    <div class="right">
-                        <div>
-                            @if (isvalid != null)
-                            {
-                                <i><a href="/Users/Edit/@isvalid.id">Hello,@isvalid.UAdress</a></i>
+    <header>
+
+        <nav>
+            <div class="container nav">
+                <div class="right">
+                    <div>
+                        @if (isvalid != null)
+                        {
+                            <i><a href="/Users/Edit/@isvalid.id">Hello,@isvalid.UAdress</a></i>
                                 <i><a href="/Users/LogOut">Logout</a></i>
-                            }
-                            else
-                            {
-                                @*href="/Users/LoginView"*@
-                                <i><a onclick="openForm('myLoginForm')" >Login</a></i>
-                                //href="/Users/Create"
-                                <i><a onclick="openForm('myRegisterForm')" >Register</a></i>
-                            }
-                        </div>
+                        }
+                        else
+                        {
+                            @*href="/Users/LoginView"*@
+                            <i><a href="/Users/LoginView">Login</a></i>
+                            //href="/Users/Create"
+                            <i><a href="/Users/Create">Register</a></i>
+                        }
                     </div>
-                    <div class="left">
-                        <img class="logo" src="~/Image/Logo/logo1.png" />
-                    </div>
-                    <div class="menu">
-                        <ul>
-                            <li>
-                                <a href="/Home/">Home</a>
-                            </li>
-                            <li>
-                                @Html.ActionLink("Contact", "Contact", "Home")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Recipces", "Index", "Recipces")
-
-                                <div class="my-dropdown-menu">
-                                    <ul>
-                                        <li><a href="#">Favourite</a></li>
-                                        <li><a href="#">New</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                @Html.ActionLink("Tips", "Tip", "Home")
-
-                                <div class="my-dropdown-menu">
-                                    <ul>
-                                        <li><a href="#">Favourite</a></li>
-                                        <li><a href="#">New</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#">Contest</a>
-                            </li>
-                            <li>
-                                <a href="#">FAG</a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-
                 </div>
-            </nav>
-        </header>
-        <div class="container body-content">
-            @RenderBody()
+                <div class="left">
+                    <img class="logo" src="~/Image/Logo/logo.png" />
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li>
+                            @Html.ActionLink("Home", "Index", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Contact", "Contact", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Recipes", "Index", "Recipes")
 
+                            <div class="my-dropdown-menu">
+                                <ul>
+                                    <li><a href="#">Favourite</a></li>
+                                    <li><a href="#">New</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            @Html.ActionLink("Tips", "Tip", "Home")
+
+                            <div class="my-dropdown-menu">
+                                <ul>
+                                    <li><a href="#">Favourite</a></li>
+                                    <li><a href="#">New</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">Contest</a>
+                        </li>
+                        <li>
+                            @Html.ActionLink("FAQ", "FAQ", "Home")
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+
+
+    </div>
+    <footer >
+        <div class="col-sm-3">
 
         </div>
-        <footer class="container">
+        <div class="col-sm-6">
+            <div class="container">
+                <div class="center">
+                    <img class="logo center" src="~/Image/Logo/logo-white.png" />
+                </div>
+            </div>
+            <div class="container">
+                <div class="col-sm-12">
+                    <br />
+                    <h3 class="center"><b>@Html.ActionLink("Home", "Index", "Home")</b></h3>
+                    <br />
+                    <h3 class="center"><b>@Html.ActionLink("Contact", "Contact", "Home")</b></h3>
+                    <br />
+                    <h3 class="center"><b>@Html.ActionLink("Recipces", "Index", "Recipces")</b></h3>
+                    <br />
+                    <h3 class="center"><b>@Html.ActionLink("Contets", "Index", "Contests")</b></h3>
+                    <br />
+                    <h3 class="center"><b>@Html.ActionLink("Tips", "Index", "Tips")</b></h3>
+                </div>
+
+            </div>
+            <hr />
+            <div class="container">
+                <div class="col-sm-4">
+                    Email me:<i><b>TranHuTu@gmail.com</b></i>
+                </div>
+            </div>
             <div class="col-sm-3">
 
             </div>
-            <div class="col-sm-6">
-                <div class="container">
-                    <div class="col-sm-4">
-                        <h3><b>Home</b></h3>
-                        <h3><b>Contact</b></h3>
-                        <h3><b>Contest</b></h3>
-                        <h3><b>Recipces</b></h3>
-                        <h3><b>Tips</b></h3>
-                    </div>
-                    <div class="col-sm-4">
-                        Create by TienDD
-                    </div>
-                    <div class="col-sm-4">
-                        Create by TienDD
-                    </div>
-                </div>
-                <hr />
-                <div class="container">
-                    <div class="col-sm-4">
-                        Email me:<i><b>TranHuTu@gmail.com</b></i>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-
-                </div>
-        </footer>
-
-    </div>
+        </div>
+    </footer>
 
 
 

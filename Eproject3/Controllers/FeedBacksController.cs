@@ -41,9 +41,9 @@ namespace Eproject3.Controllers
         // GET: FeedBacks/Create
         public ActionResult Create()
         {
-            ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title");
+            ViewBag.Recipes_id = new SelectList(db.Recipes, "Recipes_id", "Title");
             ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content");
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone");
+            ViewBag.Use_id = new SelectList(db.Users, "Use_id", "UPhone");
             return View();
         }
 
@@ -65,6 +65,48 @@ namespace Eproject3.Controllers
                 feedBack.Recipes_id = Recipes_id;
                 feedBack.Content = Content;
                 feedBack.Tip_id = Tip_id;
+                db.FeedBack.Add(feedBack);
+                await db.SaveChangesAsync();
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+            return Redirect(Request.Headers["Referer"].ToString());
+        
+
+            //ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);
+            //ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content", feedBack.Tip_id);
+            //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
+            //return View(feedBack);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRecipce(string Use_id, string Recipes_id, string Content)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Use_id == null)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
+                int use_id = -1;
+                int.TryParse(Use_id, out use_id);
+                if (use_id < 0)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
+
+                int recipes_id = -1;
+                int.TryParse(Recipes_id, out recipes_id);
+                if (recipes_id < 0)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
+
+                FeedBack feedBack = new FeedBack();
+                feedBack.Use_id = use_id;
+                feedBack.Recipes_id = recipes_id;
+                feedBack.Content = Content;
+                feedBack.Tip_id = 1;
                 db.FeedBack.Add(feedBack);
                 await db.SaveChangesAsync();
                 return Redirect(Request.Headers["Referer"].ToString());
