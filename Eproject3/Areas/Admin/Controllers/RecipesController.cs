@@ -153,15 +153,15 @@ namespace Eproject3.Areas.Admin.Controllers
                     db.Recipes.Add(recipes);
                     await db.SaveChangesAsync();
                 }
-                else
-                {
-
+                else {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(recipes);
                 }
-                recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                return View(recipes);
+                //recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+               
             }
-            return View();//check again
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+            return View(recipes);
         }
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)

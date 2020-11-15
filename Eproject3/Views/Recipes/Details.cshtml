@@ -8,23 +8,26 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h2>Details</h2>
 
-<div>
-    <h4>Recipes</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+<div class="col-sm-12" id="detail-background">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8" id="detail-content">
+        <h1><i>@Html.DisplayFor(model => model.Title)</i></h1>
+        <div class="col-sm-12">
+                <h3>Ingredents</h3>
+                <ul>
+                    @{
+                        List<string> ingre = Model.ingredent.Split(',').ToList();
+                        foreach (var items in ingre)
+                        {
+                            <li>@items</li>
+                        }
+                                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
+                            </ul>
+        </div>
+        <div class="col-sm-12">
+            <hr>
+            <h3>How to do</h3>
             @{
                 var Content_step = Model.Content.Split(',').ToList();
                 var ImgList = Model.Img.Split(',').ToList();
@@ -36,86 +39,21 @@
                     <p>@Content_step.ElementAt(i - 1) <img src="~/images/@(image)" height="200" width="200" /></p>
                 }
             }
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.R_Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.R_Status)
-        </dd>
-    List<string> ingre = Html.DisplayNameFor(model => model.ingredent).ToString().Split(',').ToList();
-    List<string> reci = Html.DisplayNameFor(model => model.Content).ToString().Split('.').ToList();
-}
-<div class="col-sm-12" id="detail-background">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8" id="detail-content">
-        <h1><i>@Html.DisplayFor(model => model.Title)</i></h1>
-        <div class="col-sm-12">
-            <div class="col-sm-5">
                 @{
-                    var Content_step = Model.Content.Split(',').ToList();
-                    var ImgList = Model.Img.Split(',').ToList();
-                    int i = 0;
-                    foreach (var image in ImgList)
+                    for (int index = 0; index < 5; index++)
                     {
-                        i++;
-                        <p>Step @i</p>
-                        <p>@Content_step.ElementAt(i - 1) <img src="~/images/@(image)"  /></p>
+                        if (index < Convert.ToInt32(Model.Levels))
+                        {
+                            <span class="fa fa-star checked" id="rate"></span>
+                        }
+                        else
+                        {
+                            <span class="fa fa-star" id="rate"></span>
+                        }
+
                     }
                 }
-            </div>
-            <div class="col-sm-7">
-                <h3>Ingredents</h3>
-                <ul>
-                    @foreach (var items in ingre)
-                    {
-                        <li>@items</li>
-                    }
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <hr>
-            <h3>How to do</h3>
-            @foreach (var items in reci)
-            {
-                <li>@items</li>
-            }
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Categories)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categories.Cate_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Levels)
-        </dt>
-
-        <dd>
-            @{
-                for (int index = 0; index < 5; index++)
-                {
-                    if (index < Convert.ToInt32(Model.Levels))
-                    {
-                        <span class="fa fa-star checked" id="rate"></span>
-                    }
-                    else
-                    {
-                        <span class="fa fa-star" id="rate"></span>
-                    }
-
-                }
-            }
-
-
-        </dd>
-
-    </dl>
        </div>
     </div>
     <div class="col-sm-2"></div>
@@ -155,13 +93,3 @@
     }
 
 </p>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script>
-    $(document).ready(function () {
-        var Level = @Model.Levels;       
-        console.log(Level);
-        for (var i = 0; i < Level; i++) {
-            $("#rate").eq(i).attr("class", "fa fa-star checked");
-        }
-    });
-</script>

@@ -294,6 +294,7 @@
     <Content Include="Content\img\sidebar-4.jpg" />
     <Content Include="Content\img\sidebar-5.jpg" />
     <Content Include="Content\img\tim_80x80.png" />
+    <Content Include="Content\js\addCreate.js" />
     <Content Include="Content\js\core\bootstrap.min.js" />
     <Content Include="Content\js\core\jquery.3.2.1.min.js" />
     <Content Include="Content\js\core\popper.min.js" />
@@ -307,7 +308,7 @@
     <Content Include="Content\BackgroundAnimation.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Rate.css" />
+    <None Include="Content\Rate.scss" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
