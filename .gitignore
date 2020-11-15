@@ -1,7 +1,11 @@
 ###################
 # compiled source #
 ###################
+<<<<<<< HEAD
 .vs/Eproject3/v16/Server/sqlite3/db.lock
+=======
+storage.ide
+>>>>>>> bf2535cbbb77cfa1dc1e1f14af2fb303b753985b
 db.lock
 *.com
 *.class

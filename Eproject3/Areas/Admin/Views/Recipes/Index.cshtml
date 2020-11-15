@@ -75,6 +75,29 @@
         </td>
     </tr>
             }
+<<<<<<< HEAD
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.R_Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Contester.Name)
+    </td>
+    <td>
+        @if (user.id != item.Users.id)
+        {
+            @Html.ActionLink("Details", "Details", new { id = item.id })
+        }
+        
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        
+    </td>
+</tr>
+=======
             else {
                if (item.R_Status == 0) {
     <tr>
@@ -94,6 +117,7 @@
                 {
                     <span> <img src="~/images/@(i)" height="200" width="200" /></span>
                 }
+>>>>>>> HuuTu
             }
 
         </td>
