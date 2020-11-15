@@ -22,7 +22,6 @@ namespace Eproject3.Areas.Admin.Controllers
             var recipes = db.Recipes.Include(r => r.Users);
             return View(await recipes.ToListAsync());
         }
-
         // GET: Recipes/Details/5
         public async Task<ActionResult> Details(int? id)
         {

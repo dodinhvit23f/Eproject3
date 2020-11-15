@@ -4,17 +4,11 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Users</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id)
     <div class="form-group">
@@ -43,13 +37,6 @@
     </div>
     @Html.HiddenFor(model => model.Img, new { htmlAttributes = new { @class = "form-control" } })
     @Html.HiddenFor(model => model.UPhone, new { htmlAttributes = new { @class = "form-control" } })
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Packs.name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(model => model.Packs.name, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Exp_Date, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -67,6 +54,7 @@
 <a href="/Tips/">Your Tips</a>|
 <a href="/Users/ChangePwd">Change Password</a>|
 <a href="/Users/ChangePhoto">Change Profile Picture</a>
+<a href="/Users/Extend">Extend your account</a>
 @*<form action="/Users/ChangePass">
     <img src="/images/@Html.DisplayFor(model=>model.Img)" />
 </form>*@

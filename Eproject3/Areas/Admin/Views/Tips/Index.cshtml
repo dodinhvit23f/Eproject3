@@ -1,50 +1,4 @@
-﻿@*
-
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users.UPhone)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Img)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Users.UPhone)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.id })
-            </td>
-        </tr>
-    }
-
-    </table>*@
-@Styles.Render("~/Content/content/bootstrap.min.css")
+﻿@Styles.Render("~/Content/content/bootstrap.min.css")
 @Styles.Render("~/Content/content/light-bootstrap-dashboard.css")
 @Styles.Render("~/Content/content/demo.css")
 @model IEnumerable<Eproject3.Models.Tips>
@@ -70,8 +24,8 @@
         <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text">
-                        Creative Tim
+                    <a href="/Home/" class="simple-text">
+                        James Theme's Culinary blog
                     </a>
                 </div>
                 <ul class="nav">
@@ -97,6 +51,12 @@
                         <a class="nav-link" href="/Admin/Contests">
                             <i class="nc-icon nc-air-baloon"></i>
                             <p>Contest</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/Admin/Users">
+                            <i class="nc-icon nc-badge"></i>
+                            <p>Users</p>
                         </a>
                     </li>
                 </ul>
@@ -144,23 +104,24 @@
                         <div class="col-md-12">
                             <div class="card strpied-tabled-with-hover">
                                 <div class="card-header ">
-                                    <h4 class="card-title">Recipes List</h4>
+                                    <h4 class="card-title">Tips List</h4>
                                 </div>
                                 <div class="card-header ">
                                     <h6 class="card-title">@Html.ActionLink("Create New", "Create")</h6>
                                 </div>
                                 <div class="card-body table-full-width table-responsive">
-
-                                    <table class="table table-hover table-striped">
+                                    <table id="myTable" class="table table-hover table-striped">
                                         <thead>
-                                        <th>Title</th>
-                                        <th>Content</th>
-                                        <th>Images</th>
-                                        <th>Uploader</th>
-                                        <th>Category</th>
-                                        <th>Level</th>
-                                        <th>Isfree</th>
-                                        <th colspan="2">Actions</th>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Content</th>
+                                                <th>Images</th>
+                                                <th>Uploader</th>
+                                                <th>Category</th>
+                                                <th>Level</th>
+                                                <th>Isfree</th>
+                                                <th>Actions</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var item in Model)
@@ -188,8 +149,6 @@
                                                         @Html.DisplayFor(modelItem => item.isFree)
                                                     </td>
                                                     <td>
-                                                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
                                                         @Html.ActionLink("Delete", "Delete", new { id = item.id })
                                                     </td>
                                                 </tr>
@@ -205,6 +164,7 @@
         </div>
     </div>
 </body>
+</html>
 <script src="../Content/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="../Content/js/core/popper.min.js" type="text/javascript"></script>
 <script src="../Content/js/core/bootstrap.min.js" type="text/javascript"></script>
@@ -214,5 +174,11 @@
 <script src="../Content/js/plugins/bootstrap-notify.js"></script>
 <script src="../Content/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <script src="../Content/js/demo.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 
-</html>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

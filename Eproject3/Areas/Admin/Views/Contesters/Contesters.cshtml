@@ -13,7 +13,7 @@
     <title>Contesters</title>
 </head>
 <body>
-    <table class="table table-hover table-striped">
+    <table id="myTable" class="table table-hover table-striped">
         <thead>
             <tr>
                 <th>
@@ -62,8 +62,9 @@
                         </td>
                     </tr>
                 }
-                else{
-                     <tr>
+                else
+                {
+                    <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
@@ -87,7 +88,19 @@
                     </tr>
                 }
             }
-        </tbody>   
+        </tbody>
     </table>
 </body>
 </html>
+
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+@section Scripts {
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+
+

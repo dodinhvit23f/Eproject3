@@ -2,7 +2,7 @@
 @Styles.Render("~/Content/content/bootstrap.min.css")
 @Styles.Render("~/Content/content/light-bootstrap-dashboard.css")
 @Styles.Render("~/Content/content/demo.css")
-@{ 
+@{
     var user = (Users)Session["user"];
 }
 <!DOCTYPE html>
@@ -55,7 +55,13 @@
                             <i class="nc-icon nc-air-baloon"></i>
                             <p>Contest</p>
                         </a>
-                    </li>                   
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/Admin/Users">
+                            <i class="nc-icon nc-badge"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -110,6 +116,9 @@
                             <div class="card strpied-tabled-with-hover">
                                 <div class="card-body table-full-width table-responsive">
                                     @RenderBody()
+                                    @Scripts.Render("~/bundles/jquery")
+                                    @Scripts.Render("~/bundles/bootstrap")
+                                    @RenderSection("scripts", required: false)
                                 </div>
                             </div>
                         </div>
@@ -119,6 +128,7 @@
         </div>
     </div>
 </body>
+</html>
 <script src="../Content/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="../Content/js/core/popper.min.js" type="text/javascript"></script>
 <script src="../Content/js/core/bootstrap.min.js" type="text/javascript"></script>
@@ -129,4 +139,5 @@
 <script src="../Content/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <script src="../Content/js/demo.js"></script>
 
-</html>
+
+

@@ -11,7 +11,8 @@ namespace Eproject3.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,13 +25,19 @@ namespace Eproject3.Models
         }
     
         public int id { get; set; }
+        [Required]
         public string UPhone { get; set; }
+        [Required]
+        [MaxLength(50)]
+        [MinLength(6)]
         public string UPass { get; set; }
+        [Required]
         public string UAdress { get; set; }
         public string Img { get; set; }
         public Nullable<int> Roll_id { get; set; }
         public Nullable<int> Pack_id { get; set; }
         public Nullable<System.DateTime> Exp_Date { get; set; }
+        [Required]
         public string AccNum { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
