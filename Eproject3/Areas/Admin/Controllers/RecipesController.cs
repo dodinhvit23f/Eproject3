@@ -31,7 +31,6 @@ namespace Eproject3.Areas.Admin.Controllers
                 return RedirectToAction("LoginView", "Users");
             }
         }
-
         // GET: Recipes/Details/5
         public async Task<ActionResult> Details(int? id)
         {

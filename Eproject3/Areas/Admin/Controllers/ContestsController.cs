@@ -131,6 +131,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (TempData["cas"] != null)
+            {
+                ViewBag.cas = "There are contestants in this contest,can not drop";
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -148,6 +152,11 @@ namespace Eproject3.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (db.Contester.Where(p=>p.Contest_id==id).Count() >0)
+            {
+                TempData["cas"] = true;
+                return RedirectToAction("Delete/"+id);
+            }
             Contest contest = await db.Contest.FindAsync(id);
             db.Contest.Remove(contest);
             await db.SaveChangesAsync();

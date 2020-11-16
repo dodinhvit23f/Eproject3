@@ -44,46 +44,58 @@ namespace Eproject3.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,UPhone,UPass,UAdress,Img,Roll_id,Pack_id,Exp_Date,AccNum")] Users users, HttpPostedFileBase Url)
         {
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
             string url_img = "";
-            if (db.Users.Where(p => p.UPhone == users.UPhone).FirstOrDefault() != null)
-            {
-                ViewBag.ExErr = "This phone number has been registered before";
-                return View(users);
-            }
+
             if (ModelState.IsValid)
             {
-                try
+                if (Url != null)
                 {
-                    string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                    string path = "";
+                    if (db.Users.Where(p => p.UPhone == users.UPhone).FirstOrDefault() != null)
+                    {
+                        ViewBag.ExErr = "This phone number has been registered before";
+                        return View(users);
+                    }
+                    try
+                    {
+                        path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(Url.FileName));
+                        url_img += Path.GetFileName(Url.FileName) + ",";
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.FileStatus = "Error while file uploading.";
+                    }
+                    string ex = Path.GetExtension(Url.FileName);
+                    if (!r.check(ex.ToLower(), formats))
+                    {
+                        ViewBag.FileStatus = ex + " is not an image";
+                        return View(users);
+                    }
+                    users.Img = url_img.Substring(0, url_img.Length - 1);
+                    if (users.Pack_id == 1)
+                    {
+                        users.Exp_Date = DateTime.Now.AddMonths(1);
+                    }
+                    else if (users.Pack_id == 2)
+                    {
+                        users.Exp_Date = DateTime.Now.AddYears(1);
+                    }
+                    else
+                    {
+                        users.Exp_Date = DateTime.Now;
+                    }
                     Url.SaveAs(path);
-                    url_img += Path.GetFileName(Url.FileName) + ","; 
-                }
-                catch (Exception e)
-                {
-                    ViewBag.FileStatus = "Error while file uploading.";
-                }
-                users.Img = url_img.Substring(0, url_img.Length - 1);
-                if (users.Pack_id == 1)
-                {
-                    users.Exp_Date = DateTime.Now.AddMonths(1);
-                }
-                else if (users.Pack_id == 2)
-                {
-                    users.Exp_Date = DateTime.Now.AddYears(1);
-                }
-                else
-                {
-                    users.Exp_Date = DateTime.Now;
-                }
-                string hashed = r.HashPwd(users.UPass);
-                users.UPass = hashed;
-                users.Roll_id = 2;
-                db.Users.Add(users);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                    string hashed = r.HashPwd(users.UPass);
+                    users.UPass = hashed;
+                    //users.Roll_id = 2;
+                    db.Users.Add(users);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }              
             }
-            //ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
+            ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
             return View(users);
         }
         public ActionResult ChangePhoto()
@@ -180,6 +192,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (TempData["cass"] != null)
+            {
+                ViewBag.cass = "This user posted tips or recipes can not drop";
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -197,6 +213,11 @@ namespace Eproject3.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (db.Recipes.Where(p => p.Contester_id == id).Count()>0 || db.Tips.Where(p => p.Use_id == id).Count()>0)
+            {
+                TempData["cass"] = true;
+                return RedirectToAction("Delete/"+id);
+            }
             Users users = await db.Users.FindAsync(id);
             db.Users.Remove(users);
             await db.SaveChangesAsync();
