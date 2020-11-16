@@ -1,41 +1,251 @@
 ﻿@model Eproject3.Models.Recipes
 @using Eproject3.Models;
-@{
+@{   
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Users u = (Users)Session["User"];
+    Users u = null;
+    if (Session["User"] != null)
+    {
+        u = (Users)Session["User"];
+    }
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Details</h2>
+
+<div>
+    <h4>Recipes</h4>
+    <hr />
+   @{ 
     List<string> ingre = Html.DisplayNameFor(model => model.ingredent).ToString().Split(',').ToList();
     List<string> reci = Html.DisplayNameFor(model => model.Content).ToString().Split('.').ToList();
+    }
 
-}
+
+
 <div class="col-sm-12" id="detail-background">
     <div class="col-sm-2"></div>
-    <div class="col-sm-8" id="detail-content">
-        <h1><i>@Html.DisplayFor(model => model.Title)</i></h1>
+
+    <div class="col-sm-8 content-detail">
         <div class="col-sm-12">
-            <div class="col-sm-5">
-                @{
-                    var Content_step = Model.Content.Split(',').ToList();
-                    var ImgList = Model.Img.Split(',').ToList();
-                    int i = 0;
-                    foreach (var image in ImgList)
-                    {
-                        i++;
-                        <p>Step @i</p>
-                        <p>@Content_step.ElementAt(i - 1) <img src="~/images/@(image)"  /></p>
-                    }
-                }
+
+            <div class="col-sm-2">
+                <div class="user-icon">
+                    <img src=".\Image\Logo\logo-white.png" alt="Avatar" />
+                </div>
+
             </div>
-            <div class="col-sm-7">
+
+            <div class="col-sm-10 title">
+                <i>@Html.DisplayFor(model => model.Title)</i>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="col-sm-12 blog-content-detail">
+            <div class="col-sm-12">
                 <h3>Ingredents</h3>
-                <ul>
-                    @foreach (var items in ingre)
-                    {
-                        <li>@items</li>
-                    }
-                </ul>
+                <div class="col-sm-12">
+                    <ul>
+                        @foreach (var items in ingre)
+                        {
+                            <li>@items</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <div class="col-sm-12 blog-content-detail">
+            <div class="col-sm-12">
+                <h3>How to do</h3>
+                <div class="col-sm-12">
+                    <ul>
+                        @foreach (var items in reci)
+                        {
+                            <li>@items</li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
+
+        <hr />
+
+        <div class="blog-img">
+
+            @{
+                var Content_step = Model.Content.Split(',').ToList();
+                var ImgList = Model.Img.Split(',').ToList();
+                int i = 0;
+                foreach (var image in ImgList)
+                {
+                    i++;
+                    <div class="col-sm-12">
+                        <p>Step @i: @Content_step.ElementAt(i - 1)</p>
+                    </div>
+                    <div class="center-content"> <img src="~/images/@image" alt="Food" /> </div>
+
+                }
+            }
+        </div>
+
+
+        <div class="col-sm-12 bar">
+            <div class="col-sm-12">
+
+                <div class="col-sm-6">
+                    Like
+                </div>
+                <div class="col-sm-6">
+                    FeedBack
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="col-sm-12 feedback-content">
+            <div class="col-sm-2">
+                @if (u != null)
+                {
+                    <div class="user-icon-feedback">
+                        <img src="~/images/@u.Img" alt="Avatar" />
+                    </div>
+                }
+            </div>
+            <div class="col-sm-10 comment">
+                <div class="col-sm-8 send-feedback">
+                    <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
+                    <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
+            </div>
+
+            <div class="col-sm-12 feedback-content">
+                <div class="col-sm-2">
+                    @if (u != null)
+                    {
+                        <div class="user-icon-feedback">
+                            <img src="~/images/@u.Img" alt="Avatar" />
+                        </div>
+                    }
+                </div>
+                <div class="col-sm-9 comment">
+                    <strong>Đỗ Đình Tiến</strong><br />
+                    <i>Cá Hấp Bia</i>
+                </div>
+
+            </div>
+            @foreach (var item in ViewBag.FeedBack)
+            {
+                <div class="col-sm-12 feedback-content">
+                    <div class="col-sm-2">
+                        <div class="user-icon-feedback">
+                            <img src="~/images/@item.Users.Img" alt="Avatar" />
+                        </div>
+
+                    </div>
+                    <div class="col-sm-9 comment">
+                        <strong>@* Dien vao user name*@</strong><br />
+                        <i>@item.Content</i>
+                    </div>
+
+                </div>
+
+            }
+
+
+
+
+        </div>
+    </div>
+    <div>
+
+        @* @if (u != null)
+            {
+                using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" value="@u.id" name="Use_id" />
+                    <input type="hidden" value="" name="" />
+                    <input type="text" name="" autocomplete="off" />
+                    <input type="submit" value="Comment" />
+
+
+                }
+            }
+            else
+            {
+                <button type="button" onclick=")">Login for comment</button>
+            }
+        *@
+
+
+
+    </div>
+</div>
+@if (u != null)
+{
+    <script>
+        async function sendFeedback(event, id) {
+
+            if (event.keyCode == 13) {
+                sendFeedbackWithClick(id);
+            }
+        }
+        async function sendFeedbackWithClick(id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../../FeedBacks/CreateRecipce", true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            @*
+                var data = new FormData();
+                data.append('Use_id', @u.id.ToString());
+                data.append('Recipes_id', @Model.id.ToString());
+                data.append('Content', document.getElementById(id).value);
+
+                xhr.send(data)
+                    *@
+            alert( JSON.stringify({
+                "Use_id": @u.id.ToString(),
+                "Recipes_id": @Model.id.ToString(),
+                "Content": document.getElementById(id).value
+            }))
+            try{
+                await xhr.send(
+                JSON.stringify({
+                    "Use_id":  @u.id.ToString(),
+                    "Recipes_id": @Model.id.ToString(),
+                    "Content": document.getElementById(id).value
+                })
+
+             );             
+            } catch(e){
+
+            }            
+            setTimeout(function(){
+                window.location.reload();
+            },4000)
+        }
+    </script>
+}
+else
+{
+    <script>
+        function sendFeedback(event, id) {
+
+            if (event.keyCode == 13) {
+                sendFeedbackWithClick(id);
+            }
+        }
+        function sendFeedbackWithClick(id) {
+            alert("điều hướng trang");
+            this.goto('../../Users/LoginView');
+        }
+    </script>
+}
         <div class="col-sm-12">
             <hr>
             <h3>How to do</h3>
@@ -43,7 +253,38 @@
             {
                 <li>@items</li>
             }
-        </div>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categories.Cate_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Levels)
+        </dt>
+
+        <dd>
+            @{
+                for (int index = 0; index < 5; index++)
+                {
+                    if (index < Convert.ToInt32(Model.Levels))
+                    {
+                        <span class="fa fa-star checked" id="rate"></span>
+                    }
+                    else
+                    {
+                        <span class="fa fa-star" id="rate"></span>
+                    }
+
+                }
+            }
+        </dd>
+    </dl>
+       </div>
     </div>
     <div class="col-sm-2"></div>
 </div>
@@ -57,8 +298,6 @@
             <input type="hidden" value="@Model.id" name="Recipes_id" />
             <input type="text" name="Content" autocomplete="off" />
             <input type="submit" value="Comment" />
-
-
         }
     }
     else
@@ -72,3 +311,25 @@
         </h3>
     }
 </div>
+<p>
+    @{
+        /*
+        if (u.UAdress == Model.Users.UAdress)
+        {
+            Html.ActionLink("Edit", "Edit", new { id = Model.id })
+        }
+        Html.ActionLink("Back to List", "Index")
+        */
+    }
+
+</p>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        var Level = @Model.Levels;       
+        console.log(Level);
+        for (var i = 0; i < Level; i++) {
+            $("#rate").eq(i).attr("class", "fa fa-star checked");
+        }
+    });
+</script>

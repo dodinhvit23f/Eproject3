@@ -34,4 +34,6 @@ textarea {
     box-sizing: border-box;
     -webkit-appearance: none;
 }
-
+.checked {
+    color: orange;
+}

@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ContestersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ContestsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExamsController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContestersController.cs" />
     <Compile Include="Controllers\ContestsController.cs" />
     <Compile Include="Controllers\ExamsController.cs" />
@@ -308,6 +310,7 @@
     <Content Include="Content\BackgroundAnimation.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Rate.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -380,6 +383,11 @@
     <Content Include="Areas\Admin\Views\Contesters\Contesters.cshtml" />
     <Content Include="Areas\Admin\Views\Users\ChangePwd.cshtml" />
     <Content Include="Areas\Admin\Views\Users\ForgetPwd.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\ChangePhoto.cshtml" />
     <Content Include="Content\fonts\nucleo-icons.eot" />
     <Content Include="Content\fonts\nucleo-icons.ttf" />
@@ -562,6 +570,11 @@
     <Content Include="Views\Exams\Details.cshtml" />
     <Content Include="Views\Users\ChangePwd.cshtml" />
     <Content Include="Views\Users\ForgetPwd.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Users\ChangePhoto.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />

@@ -51,12 +51,12 @@ namespace Eproject3.Controllers
         public ActionResult Create()
         {
             Users u = (Users)Session["User"];
-            if (u == null) {
-                return Redirect("Index");
+            if (u != null)
+            {
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                return View();
             }
-            ViewBag.Use_id = u.id;
-
-            return View();
+            return Redirect("~/Users/LoginView");
         }
 
         // POST: Tips/Create
@@ -64,8 +64,9 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img")] Tips tips, HttpPostedFileBase[] Url, string[] txtText,int Use_id)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, string rate)
         {
+            int flag = 0;
             string Cont = "";
             string url_img = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
@@ -77,20 +78,28 @@ namespace Eproject3.Controllers
                     {
                         if (img != null)
                         {
-                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
-                            img.SaveAs(path);
+                           
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
+                                flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
+                                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(tips);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
                         }
                         else
                         {
+                            flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
+                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                             return View(tips);
+                        }
+                        if (flag != 1)
+                        {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
                         }
                     }
                 }
@@ -111,13 +120,23 @@ namespace Eproject3.Controllers
                 }
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
-                tips.Use_id = Use_id;
-                db.Tips.Add(tips);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var isvalid = (Users)Session["user"];
+                tips.Use_id = isvalid.id;
+                
+                if (flag != 1)
+                {
+                    tips.Levels = rate;
+                    db.Tips.Add(tips);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(tips);
+                }
             }
 
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 
@@ -133,7 +152,7 @@ namespace Eproject3.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 
@@ -142,8 +161,9 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Content,Img")] Tips tips, HttpPostedFileBase[] Url, string[] txtText)
+        public async Task<ActionResult> Edit([Bind(Include = "iid,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, string rate)
         {
+            int flag = 0;
             string Cont = "";
             string url_img = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
@@ -155,11 +175,11 @@ namespace Eproject3.Controllers
                     {
                         if (img != null)
                         {
-                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
-                            img.SaveAs(path);
+
                             string ex = Path.GetExtension(img.FileName);
                             if (!check(ex, formats))
                             {
+                                flag = 1;
                                 ViewBag.FileStatus = ex + " is not an image";
                                 return View(tips);
                             }
@@ -167,8 +187,14 @@ namespace Eproject3.Controllers
                         }
                         else
                         {
+                            flag = 1;
                             ViewBag.FileStatus = "Content must have image !!!!";
                             return View(tips);
+                        }
+                        if (flag != 1)
+                        {
+                            string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
+                            img.SaveAs(path);
                         }
                     }
                 }
@@ -189,11 +215,23 @@ namespace Eproject3.Controllers
                 }
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
-                db.Entry(tips).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var isvalid = (Users)Session["user"];
+                tips.Use_id = isvalid.id;
+                
+                if (flag != 1)
+                {
+                    tips.Levels = rate;
+                    db.Entry(tips).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(tips);
+                }
             }
-            //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", tips.Use_id);
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(tips);
         }
 
