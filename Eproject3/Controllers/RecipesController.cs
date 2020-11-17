@@ -28,8 +28,7 @@ namespace Eproject3.Controllers
             else
             {
                 return RedirectToAction("LoginView","Users");
-            }
-            
+            }            
         }
 
         // GET: Recipes/Details/5

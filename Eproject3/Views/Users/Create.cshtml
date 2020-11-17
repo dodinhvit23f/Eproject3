@@ -9,9 +9,6 @@
         exErr = ViewBag.exErr;
     }
 }
-
-
-
 <a style="color:red">@exErr</a>
 
 @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "form-container" }))
@@ -100,7 +97,6 @@
             @* đường dẫn tới Forget password /Users/LoginView*@
             <button type="button" class="btn btn-default" onclick="goto('./LoginView')">Back</button>
         </div>
-
     </div>
 }
 

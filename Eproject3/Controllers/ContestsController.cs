@@ -18,7 +18,8 @@ namespace Eproject3.Controllers
         // GET: Contests
         public async Task<ActionResult> Index()
         {
-            return View(await db.Contest.ToListAsync());
+            DateTime next7days = DateTime.Today.AddDays(7);
+            return View(await db.Contest.Where(p => p.exp_time > DateTime.Now || p.C_Time == next7days).ToListAsync());
         }
 
         // GET: Contests/Details/5

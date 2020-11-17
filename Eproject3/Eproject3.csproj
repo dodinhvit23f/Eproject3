@@ -275,6 +275,7 @@
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\light-bootstrap-dashboard.css" />
     <Content Include="Content\fonts\nucleo-icons.svg" />
+    <Content Include="Content\HomePage.css" />
     <Content Include="Content\img\apple-icon.png" />
     <Content Include="Content\img\default-avatar.png" />
     <Content Include="Content\img\faces\face-0.jpg" />
@@ -581,6 +582,7 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Users\Payment.cshtml" />
     <Content Include="Views\Users\Extend.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Content\" />

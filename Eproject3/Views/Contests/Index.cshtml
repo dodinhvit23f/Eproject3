@@ -1,51 +1,21 @@
 ﻿@model IEnumerable<Eproject3.Models.Contest>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.C_Time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.exp_time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C_Description)
-        </th>       
-        <th>
-            Number of Exams
-        </th>
-        <th></th>
-    </tr>
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.C_Time)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.exp_time)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.C_Description)
-    </td>
-    <td>
-        @item.Exams.Count()
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-    </td>
-</tr>
-}
-
-</table>
+<div class="content">
+    <div class="container">
+        <h2>Contest</h2>
+        @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay*@
+        @foreach (var items in Model)
+        {
+            <div class="box-item relative">
+                <a href="/Contests/Details/@items.id">
+                    <div class="item">
+                        <div class="blur-hover">
+                            @items.title
+                        </div>
+                        <img src="~/images/@items.img" />
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

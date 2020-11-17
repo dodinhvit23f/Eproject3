@@ -19,17 +19,8 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-
-            var isValid = (Users)Session["user"];
-            if (isValid != null)
-            {
-                var recipes = db.Recipes.Where(p => p.Contester_id == isValid.id).Include(r => r.Users);
-                return View(await recipes.ToListAsync());
-            }
-            else
-            {
-                return RedirectToAction("LoginView", "Users");
-            }
+            var recipes = db.Recipes.Include(r => r.Users);
+            return View(await recipes.ToListAsync());
         }
         // GET: Recipes/Details/5
         public async Task<ActionResult> Details(int? id)
