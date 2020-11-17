@@ -4,8 +4,6 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
 <link rel="stylesheet" type="text/css" href="~/Content/Rate.css">
 
 @using (Html.BeginForm("Edit", "Recipes", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -13,7 +11,6 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Recipes</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id)
@@ -66,7 +63,7 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.R_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2" for="R_Status">Recipce Status</label>
         <div class="col-md-10">
             <select name="txtStatus">
                 <option value="0">Free</option>
@@ -76,7 +73,7 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.Cate_id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2" for="Cate_id">Category</label>
         <div class="col-md-10">
             @Html.DropDownList("Cate_id", (IEnumerable<SelectListItem>)ViewBag.Cate_id, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Cate_id, "", new { @class = "text-danger" })

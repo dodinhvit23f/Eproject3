@@ -6,11 +6,10 @@
 }
 
 
-<h2>Create</h2>
+
 <link rel="stylesheet" type="text/css" href="~/Content/Rate.scss">
 
-<h2">
-    Create new recipes</h2>
+<h2>Create Your Own Recipes</h2>
 
 
 
@@ -21,8 +20,6 @@
         <div class="form-horizontal">
 
             <hr />
-
-            <h4>Recipes </h4>
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -56,7 +53,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.R_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2" for="R_Status">Recipce Status</label>
                 <div class="col-md-10">
                     <select name="txtStatus">
                         <option value="0">Free</option>
@@ -66,7 +63,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Cate_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2" for="Cate_id">Category</label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(x => x.Cate_id, ViewBag.Cate_id as SelectList, htmlAttributes: new { @class = "form-control" })
 
