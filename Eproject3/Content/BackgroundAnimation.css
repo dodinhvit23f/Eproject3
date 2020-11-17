@@ -6,8 +6,9 @@
 
 #detail-background {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 200% 200%;
-    overflow-y: auto;
+    background-size: 300% 300%;
+    height:auto;
+    overflow-y:hidden;
     -webkit-animation: Animation 10s ease infinite;
     -moz-animation: Animation 10s ease infinite;
     animation: Animation 10s ease infinite;
@@ -84,7 +85,7 @@
     padding-right: 0px;
     padding-left: 0px;
     margin-left: auto;
-    margin-bottom:15px;
+    margin-bottom:50px;
 
     font-size:20px;
 }
@@ -214,13 +215,16 @@
 
 .winner{
     position:absolute;
-    left:38%;
+    left:34%;
     background-color:#db1d17;
     height:60px;
-    padding-top:19px;
+    padding-top:10px;
+    width:300px;
     top:97%;
     vertical-align:middle;
     z-index:4;
+    margin-bottom:20px;
+    text-align:center;
   
 }
 
