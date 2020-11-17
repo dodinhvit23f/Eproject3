@@ -142,6 +142,7 @@ namespace Eproject3.Areas.Admin.Controllers
                     recipes.R_Status = txtStatus;
                     db.Recipes.Add(recipes);
                     await db.SaveChangesAsync();
+                   
                 }
                 else {
                     ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");

@@ -3,76 +3,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var user = (Users)Session["User"];
+    var user = (Users)Session["user"];
 }
-
-<h2>Index</h2>
-
-@*<div class="col-sm-4"></div>
-    <div class="col-sm-4" id="detail-content">
-
-        <div class="col-sm-12 content">
-            <div class="col-sm-12">
-
-                <div class="col-sm-2">
-                    <div class="user-icon">
-                        <img src=".\Image\Logo\logo.png" />
-                    </div>
-
-                </div>
-
-                <div class="col-sm-7 title">
-                    <h2><i>Cá Hấp Bia</i></h2>
-                </div>
-
-            </div>
-
-            <div class="col-sm-12 blog-content">
-                Ban nen hap voi bia ha noi, no se tao vi ngon hon. Cat xa roi bo vao bia de giam mui tanh cua ca.
-                tao huong huong ngat ngay.
-                sdsds
-                dsdsd
-                dsdsd
-                dsdsd
-                dsdsd
-            </div>
-            <div class="blog-img">
-                <img src=".\Image\download(1).jpg" />
-            </div>
-
-            <div class="col-sm-12 bar">
-                <div class="col-sm-12">
-
-                    <div class="col-sm-6">
-                        Like
-                    </div>
-                    <div class="col-sm-6">
-                        FeedBack
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 feedback-content">
-                <div class="col-sm-2">
-                    <div class="user-icon-feedback">
-                        <img src=".\Image\Logo\logo.png" />
-                    </div>
-
-                </div>
-                <div class="col-sm-9 comment">
-                    <strong>Đỗ Đình Tiến</strong><br />
-                    <i>Cá Hấp Bia</i>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="col-sm-4"></div>
-        </div>*@
-
-
 @if (Model.Count() <= 0)
 {
     <h2>You havent't posted any Tips</h2>
@@ -134,13 +66,10 @@ else
                     {
                         if (user.id == item.Use_id)
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id })
-                            @Html.ActionLink("Detail", "Detail", new { id = item.id })
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id })|
                             @Html.ActionLink("Delete", "Delete", new { id = item.id })
                         }
-                        @Html.ActionLink("Details", "Details", new { id = item.id })
                     }
-                    @Html.ActionLink("Details", "Details", new { id = item.id })
                 </td>
             </tr>
         }

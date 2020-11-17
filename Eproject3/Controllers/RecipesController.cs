@@ -76,6 +76,7 @@ namespace Eproject3.Controllers
             string url_img = "";
             string ingre = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             if (ModelState.IsValid)
             {              
                     try
@@ -145,39 +146,28 @@ namespace Eproject3.Controllers
                     recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
                 }
                 if (flag != 1)
-                    if (Session["user"] != null)
-                    {
-                        var isvalid = (Users)Session["user"];
-                        recipes.Contester_id = isvalid.id;
+                if (Session["user"] != null)
+                {
+                    var isvalid = (Users)Session["user"];
+                    recipes.Contester_id = isvalid.id;
                         
-                    }
-                    else
-                    {
-                        recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-                    }
+                }
+                else
+                {
+                    recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                }
+                recipes.Levels = rate;
                 recipes.R_Status = txtStatus;
                 db.Recipes.Add(recipes);
-                await db.SaveChangesAsync();
+                await db.SaveChangesAsync();             
                 if (TempData["Supplement"] != null)
                 {
-                  
-                    recipes.Levels = rate;
-                    recipes.R_Status = txtStatus;
-                    db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();
-                    if (TempData["Supplement"] != null)
-                    {
-                        TempData["reId"] = recipes.id;
-                        return RedirectToAction("Create", "Exams");
-                    }
-                    return RedirectToAction("Index");
-                }
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                return View(recipes);
+                    TempData["reId"] = recipes.id;
+                    return RedirectToAction("Create","Exams");
+                }                
+                return RedirectToAction("Index");
             }
-
             return View(recipes);
-
         }
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)

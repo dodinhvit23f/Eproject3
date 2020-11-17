@@ -34,6 +34,11 @@ namespace Eproject3.Controllers
             {
                 ViewBag.early = TempData["early"];
             }
+            if (TempData["exist"] != null)
+            {
+                ViewBag.exist = TempData["exist"];
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

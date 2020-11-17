@@ -19,7 +19,8 @@ namespace Eproject3.Models
         {
             this.Exams = new HashSet<Exams>();
             this.Contester = new HashSet<Contester>();
-        }    
+        }
+    
         public int id { get; set; }
         public Nullable<System.DateTime> C_Time { get; set; }
         public Nullable<System.DateTime> exp_time { get; set; }

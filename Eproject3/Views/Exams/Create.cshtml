@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
 
 @using (Html.BeginForm())
@@ -13,13 +12,13 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Exams</h4>
+    <h4>Choose one of your recipes to paticipate in the contest</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @if (ViewBag.Recipes_id != null)
     {
         <div class="form-group">
-            @Html.LabelFor(model => model.Recipes_id, "Recipes_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            Your Recipes<br />
             <div class="col-md-10">
                 @Html.DropDownList("Recipes_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Recipes_id, "", new { @class = "text-danger" })

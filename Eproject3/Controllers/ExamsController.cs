@@ -41,11 +41,16 @@ namespace Eproject3.Controllers
         {
             ViewBag.Contest_id = new SelectList(db.Contest, "id", "id");
             ViewBag.Contester_id = new SelectList(db.Contester, "id", "Name");
-            if (Session["user"] != null  )
+            if (Session["user"] != null)
             {
                 //int cterId = (int)TempData["cterId"];
                 var isvalid = (Users)Session["user"];
-                ViewBag.Recipes_id = new SelectList(db.Recipes.Where(p=>p.Contester_id== isvalid.id), "id", "Title");
+                var recies = db.Recipes.Where(p => p.Contester_id == isvalid.id);
+                if (recies.Count() >0)
+                {
+                    ViewBag.Recipes_id = new SelectList(recies, "id", "Title");
+                }
+                return View();
             }
             //giai quyet tai sao de ko dang nhao cx hien ra select list
             if (TempData["reId"] != null)
@@ -54,6 +59,7 @@ namespace Eproject3.Controllers
                 ViewBag.Recipes_id = new SelectList(db.Recipes.Where(p => p.id == reID), "id", "Title");
             }
             return View();
+
         }
         public ActionResult Supplement()
         {
