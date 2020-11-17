@@ -19,8 +19,7 @@ namespace Eproject3.Controllers
                 ViewBag.done = "Done,you have submit your exams successfully";
             }
             var contests = db.Contest;
-            DateTime next7days = DateTime.Today.AddDays(7);
-            ViewBag.contests = db.Contest.Where(p=>p.exp_time>DateTime.Now||p.C_Time== next7days);
+            ViewBag.Cate = db.Categories;
             var user = (Users)Session["user"];
             if (user == null || user.Pack_id==3 || user.Roll_id !=1)
             {
@@ -38,8 +37,8 @@ namespace Eproject3.Controllers
         [HttpGet]
         public ActionResult Search(string kw)
         {
-            var tips = db.Tips.Where(p=>p.Title.Contains(kw));
-            var recipes = db.Recipes.Where(p=>p.Title.Contains(kw));
+            var tips = db.Tips.Where(p=>p.Title.Contains(kw) || p.Categories.Cate_Name.Contains(kw) );
+            var recipes = db.Recipes.Where(p=>p.Title.Contains(kw) || p.Categories.Cate_Name.Contains(kw));
             ViewBag.tips = tips;
             ViewBag.recipes = recipes;
             ViewBag.kw = kw;
@@ -61,7 +60,6 @@ namespace Eproject3.Controllers
         public ActionResult FAQ()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

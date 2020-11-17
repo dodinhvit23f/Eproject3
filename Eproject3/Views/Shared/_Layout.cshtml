@@ -9,24 +9,19 @@
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/HomePage.css")
     @Styles.Render("~/Content/BackgroundAnimation.css")
-   
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @{
         var isvalid = (Users)Session["user"];
     }
     <script>
-
-
         function goto(path) {
             window.location.href = path;
         }
-
     </script>
 </head>
 <body>
-
     <header>
-
         <nav>
             <div class="container nav">
                 <div class="right">
@@ -57,27 +52,13 @@
                             @Html.ActionLink("Contact", "Contact", "Home")
                         </li>
                         <li>
-                            @Html.ActionLink("Recipes", "Index", "Recipes")
-
-                            <div class="my-dropdown-menu">
-                                <ul>
-                                    <li><a href="#">Favourite</a></li>
-                                    <li><a href="#">New</a></li>
-                                </ul>
-                            </div>
+                            @Html.ActionLink("Recipes", "Index", "Home")
                         </li>
                         <li>
-                            @Html.ActionLink("Tips", "Tip", "Home")
-
-                            <div class="my-dropdown-menu">
-                                <ul>
-                                    <li><a href="#">Favourite</a></li>
-                                    <li><a href="#">New</a></li>
-                                </ul>
-                            </div>
+                            @Html.ActionLink("Tips", "Index", "Home")
                         </li>
                         <li>
-                            <a href="#">Contest</a>
+                            <a href="/Contests/">Contest</a>
                         </li>
                         <li>
                             @Html.ActionLink("FAQ", "FAQ", "Home")
@@ -90,8 +71,6 @@
     </header>
     <div class="container body-content">
         @RenderBody()
-
-
     </div>
     <footer >
         <div class="col-sm-3">
@@ -125,7 +104,6 @@
                 </div>
             </div>
             <div class="col-sm-3">
-
             </div>
         </div>
     </footer>

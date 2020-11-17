@@ -8,15 +8,13 @@
 }
 
 <div class="col-sm-6 action-form">
-    <div class="center"><h2>LoginView</h2></div>
+    <div class="center"><h2>Login</h2></div>
     <a class="alert-info">@ViewBag.done</a>
     <form action="/Users/Login" class="form-container" method="post">
-        @*PhoneNumber: @Html.TextBoxFor(model => model.UPhone)</br>
-            PassWord:@Html.TextBoxFor(model => model.UPass)</br>*@
         <hr>
         <div class="box-radius-border">
             <label for="email"><b>Phone:</b></label>
-            <input type="text" placeholder="Enter Phonenumber" name="phones" pattern="[0-9]+" required>
+            <input type="text" placeholder="Enter Phonenumber" name="phones" required>
         </div>
         <div class="box-radius-border">
             <label for="psw"><b>Password:</b></label>

@@ -19,17 +19,8 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-
-            var isValid = (Users)Session["user"];
-            if (isValid != null)
-            {
-                var recipes = db.Recipes.Where(p => p.Contester_id == isValid.id).Include(r => r.Users);
-                return View(await recipes.ToListAsync());
-            }
-            else
-            {
-                return RedirectToAction("LoginView", "Users");
-            }
+            var recipes = db.Recipes.Include(r => r.Users);
+            return View(await recipes.ToListAsync());
         }
         // GET: Recipes/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -152,15 +143,15 @@ namespace Eproject3.Areas.Admin.Controllers
                     db.Recipes.Add(recipes);
                     await db.SaveChangesAsync();
                 }
-                else
-                {
-
+                else {
+                    ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                    return View(recipes);
                 }
-                recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                return View(recipes);
+                //recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+               
             }
-            return View();//check again
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+            return View(recipes);
         }
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)

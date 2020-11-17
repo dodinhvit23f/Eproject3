@@ -177,6 +177,12 @@
     padding-top: 10px;
 }
 
+.checked {
+    color: orange;
+}
+
+
+
 .center-content img {
     max-width:60%;
     max-height:30%;
@@ -217,3 +223,4 @@
     z-index:4;
   
 }
+
