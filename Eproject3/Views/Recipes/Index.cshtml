@@ -1,115 +1,28 @@
 ﻿@model IEnumerable<Eproject3.Models.Recipes>
-    @using Eproject3.Models;
+@using Eproject3.Models;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var user = (Users)Session["User"];
-     
+    
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ingredent)
-        </th>
-        <th>
-           Cach Lam
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Levels)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Categories)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        var ImgList = item.Img.Split(',').ToList();
-        if (user!=null)
-        {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ingredent)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @{
-
-            foreach (var i in ImgList)
+<div class="content">
+    @foreach (var items in Model)
             {
-                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-            }
-        }
 
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Levels)/5
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-    </td>
-</tr>
-        }
-        else {
-           if (item.R_Status == 0) { 
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ingredent)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @{
-
-            foreach (var i in ImgList)
-            {
-                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-            }
-        }
-
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Levels)/5
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-    </td>
-</tr>
-            }
-         }
-      }
-
-</table>
+        <a href="/Recipes/Details/@items.id">
+            <div class="col-sm-4">
+                <div class="col-sm-4 box-item relative">
+                    <div class="item">
+                        <div class="blur-hover">
+                            <h1>@items.Title</h1>
+                        </div>
+                        <img src="~/images/@items.Img.Split(',').First()">
+                    </div>
+                </div>
+            </div>
+        </a>
+       
+    }
+</div>

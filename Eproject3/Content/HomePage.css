@@ -76,10 +76,7 @@ footer a {
 }
 
 .right {
-    position: fixed;
-    top: 15px;
-    right: 2%;
-    z-index: 3;
+    float:right;
 }
 
     .right a {
@@ -98,10 +95,10 @@ footer a {
 
 .item {
     position: relative;
-    border: 1px solid black;
+   
     margin-top: 10px;
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
     overflow: hidden;
     word-wrap: break-word;
     vertical-align: middle;
@@ -116,6 +113,7 @@ footer a {
         object-fit: cover;
         -webkit-text-size-adjust: 100%;
         display: inline;
+        border-radius: 10px;
     }
 
     .item:hover img {
@@ -156,10 +154,10 @@ footer a {
 }
 
 .box-item {
-    width: 400px;
-    height: 400px;
+    width: inherit;
+    height: inherit;
     float: left;
-    margin-right: 15px;
+    margin-right: 2%;
     margin-bottom: 15px;
 }
 
@@ -190,7 +188,7 @@ footer a {
 
 .menu {
     margin-left: 12%;
-    width: 90%;
+    width: 83%;
 }
 
 .relative {
@@ -228,6 +226,8 @@ ul {
     position: relative;
     min-width:100px;
 }
+
+
 
 .menu li:hover {
     background-color: #000000;
@@ -429,12 +429,27 @@ a {
         .form-container button:hover {
             background-color: #b0a5a5;
         }
-@media screen and (max-width: 900px) {
-    .right{
-        position:absolute;
-        top:50px;
-        display:inline-block;
-    }
+#search-tool{
+    width:700px;
+    height:50px;
+    font-size:30px;
+    border:none;
+    border-radius:20px;
+    position:fixed;
+    left: 34%;
+    text-align:center;
+    top: 25px;
+    display:none;
+    z-index:99;
+}
 
-    
+.search-bar{
+    width:700px;
+    height:50px;
+    font-size:30px;
+    border:none;
+    border-radius:20px;
+    text-align:center; 
+    z-index:99;
+    margin-left:34%;
 }

@@ -22,11 +22,17 @@
         </div>
 
     </div>
+   
+
     <form method="get" action="/Home/Search">
-        Tips/Recipes:<input name="kw" required type="text" /><button>Search</button>
+        <div class="search-bar">
+            <input name="kw" id="search-tool" required type="text" placeholder="Search for Tips/Recipes: " />
+            @*<button>Search</button>*@
+        </div>
     </form>
+
     <div class="content">
-        Recipes
+        <h1>Recipes For Community</h1>
         <div class="container">
             @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
             @foreach (var items in Model)
@@ -47,41 +53,45 @@
             }
         </div>
     </div>
-    <div class="content">
-        <div class="container">
-            @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
-            Tips
-            @foreach (var items in tips)
-            {
+    @*
+        <div class="content">
+            <div class="container">
+                @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay
+                <h1>Tips</h1>
+                @foreach (var items in tips)
+                {
 
 
 
-                <div class="box-item relative">
-                    <a href="/Tips/Details/@items.id">
-                        <div class="item">
-                            <div class="blur-hover">
-                                <h1>@items.Title</h1>
+                    <div class="box-item relative">
+                        <a href="/Tips/Details/@items.id">
+                            <div class="item">
+                                <div class="blur-hover">
+                                    <h1>@items.Title</h1>
+                                </div>
+                                <img src="~/images/@items.Img.Split(',').First()" alt="...">
                             </div>
-                            <img src="~/images/@items.Img.Split(',').First()" alt="...">
-                        </div>
-                    </a>
-                </div>
-            }
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
+
 
     <div class="content">
 
         <div class="container">
-            Contest
-            @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay*@
+            <h1>
+                Contest
+            </h1>
+            @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay
             @foreach (var items in contests)
             {
                 <div class="box-item relative">
                     <a href="/Contests/Details/@items.id">
                         <div class="item">
                             <div class="blur-hover">
-                                @items.title                               
+                                @items.title
                             </div>
                             <img src="~/images/@items.img" />
                         </div>
@@ -90,4 +100,5 @@
             }
         </div>
     </div>
+    *@
 </div>
