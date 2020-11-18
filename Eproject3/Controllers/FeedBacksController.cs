@@ -52,7 +52,7 @@ namespace Eproject3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int? Use_id,int Recipes_id,string Content,int?Tip_id)
+        public async Task<ActionResult> Create(int? Use_id,int? Recipes_id,string Content,int?Tip_id)
         {
             if (ModelState.IsValid)
             {

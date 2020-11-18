@@ -1,42 +1,79 @@
 ﻿@model IEnumerable<Eproject3.Models.Recipes>
-@using Eproject3.Models;
+    @using Eproject3.Models;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var user = (Users)Session["User"];
-    
+     
 }
 
-<h2>Your Own Recipce</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<div class="content">
-    <div class="container">
-        @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
-        @foreach (var items in Model)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ingredent)
+        </th>
+        <th>
+           Cach Lam
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Levels)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categories)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var ImgList = item.Img.Split(',').ToList();
+       
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ingredent)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @{
+
+            foreach (var i in ImgList)
             {
-
-           
-                <div class="col-sm-4 box-item relative">
-                    <div class="item">
-                        <div class="blur-hover">
-                            <h1>@items.Title</h1>
-                            @Html.ActionLink("Edit", "Edit", new { id = items.id })
-                            @Html.ActionLink("Details", "Details", new { id = items.id })
-                            @Html.ActionLink("Delete", "Delete", new { id = items.id })
-                        </div>
-                        <img src="~/images/@items.Img.Split(',').First()">
-                    </div>
-                </div>
-            
+                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+            }
         }
-    </div>
-</div>
 
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Levels)/5
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
+        
+        
+      }
 
-
-
-
+</table>
