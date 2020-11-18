@@ -215,13 +215,7 @@ namespace Eproject3.Controllers
                                 return View(recipes);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
-                        }
-                        else
-                        {
-                            flag = 1;
-                            ViewBag.FileStatus = "Image cannot be null !!";
-                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                            return View(recipes);
+                            recipes.Img = url_img.Substring(0, url_img.Length - 1);
                         }
                         if (flag != 1) {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
@@ -233,9 +227,6 @@ namespace Eproject3.Controllers
                 {
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
-
-                recipes.Img = url_img.Substring(0, url_img.Length - 1);
-
                 foreach (var text in txtText)
                 {
                     if (text != "")

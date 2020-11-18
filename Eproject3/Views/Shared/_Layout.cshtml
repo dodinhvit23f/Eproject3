@@ -18,28 +18,27 @@
         function goto(path) {
             window.location.href = path;
         }
+
+        var prevScrollpos = window.pageYOffset;
+
+
+
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos && window.pageYOffset > 100) {
+                document.getElementById("search-tool").style.display = "inline";
+            } else {
+                document.getElementById("search-tool").style.display = "none";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+
     </script>
 </head>
 <body>
     <header>
         <nav>
             <div class="container nav">
-                <div class="right">
-                    <div>
-                        @if (isvalid != null)
-                        {
-                            <i><a href="/Users/Edit/@isvalid.id">Hello,@isvalid.UAdress</a></i>
-                                <i><a href="/Users/LogOut">Logout</a></i>
-                        }
-                        else
-                        {
-                            @*href="/Users/LoginView"*@
-                            <i><a href="/Users/LoginView">Login</a></i>
-                            //href="/Users/Create"
-                            <i><a href="/Users/Create">Register</a></i>
-                        }
-                    </div>
-                </div>
                 <div class="left">
                     <img class="logo" src="~/Image/Logo/logo.png" />
                 </div>
@@ -63,6 +62,19 @@
                         <li>
                             @Html.ActionLink("FAQ", "FAQ", "Home")
                         </li>
+                        @if (isvalid != null)
+                        {
+                            <li class="right"><a href="/Users/LogOut">Logout</a></li>
+                            <li class="right"><a href="/Users/Edit/@isvalid.id">Hello,@isvalid.UAdress</a></li>
+                        }
+                        else
+                        {
+
+                            @*href="/Users/LoginView"*@
+                            <li class="right"><a href="/Users/Create">Register</a></li>
+                            <li class="right"><a href="/Users/LoginView">Login</a></li>
+
+                        }
                     </ul>
                 </div>
 
@@ -72,7 +84,7 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-    <footer >
+    <footer>
         <div class="col-sm-3">
 
         </div>

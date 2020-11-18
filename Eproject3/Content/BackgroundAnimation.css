@@ -1,10 +1,11 @@
 ﻿* {
     margin: 0px;
-    padding: 0px;
+    
 }
 
+
 #detail-background {
-    background: linear-gradient(-45deg,#112419,#465754,#695879,#281199);
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 200% 200%;
     overflow-y: auto;
     -webkit-animation: Animation 10s ease infinite;
@@ -119,8 +120,8 @@
 .title {
     margin-top: 10px;
     height: 70px;
-    font-size:30px;
-    padding-right:60px;
+    font-size:40px;
+    padding-right:100px;
     text-align: center;
 }
 
@@ -184,11 +185,10 @@
 
 
 .center-content img {
-    max-width:60%;
+    max-width:100%;
+    min-width:70%;
     max-height:30%;
     object-fit:cover;
-   
-   
 }
 
 .center-content{
@@ -222,5 +222,17 @@
     vertical-align:middle;
     z-index:4;
   
+}
+
+.col-sm-12.blog-content-detail {
+    clear:both;
+    height:auto;
+    margin-bottom:15px;
+    position:relative;
+}
+
+.blog-content-detail * {
+    clear:both;
+    height:auto;
 }
 

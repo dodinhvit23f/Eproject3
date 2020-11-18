@@ -25,6 +25,9 @@
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
     </div>
+    @*Dong` nay la su khac biet*@
+    @Html.HiddenFor(model=>model.Img)
+    @Html.HiddenFor(model=>model.Content)
     <div class="form-group">
         @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -32,12 +35,11 @@
                 var Content_step = Model.Content.Split(',').ToList();
                 foreach (var i in Content_step)
                 {
-                    <p>  <input type="text" name="txtText" value="@i" class="form-control" required /> <input type="file" name="Url" class="form-control" /></p>
+                    <p><input type="text" name="txtText" value="@i" class="form-control"  /> <input type="file" name="Url" class="form-control" /></p>
                 }
                 <button id="addContent" type="button" class="btn btn-outline-primary btn-lg">+</button>
                 <button id="RemoveContent" type="button" class="btn btn-outline-primary btn-lg">-</button>
             }
-
             @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
         </div>
     </div>

@@ -82,7 +82,6 @@ namespace Eproject3.Areas.Admin.Controllers
                                 ViewBag.FileStatus = ex + " is not an image";
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
-
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
                         }
@@ -141,15 +140,12 @@ namespace Eproject3.Areas.Admin.Controllers
                     recipes.Levels = rate;
                     recipes.R_Status = txtStatus;
                     db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();
-                   
+                    await db.SaveChangesAsync();                  
                 }
                 else {
                     ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                     return View(recipes);
-                }
-                //recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-               
+                }               
             }
             ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             return View(recipes);
@@ -200,13 +196,7 @@ namespace Eproject3.Areas.Admin.Controllers
                                 return View(recipes);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
-                        }
-                        else
-                        {
-                            flag = 1;
-                            ViewBag.FileStatus = "Image cannot be null !!";
-                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                            return View(recipes);
+                            recipes.Img = url_img.Substring(0, url_img.Length - 1);
                         }
                         if (flag != 1)
                         {
@@ -222,7 +212,6 @@ namespace Eproject3.Areas.Admin.Controllers
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
 
-                recipes.Img = url_img.Substring(0, url_img.Length - 1);
 
                 foreach (var text in txtText)
                 {
