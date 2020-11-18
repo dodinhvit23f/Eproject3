@@ -76,6 +76,7 @@ namespace Eproject3.Controllers
             string url_img = "";
             string ingre = "";
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
+            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
             if (ModelState.IsValid)
             {              
                     try
@@ -145,39 +146,28 @@ namespace Eproject3.Controllers
                     recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
                 }
                 if (flag != 1)
-                    if (Session["user"] != null)
-                    {
-                        var isvalid = (Users)Session["user"];
-                        recipes.Contester_id = isvalid.id;
+                if (Session["user"] != null)
+                {
+                    var isvalid = (Users)Session["user"];
+                    recipes.Contester_id = isvalid.id;
                         
-                    }
-                    else
-                    {
-                        recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-                    }
+                }
+                else
+                {
+                    recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
+                }
+                recipes.Levels = rate;
                 recipes.R_Status = txtStatus;
                 db.Recipes.Add(recipes);
-                await db.SaveChangesAsync();
+                await db.SaveChangesAsync();             
                 if (TempData["Supplement"] != null)
                 {
-                  
-                    recipes.Levels = rate;
-                    recipes.R_Status = txtStatus;
-                    db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();
-                    if (TempData["Supplement"] != null)
-                    {
-                        TempData["reId"] = recipes.id;
-                        return RedirectToAction("Create", "Exams");
-                    }
-                    return RedirectToAction("Index");
-                }
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                return View(recipes);
+                    TempData["reId"] = recipes.id;
+                    return RedirectToAction("Create","Exams");
+                }                
+                return RedirectToAction("Index");
             }
-
             return View(recipes);
-
         }
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -225,13 +215,7 @@ namespace Eproject3.Controllers
                                 return View(recipes);
                             }
                             url_img += Path.GetFileName(img.FileName) + ",";
-                        }
-                        else
-                        {
-                            flag = 1;
-                            ViewBag.FileStatus = "Image cannot be null !!";
-                            ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                            return View(recipes);
+                            recipes.Img = url_img.Substring(0, url_img.Length - 1);
                         }
                         if (flag != 1) {
                             string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(img.FileName));
@@ -243,9 +227,6 @@ namespace Eproject3.Controllers
                 {
                     ViewBag.FileStatus = "Error while file uploading.";
                 }
-
-                recipes.Img = url_img.Substring(0, url_img.Length - 1);
-
                 foreach (var text in txtText)
                 {
                     if (text != "")

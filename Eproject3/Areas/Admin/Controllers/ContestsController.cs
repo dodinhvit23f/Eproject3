@@ -31,7 +31,7 @@ namespace Eproject3.Areas.Admin.Controllers
             }
             Contest contest = await db.Contest.FindAsync(id);
             if (contest == null)
-            {
+            {                
                 return HttpNotFound();
             }
             return View(contest);
@@ -48,7 +48,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,detail,img")] Contest contest, HttpPostedFileBase Url)
+        public async Task<ActionResult> Create([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,img")] Contest contest, HttpPostedFileBase Url)
         {
             if (DateTime.Compare(contest.C_Time.Value,contest.exp_time.Value) >0)
             {
@@ -97,10 +97,11 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,detail,img")] Contest contest, HttpPostedFileBase Url)
+        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,img")] Contest contest, HttpPostedFileBase Url)
         {
             if (DateTime.Compare(contest.C_Time.Value, contest.exp_time.Value) > 0)
             {
+                
                 ViewBag.Soon = "Start date can not be earlier than end date ";
                 return View(contest);
             }

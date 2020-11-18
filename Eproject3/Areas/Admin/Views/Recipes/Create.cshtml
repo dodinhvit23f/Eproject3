@@ -4,25 +4,18 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<<<<<<< HEAD
 
-<h2>Create</h2>
 <link rel="stylesheet" type="text/css" href="~/Content/Rate.css">
-
-=======
->>>>>>> HuuTu
 @using (Html.BeginForm("Create", "Recipes", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
-<<<<<<< HEAD
     <div class="form-horizontal">
-
         <hr />
         @if (Session["Contest_id"] != null)
         {
             <h4>Recipes of @Session["Contest_id"].ToString()</h4>
-            <input type="hidden" name="Contester_id" value="@Session["Contest_id"]" />}
+            <input type="hidden" name="Contester_id" value="@Session["Contest_id"]" />
+        }
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,19 +23,8 @@
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
-=======
-<div class="form-horizontal">
-    <h4>Create new recipes</h4>
-    <hr />
-    <input type="hidden" name="Contester_id" value="@Session["Contest_id"]" />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
->>>>>>> HuuTu
         </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.ingredent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -66,7 +48,6 @@
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
-<<<<<<< HEAD
         <div class="form-group">
             @Html.LabelFor(model => model.R_Status, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -76,17 +57,6 @@
                 </select>
                 @Html.ValidationMessageFor(model => model.R_Status, "", new { @class = "text-danger" })
             </div>
-=======
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.R_Status, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select name="txtStatus">
-                <option value="0">Free</option>
-                <option value="1">Only members can read this recipe</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.R_Status, "", new { @class = "text-danger" })
->>>>>>> HuuTu
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Cate_id, htmlAttributes: new { @class = "control-label col-md-2" })

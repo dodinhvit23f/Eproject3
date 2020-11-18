@@ -50,7 +50,7 @@ namespace Eproject3.Areas.Admin.Controllers
             exams.E_Status = 1;
             exams.Mark = mark;
             db.SaveChanges();
-            return RedirectToAction("Contesters/"+ exams.Contest_id, "Contesters");
+            return RedirectToAction("Contesters?CtID=" + exams.Contest_id, "Contesters");
         }
         // GET: Exams/Create
         public ActionResult Create()

@@ -22,7 +22,6 @@
           <Property Name="C_Description" Type="text" />
           <Property Name="img" Type="varchar" MaxLength="100" />
           <Property Name="id_winner" Type="int" />
-          <Property Name="detail" Type="varchar" MaxLength="200" />
           <Property Name="title" Type="varchar" MaxLength="200" />
           <Property Name="requirement" Type="varchar" MaxLength="200" />
         </EntityType>
@@ -94,10 +93,10 @@
           <Property Name="Use_id" Type="int" />
           <Property Name="Content" Type="text" />
           <Property Name="Img" Type="varchar" MaxLength="500" />
+          <Property Name="isFree" Type="bit" />
           <Property Name="Title" Type="varchar" MaxLength="100" />
           <Property Name="Levels" Type="varchar" MaxLength="20" />
           <Property Name="Cate_id" Type="int" />
-          <Property Name="isFree" Type="bit" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -221,7 +220,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Recipes__Cate_id__14270015">
+        <Association Name="FK__Recipes__Cate_id__2739D489">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,7 +244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tips__Cate_id__151B244E">
+        <Association Name="FK__Tips__Cate_id__282DF8C2">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Tips" Type="Self.Tips" Multiplicity="*" />
           <ReferentialConstraint>
@@ -340,7 +339,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="FeedBack" EntitySet="FeedBack" />
           </AssociationSet>
-          <AssociationSet Name="FK__Recipes__Cate_id__14270015" Association="Self.FK__Recipes__Cate_id__14270015">
+          <AssociationSet Name="FK__Recipes__Cate_id__2739D489" Association="Self.FK__Recipes__Cate_id__2739D489">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Recipes" EntitySet="Recipes" />
           </AssociationSet>
@@ -348,7 +347,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Recipes" EntitySet="Recipes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tips__Cate_id__151B244E" Association="Self.FK__Tips__Cate_id__151B244E">
+          <AssociationSet Name="FK__Tips__Cate_id__282DF8C2" Association="Self.FK__Tips__Cate_id__282DF8C2">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Tips" EntitySet="Tips" />
           </AssociationSet>

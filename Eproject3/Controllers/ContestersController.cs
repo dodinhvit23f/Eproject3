@@ -65,8 +65,8 @@ namespace Eproject3.Controllers
                 }
                 if (db.Contester.Where(p => p.Phone == contester.Phone).FirstOrDefault() != null)
                 {
-                    ViewBag.exist = "This phone number has been registered before,Pls try another one";
-                    return View(contester);
+                    TempData["exist"] = "This phone number has been registered before,Pls try another one";
+                    return RedirectToAction("Details/"+ (int)TempData["ctId"], "Contests");
                 }
                 contester.Contest_id = (int)TempData["ctId"];
                 db.Contester.Add(contester);

@@ -37,7 +37,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                if (int.Parse(item.Exams.Where(p => p.Contester_id == item.id).FirstOrDefault().E_Status.ToString()) == 0)
+                if (item.Exams.Where(p => p.Contester_id == item.id).FirstOrDefault().E_Status == 0)
                 {
                     <tr style="background-color:cadetblue">
                         <td>
