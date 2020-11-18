@@ -50,41 +50,28 @@
         <div class="col-sm-2"></div>
     </div>
     <div class="col-sm-12">
-        @if (exams != null)
-        {
-            <div class="exam">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        @foreach (var items in exams)
-                        {
-                            @*Thay link can cham diem vao day*@
-                            <div class="item">
-                                <a href="/Recipes/Details/@items.Recipes.id">
-                                    <div class="col-sm-4 box-item relative">
-                                       
-                                            <div class="blur-hover">
-                                                <h1>@items.Recipes.Title</h1>
-                                            </div>
-                                            <img src="~/images/@items.Recipes.Img.Split(',').First()">
-                                       
-                                    </div>
-                                </a>
-                            </div>
-                        }
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+    @if (exams != null)
+    {
+        <h1>Submission</h1>
+            foreach (var items in exams)
+            {
+                @*Thay link can cham diem vao day*@
+
+                <a href="/Recipes/Details/@items.Recipes.id">
+                    <div class="col-sm-4 box-item relative">
+                        <div class="blur-hover">
+                            <h1>@items.Recipes.Title</h1>
+                        </div>
+                        <img src="~/images/@items.Recipes.Img.Split(',').First()">
                     </div>
-                </div>
-            </div>
-        }
-        else
-        {
+
+                </a>
+
+            }
+        </div>
+    }
+    else
+    {
             <h4>No Exams yet </h4>
         }
     </div>
