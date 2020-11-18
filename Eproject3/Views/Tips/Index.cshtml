@@ -5,75 +5,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var user = (Users)Session["user"];
 }
-@if (Model.Count() <= 0)
-{
-    <h2>You havent't posted any Tips</h2>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-else
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users.UPhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Levels)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categories.Cate_Name)
-            </th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            var ImgList = item.Img.Split(',').ToList();
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @{
 
-                        foreach (var i in ImgList)
-                        {
-                            <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-                        }
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Users.UPhone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Levels)/5
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
-                </td>
-                <td>
-                    @if (user != null)
-                    {
-                        if (user.id == item.Use_id)
-                        {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id })|
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                        }
-                    }
-                </td>
-            </tr>
-        }
-    </table>
+@if (user != null)
+{
+    if (Model.Count() <= 0)
+    {
+        <h2>You havent't posted any Tips</h2>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <div class="content">
+            <div class="container">
+                @foreach (var items in Model)
+                {
+                <div class="box-item relative">
+
+                    <div class="item">
+                        <div class="blur-hover">
+                            <h1>@items.Title</h1>
+
+                            @Html.ActionLink("Edit", "Edit", new { id = items.id })
+                            @Html.ActionLink("Details", "Details", new { id = items.id })
+                            @Html.ActionLink("Delete", "Delete", new { id = items.id })
+                           
+                        </div>
+                        <img src="~/images/@items.Img.Split(',').First()" alt="...">
+                    </div>
+
+                </div>
+                }
+            </div>
+        </div>
+    }
+
 }
+
+
 
 
