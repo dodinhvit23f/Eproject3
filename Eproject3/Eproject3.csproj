@@ -583,6 +583,7 @@
     <Content Include="Views\Users\Payment.cshtml" />
     <Content Include="Views\Users\Extend.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Tips\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Content\" />
