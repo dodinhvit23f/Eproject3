@@ -12,7 +12,7 @@
     -webkit-animation: Animation 10s ease infinite;
     -moz-animation: Animation 10s ease infinite;
     animation: Animation 10s ease infinite;
-    position:relative;
+    
 }
 
 @-webkit-keyframes Animation {
@@ -128,7 +128,7 @@
 
 .blog-img {
     margin-top: 10px;
-  
+    margin-bottom:15px;
 }
 
     .blog-img img {
@@ -215,11 +215,11 @@
 
 .winner{
     position:absolute;
-    left:34%;
-    background-color:#db1d17;
+    left:35%;
+    background-color:white;
     height:60px;
     padding-top:10px;
-    width:300px;
+    width:30%;
     top:97%;
     vertical-align:middle;
     z-index:4;

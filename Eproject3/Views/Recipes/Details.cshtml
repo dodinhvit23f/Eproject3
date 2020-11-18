@@ -124,7 +124,8 @@
                 <div class="col-sm-10 comment">
                     <div class="col-sm-8 send-feedback">
 
-                        @Html.AntiForgeryToken();
+                        @Html.AntiForgeryToken()
+                        @u.UAdress
                         <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
 
                     </div>

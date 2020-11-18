@@ -7,7 +7,6 @@
 
 body {
     background-color: whitesmoke;
-
 }
 
 .container {
@@ -76,7 +75,7 @@ footer a {
 }
 
 .right {
-    float:right;
+    float: right;
 }
 
     .right a {
@@ -95,7 +94,6 @@ footer a {
 
 .item {
     position: relative;
-   
     margin-top: 10px;
     width: 350px;
     height: 350px;
@@ -142,10 +140,11 @@ footer a {
         -webkit-filter: blur(2px);
         opacity: 0.9;
     }
-    .blur-hover:hover a{
-        color:white;
+
+    .blur-hover:hover a {
+        color: white;
     }
-    
+
 .box-item:hover .blur-hover {
     display: block;
 }
@@ -182,9 +181,9 @@ footer a {
     height: auto;
 }
 
-.content > .container{
-    height:auto;
-}
+    .content > .container {
+        height: auto;
+    }
 
 .menu {
     margin-left: 12%;
@@ -225,7 +224,7 @@ ul {
     text-align: center;
     padding-top: 15px;
     position: relative;
-    min-width:100px;
+    min-width: 100px;
 }
 
 
@@ -399,12 +398,12 @@ a {
 
 .center {
     margin: auto;
-    vertical-align:middle;
-    text-align:center;
+    vertical-align: middle;
+    text-align: center;
 }
 
     .center img {
-        margin-top:15px;
+        margin-top: 15px;
     }
 
 .action-form {
@@ -430,29 +429,30 @@ a {
         .form-container button:hover {
             background-color: #b0a5a5;
         }
-#search-tool{
-    width:700px;
-    height:50px;
-    font-size:30px;
-    border:none;
-    border-radius:20px;
-    position:fixed;
+
+#search-tool {
+    width: 700px;
+    height: 50px;
+    font-size: 30px;
+    border: none;
+    border-radius: 20px;
+    position: fixed;
     left: 34%;
-    text-align:center;
+    text-align: center;
     top: 25px;
-    display:none;
-    z-index:99;
+    display: none;
+    z-index: 99;
 }
 
-.search-bar{
-    width:700px;
-    height:50px;
-    font-size:30px;
-    border:none;
-    border-radius:20px;
-    text-align:center; 
-    z-index:99;
-    margin-left:34%;
+.search-bar {
+    width: 700px;
+    height: 50px;
+    font-size: 30px;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 99;
+    margin-left: 34%;
 }
 
 .user-menu a {
@@ -464,23 +464,27 @@ ul {
     height: 60px;
 }
 
-
-.user-menu  li > * {
+.user-menu{
+    margin-left:8%;
+}
+.user-menu li > * {
     list-style-type: none;
     text-decoration: none;
     margin: 0px;
 }
 
 
-.user-menu  > ul > li {
+.user-menu > ul > li {
     height: 60px;
     width: 15%;
     display: inline-block;
     text-align: center;
-    padding-top:15px;
+    padding-top: 15px;
     position: relative;
-    min-width:100px;
+    min-width: 100px;
+
 }
+
 .user-menu li:hover {
     background-color: #000000;
 }
@@ -489,7 +493,21 @@ ul {
         color: whitesmoke;
     }
 
-    #user-name{
-        width:175px;
-        font-size:14px;
-    }
+#user-name {
+    width: 175px;
+    font-size: 14px;
+}
+
+.form-horizontal .control-label{
+    padding-top:0px;
+}
+
+.exam {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+#myCarousel{
+     height: 400px;
+}
