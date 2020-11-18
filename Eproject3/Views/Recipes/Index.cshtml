@@ -39,8 +39,7 @@
     @foreach (var item in Model)
     {
         var ImgList = item.Img.Split(',').ToList();
-        if (user!=null)
-        {
+       
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.Title)
@@ -73,43 +72,8 @@
         @Html.ActionLink("Delete", "Delete", new { id = item.id })
     </td>
 </tr>
-        }
-        else {
-           if (item.R_Status == 0) { 
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ingredent)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @{
-
-            foreach (var i in ImgList)
-            {
-                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-            }
-        }
-
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Levels)/5
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-    </td>
-</tr>
-            }
-         }
+        
+        
       }
 
 </table>

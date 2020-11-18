@@ -39,6 +39,7 @@ namespace Eproject3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.FeedBack = db.FeedBack.Where(m => m.Tip_id == id).Include(i => i.Users).ToList();
             Tips tips = await db.Tips.FindAsync(id);
             if (tips == null)
             {

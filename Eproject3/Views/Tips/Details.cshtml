@@ -1,0 +1,135 @@
+﻿@model Eproject3.Models.Tips
+@using Eproject3.Models;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+      Users u = (Users)Session["User"];
+}
+
+<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+
+<div class="col-sm-12" id="detail-background">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4" id="detail-content">
+
+        <div class="col-sm-12 content">
+            <div class="col-sm-12">
+
+                <div class="col-sm-2">
+                    <div class="user-icon">
+                        <img src="\images\@Model.Users.Img" />
+                    </div>
+
+                </div>
+
+                <div class="col-sm-5 title">
+                    <h2><i>@Html.DisplayFor(model => model.Title)</i></h2>
+                </div>
+
+
+
+            </div>
+            <div class="col-sm-12">
+                <!-- Đánh giá -->
+                <div class="stars">
+                    @*<form action="">
+                            <input class="star star-5" id="star-5" type="radio" name="star" />
+                            <label class="star star-5" for="star-5"></label>
+                            <input class="star star-4" id="star-4" type="radio" name="star" />
+                            <label class="star star-4" for="star-4"></label>
+                            <input class="star star-3" id="star-3" type="radio" name="star" />
+                            <label class="star star-3" for="star-3"></label>
+                            <input class="star star-2" id="star-2" type="radio" name="star" />
+                            <label class="star star-2" for="star-2"></label>
+                            <input class="star star-1" id="star-1" type="radio" name="star" />
+                            <label class="star star-1" for="star-1"></label>
+                        </form>*@
+                    @{
+                        for (int index = 0; index < 5; index++)
+                        {
+                            if (index < Convert.ToInt32(Model.Levels))
+                            {
+                                <span class="fa fa-star checked" id="rate"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star" id="rate"></span>
+                            }
+                        }
+                    }
+                </div>
+                <!-- ------------------------ -->
+            </div>
+            @{
+                var Content_step = Model.Content.Split(',').ToList();
+                var ImgList = Model.Img.Split(',').ToList();
+                int i = 0;
+                foreach (var image in ImgList)
+                {
+                    i++;
+                    <div class="col-sm-12 blog-content">
+                        <p>Step @i: @Content_step.ElementAt(i - 1)</p>
+                    </div>
+                    <div class="blog-img">
+                        <img src="\images\@image" />
+                    </div>
+
+
+                }
+            }
+            <div class="col-sm-12 bar">
+                <div class="col-sm-12">
+
+                    <div class="col-sm-6">
+                        Like
+                    </div>
+                    <div class="col-sm-6">
+                        FeedBack
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 feedback-content">
+                <div class="col-sm-8 send-feedback">
+                    @if (u != null)
+                    {
+
+                        using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" value="@u.id" name="Use_id" />
+                            <input type="hidden" value="@Model.id" name="ip_id" />
+                            <input type="text" name="Content" autocomplete="off" />
+                            <input type="submit" value="Comment" />
+                        }
+                    }
+                    else
+                    {
+                        <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
+                    }
+                </div>
+                @foreach (var item in ViewBag.FeedBack)
+                {
+                    <div class="col-sm-2">
+                        <div class="user-icon-feedback">
+                            <img src="\images\@item.Users.Img" />
+                        </div>
+                    </div>
+                    <div class="col-sm-9 comment">
+
+                        <strong>@item.Users.UAdress</strong>
+                        <br>
+                        <i>@item.Content</i>
+
+
+                    </div>
+
+                }
+            </div>
+                </div>
+
+
+    </div>
+
+    <div class="col-sm-4"></div>
+</div>

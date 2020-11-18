@@ -1,6 +1,7 @@
 ﻿* {
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
 }
 
 #detail-background {
@@ -10,7 +11,6 @@
     -webkit-animation: Animation 10s ease infinite;
     -moz-animation: Animation 10s ease infinite;
     animation: Animation 10s ease infinite;
-    position:relative;
 }
 
 @-webkit-keyframes Animation {
@@ -60,9 +60,6 @@
     background-color: #dbd4d4;
     min-height: 960px;
     position: relative;
-    padding-left: 0px;
-    padding-right: 0px;
-    left: 35%;
 }
 
     #detail-content .col-sm-12 .col-sm-5 img {
@@ -76,29 +73,27 @@
         padding-right: 0px;
     }
 
-.content-detail {
+.content {
     margin-top: 15px;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 15px;
     padding-right: 0px;
     padding-left: 0px;
-    margin-left: auto;
-    margin-bottom:15px;
-
-    font-size:20px;
 }
 
 .user-icon {
     width: 70px;
     height: 70px;
+    padding-top: 12px;
+    padding-left: 10px;
     margin-top: 10px;
     border-radius: 35px;
 }
 
     .user-icon img {
-        object-fit: cover;
+        width: 60px;
+        height: 60px;
         border-radius: 30px;
-        vertical-align: middle;
     }
 
 .user-icon-feedback {
@@ -119,19 +114,17 @@
 .title {
     margin-top: 10px;
     height: 70px;
-    font-size:30px;
-    padding-right:60px;
-    text-align: center;
+    margin-left: 40px;
+    text-align: left;
 }
 
 .blog-img {
     margin-top: 10px;
-  
 }
 
     .blog-img img {
-        object-fit: cover;
-          max-height: 500px;
+        height: 400px;
+        width: 100%;
     }
 
 .blog-content {
@@ -176,51 +169,3 @@
     margin-top: 5px;
     padding-top: 10px;
 }
-
-.checked {
-    color: orange;
-}
-
-
-
-.center-content img {
-    max-width:60%;
-    max-height:30%;
-    object-fit:cover;
-   
-   
-}
-
-.center-content{
-    vertical-align:middle;
-    margin-left:15px;
-    text-align:center;
-}
-
-.send-feedback {
-    width:100%;
-}
-.send-feedback input{
-    width:inherit;
-    height:30px;
-    border:none;
-    background-color:#b5b5b6;
-}
-.center{
-    margin-top:auto;
-    margin-left:auto;
-    vertical-align:middle;
-}
-
-.winner{
-    position:absolute;
-    left:38%;
-    background-color:#db1d17;
-    height:60px;
-    padding-top:19px;
-    top:97%;
-    vertical-align:middle;
-    z-index:4;
-  
-}
-
