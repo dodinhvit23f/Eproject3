@@ -55,7 +55,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int Free, string rate)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, string rate)
         {
             int flag = 0;
             string Cont = "";
@@ -112,15 +112,11 @@ namespace Eproject3.Areas.Admin.Controllers
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
+                if (isvalid == null) {
+                    return RedirectToAction("LoginView", "Users");
+                }
                 tips.Use_id = isvalid.id;
-                if (Free == 0)
-                {
-                    tips.isFree = true;
-                }
-                else
-                {
-                    tips.isFree = false;
-                }
+                
                 if (flag != 1)
                 {
                     tips.Levels = rate;
@@ -217,6 +213,10 @@ namespace Eproject3.Areas.Admin.Controllers
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
+                if (isvalid == null)
+                {
+                    return RedirectToAction("LoginView", "Users");
+                }
                 tips.Use_id = isvalid.id;
                 if (Free == 0)
                 {

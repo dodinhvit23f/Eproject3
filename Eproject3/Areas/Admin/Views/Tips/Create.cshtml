@@ -4,15 +4,13 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<<<<<<< HEAD
+
 <link rel="stylesheet" type="text/css" href="~/Content/Rate.css">
 <h2>Create</h2>
 
 
 @using (Html.BeginForm("Create", "Tips", FormMethod.Post, new { enctype = "multipart/form-data" }))
-=======
-@using (Html.BeginForm()) 
->>>>>>> HuuTu
+
 {
     @Html.AntiForgeryToken()
 
@@ -83,7 +81,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-<<<<<<< HEAD
+
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script>
 
@@ -95,5 +93,4 @@
     });
 
 </script>
-=======
->>>>>>> HuuTu
+
