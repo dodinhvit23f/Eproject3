@@ -308,6 +308,11 @@
     <Content Include="Content\BackgroundAnimation.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <None Include="Content\Rate.scss" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -381,11 +386,6 @@
     <Content Include="Areas\Admin\Views\Contesters\Contesters.cshtml" />
     <Content Include="Areas\Admin\Views\Users\ChangePwd.cshtml" />
     <Content Include="Areas\Admin\Views\Users\ForgetPwd.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\ChangePhoto.cshtml" />
     <Content Include="Content\fonts\nucleo-icons.eot" />
     <Content Include="Content\fonts\nucleo-icons.ttf" />
