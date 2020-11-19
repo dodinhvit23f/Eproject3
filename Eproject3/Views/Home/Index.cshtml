@@ -1,5 +1,7 @@
-﻿@model IEnumerable<Eproject3.Models.Recipes>
+﻿@*@model IEnumerable<Eproject3.Models.Recipes>*@
 @using Eproject3.Models
+@model PagedList.IPagedList<Eproject3.Models.Recipes>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
     var contests = (IEnumerable<Contest>)ViewBag.contests;
@@ -45,6 +47,10 @@
 
 
             }
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
         </div>
     </div>
     <div class="content">
@@ -81,7 +87,7 @@
                     <a href="/Contests/Details/@items.id">
                         <div class="item">
                             <div class="blur-hover">
-                                @items.title                               
+                                @items.title
                             </div>
                             <img src="~/images/@items.img" />
                         </div>

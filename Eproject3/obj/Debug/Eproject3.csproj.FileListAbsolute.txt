@@ -186,3 +186,7 @@ E:\Projects\Eproject3\Eproject3\bin\Newtonsoft.Json.xml
 E:\Projects\Eproject3\Eproject3\obj\Debug\Eproject3.csprojResolveAssemblyReference.cache
 E:\Projects\Eproject3\Eproject3\obj\Debug\Eproject3.dll
 E:\Projects\Eproject3\Eproject3\obj\Debug\Eproject3.pdb
+D:\Project3\Eproject3\bin\PagedList.dll
+D:\Project3\Eproject3\bin\PagedList.Mvc.dll
+D:\Project3\Eproject3\bin\PagedList.xml
+D:\Project3\Eproject3\bin\PagedList.Mvc.xml
