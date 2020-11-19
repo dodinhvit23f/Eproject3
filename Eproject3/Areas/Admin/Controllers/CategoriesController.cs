@@ -55,7 +55,6 @@ namespace Eproject3.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return View(categories);
         }
 
@@ -97,6 +96,10 @@ namespace Eproject3.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (TempData["casCade"] != null)
+            {
+                ViewBag.casCade = "Recipes and Tips are in this category";
+            }
             Categories categories = await db.Categories.FindAsync(id);
             if (categories == null)
             {
@@ -111,6 +114,11 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Categories categories = await db.Categories.FindAsync(id);
+            if (db.Recipes.Where(p=>p.Cate_id==id).Count()>0 || db.Tips.Where(p => p.Cate_id == id).Count() > 0)
+            {
+                TempData["casCade"] = true;
+                return RedirectToAction("Delete/"+id);
+            }
             db.Categories.Remove(categories);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

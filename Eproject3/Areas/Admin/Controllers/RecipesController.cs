@@ -274,6 +274,15 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Recipes recipes = await db.Recipes.FindAsync(id);
+            List<int> feedID = new List<int>();
+            foreach (var items in db.FeedBack.Where(p => p.Recipes_id == id))
+            {
+                feedID.Add(items.id);
+            }
+            for (int i = 0; i < feedID.Count(); i++)
+            {
+                db.FeedBack.Remove(db.FeedBack.Find(feedID.ElementAt(i)));
+            }
             db.Recipes.Remove(recipes);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

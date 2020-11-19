@@ -55,7 +55,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, int Free, string rate)
+        public async Task<ActionResult> Create([Bind(Include = "id,Use_id,Content,Img,Title,Levels,Cate_id,isFree")] Tips tips, HttpPostedFileBase[] Url, string[] txtText, string rate)
         {
             int flag = 0;
             string Cont = "";
@@ -113,14 +113,6 @@ namespace Eproject3.Areas.Admin.Controllers
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
                 tips.Use_id = isvalid.id;
-                if (Free == 0)
-                {
-                    tips.isFree = true;
-                }
-                else
-                {
-                    tips.isFree = false;
-                }
                 if (flag != 1)
                 {
                     tips.Levels = rate;
@@ -264,6 +256,15 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Tips tips = await db.Tips.FindAsync(id);
+            List<int> feedID = new List<int>();
+            foreach (var items in db.FeedBack.Where(p => p.Tip_id == id))
+            {
+                feedID.Add(items.id);
+            }
+            for (int i = 0; i < feedID.Count(); i++)
+            {
+                db.FeedBack.Remove(db.FeedBack.Find(feedID.ElementAt(i)));
+            }
             db.Tips.Remove(tips);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
