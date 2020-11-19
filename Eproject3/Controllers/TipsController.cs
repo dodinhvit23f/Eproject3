@@ -35,6 +35,7 @@ namespace Eproject3.Controllers
         // GET: Tips/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            ViewBag.FeedBack = db.FeedBack.Where(p=>p.Tip_id==id).Include(p=>p.Users);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -257,6 +258,15 @@ namespace Eproject3.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Tips tips = await db.Tips.FindAsync(id);
+            List<int> feedID = new List<int>();
+            foreach (var items in db.FeedBack.Where(p => p.Tip_id == id))
+            {
+                feedID.Add(items.id);
+            }
+            for (int i = 0; i < feedID.Count(); i++)
+            {
+                db.FeedBack.Remove(db.FeedBack.Find(feedID.ElementAt(i)));
+            }
             db.Tips.Remove(tips);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

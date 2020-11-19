@@ -3,46 +3,125 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Users u = (Users)Session["User"];
+    Users u = (Users)Session["user"];
 }
 
-<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+@*<h2>Details</h2>
 
+<div>
+    <h4>Tips</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Levels)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Levels)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isFree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isFree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.UPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.UPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categories.Cate_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categories.Cate_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="col-sm-12" id="detail-background">
     <div class="col-sm-2"></div>
 
     <div class="col-sm-8 content-detail">
         <div class="col-sm-12">
-
             <div class="col-sm-2">
                 <div class="user-icon">
                     <img src="~/images/@Model.Users.Img" alt="Avatar" height="50" width="50" />
                 </div>
-
             </div>
-
             <div class="col-sm-10 title">
                 <i><b>@Html.DisplayFor(@model => @model.Title)</b></i>
             </div>
-
-
-
-            </div>
+        </div>
+        <hr />
+        <hr>
+        <div class="col-sm-12 blog-content-detail">
             <div class="col-sm-12">
-                <!-- Đánh giá -->
-                <div class="stars">
-                    @*<form action="">
-                            <input class="star star-5" id="star-5" type="radio" name="star" />
-                            <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" name="star" />
-                            <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" name="star" />
-                            <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" name="star" />
-                            <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" name="star" />
-                            <label class="star star-1" for="star-1"></label>
-                        </form>*@
+                <h3>How to do</h3>
+                <div class="col-sm-12">
+                    @{
+                        var Content_step = Model.Content.Split(',').ToList();
+                        var ImgList = Model.Img.Split(',').ToList();
+                        int i = 0;
+                        foreach (var image in ImgList)
+                        {
+                            i++;
+                            <div class="col-sm-12">
+                                <p>Step @i: @Content_step.ElementAt(i - 1)</p>
+                            </div>
+                            <div class="center-content"> <img src="~/images/@image" alt="Food" /> </div>
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="blog-img">
+            <div class="col-sm-12 blog-content-detail">
+                <div class="col-sm-12">
+                    <h3>Level</h3>
                     @{
                         for (int index = 0; index < 5; index++)
                         {
@@ -57,82 +136,124 @@
                         }
                     }
                 </div>
-                <!-- ------------------------ -->
             </div>
-            @{
-                var Content_step = Model.Content.Split(',').ToList();
-                var ImgList = Model.Img.Split(',').ToList();
-                int i = 0;
-                foreach (var image in ImgList)
-                {
-                    i++;
-                    <div class="col-sm-12 blog-content">
-                        <p>Step @i: @Content_step.ElementAt(i - 1)</p>
-                    </div>
-                    <div class="blog-img">
-                        <img src="\images\@image" />
-                    </div>
-
-
-                }
-            }
             <div class="col-sm-12 bar">
                 <div class="col-sm-12">
-
-                    <div class="col-sm-6">
-                        Like
-                    </div>
                     <div class="col-sm-6">
                         FeedBack
                     </div>
                 </div>
             </div>
-
+            <br />
             <div class="col-sm-12 feedback-content">
-                <div class="col-sm-8 send-feedback">
-                    @if (u != null)
-                    {
-
-                        using (Html.BeginForm("Create", "FeedBacks", FormMethod.Post))
+                <div class="col-sm-2">
+                    <div class="user-icon-feedback">
+                        @if (u != null)
                         {
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" value="@u.id" name="Use_id" />
-                            <input type="hidden" value="@Model.id" name="ip_id" />
-                            <input type="text" name="Content" autocomplete="off" />
-                            <input type="submit" value="Comment" />
+                            <img src="~/images/@u.Img" alt="Avatar" />
                         }
-                    }
-                    else
-                    {
-                        <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
-                    }
+                        else
+                        {
+
+                        }
+                    </div>
                 </div>
-                @* Hai lan sau nho check null*@
-                @if (ViewBag.FeedBack != null)
-                {
-                    foreach (var item in ViewBag.FeedBack)
-                    {
-                        <div class="col-sm-2">
-                            <div class="user-icon-feedback">
-                                <img src="\images\@item.Users.Img" />
-                            </div>
+                <div class="col-sm-10 comment">
+                    <div class="col-sm-8 send-feedback">
+                        @u.UAdress
+                        @Html.AntiForgeryToken()
+                        <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                    </div>
+                </div>
+                
+            </div>
+            @foreach (var item in ViewBag.FeedBack)
+            {                
+                <div class="col-sm-12 feedback-content">
+                    <div class="col-sm-2">
+                        <div class="user-icon-feedback">
+                            <img src="~/images/@item.Users.Img" alt="Avatar" />
                         </div>
-                        <div class="col-sm-9 comment">
+                    </div>
+                    <div class="col-sm-9 comment">
+                        <strong>@* Dien vao user name*@</strong><br />
+                        <i>@item.Content</i>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@{
+    if (u != null)
+    {
+        <script>
+            async function sendFeedback(event, id) {
 
-                            <strong>@item.Users.UAdress</strong>
-                            <br>
-                            <i>@item.Content</i>
+                if (event.keyCode == 13) {
+                    sendFeedbackWithClick(id);
+                }
+            }
+            async function sendFeedbackWithClick(id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "../../FeedBacks/CreateRecipce", true);
+                xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                @*
+                            alert( JSON.stringify({
+                                "Use_id": @u.id.ToString(),
+                                "Recipes_id": @Model.id.ToString(),
+                                "Content": document.getElementById(id).value
+                            }))
+                                 *@
+                try{
+                    await xhr.send(
+                    JSON.stringify({
+                        "Use_id":  @u.id.ToString(),
+                        "Tip_id": @Model.id.ToString(),
+                        "Content": document.getElementById(id).value,
+                        "__RequestVerificationToken": document.getElementsByName("__RequestVerificationToken").value
+                    })
 
+                 );
 
-                        </div>
-                    }
+                } catch(e){
+
                 }
 
-            </div>
-        </div>
+
+                setTimeout(function(){
+                    window.location.reload();
+                },4000)
 
 
-    </div>
+            }
 
-    <div class="col-sm-4"></div>
-</div>
+
+
+
+        </script>
+    }
+    else
+    {
+        <script>
+            function sendFeedback(event, id) {
+
+                if (event.keyCode == 13) {
+                    sendFeedbackWithClick(id);
+                }
+            }
+
+            function sendFeedbackWithClick(id) {
+                alert("điều hướng trang");
+                this.goto('../../Users/LoginView');
+            }
+
+        </script>
+    }
+
+}
+
+<div class="col-sm-2"></div>
