@@ -40,6 +40,7 @@ namespace Eproject3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.FeedBack = db.FeedBack.Where(m => m.Tip_id == id).Include(i => i.Users).OrderByDescending(p=>p.id).ToList();
             Tips tips = await db.Tips.FindAsync(id);
             if (tips == null)
             {
@@ -47,7 +48,11 @@ namespace Eproject3.Controllers
             }
             return View(tips);
         }
-
+        public ActionResult LoginToComment(int id)
+        {
+            TempData["TipsID"] = id;
+            return RedirectToAction("LoginView","Users");
+        }
         // GET: Tips/Create
         public ActionResult Create()
         {

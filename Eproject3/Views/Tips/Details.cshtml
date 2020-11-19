@@ -3,77 +3,12 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Users u = (Users)Session["user"];
+    Users u = new Users();
+    if (Session["user"] != null)
+    {
+        u = (Users)Session["user"];
+    }
 }
-
-@*<h2>Details</h2>
-
-<div>
-    <h4>Tips</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Img)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Levels)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Levels)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.isFree)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.isFree)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Users.UPhone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Users.UPhone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Categories.Cate_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categories.Cate_Name)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
 <style>
     .checked {
         color: orange;
@@ -146,29 +81,29 @@
             </div>
             <br />
             <div class="col-sm-12 feedback-content">
-                <div class="col-sm-2">
-                    <div class="user-icon-feedback">
-                        @if (u != null)
-                        {
-                            <img src="~/images/@u.Img" alt="Avatar" />
-                        }
-                        else
-                        {
-
-                        }
-                    </div>
-                </div>
-                <div class="col-sm-10 comment">
-                    <div class="col-sm-8 send-feedback">
-                        @u.UAdress
-                        @Html.AntiForgeryToken()
-                        <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
-                    </div>
+                @if (Session["user"] != null)
+                {
                     <div class="col-sm-2">
-                        <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                        <div class="user-icon-feedback">
+                            <img src="~/images/@u.Img" alt="Avatar" />
+                        </div>
                     </div>
-                </div>
-                
+                    <div class="col-sm-10 comment">
+                        <div class="col-sm-8 send-feedback">
+                            @u.UAdress
+                            @Html.AntiForgeryToken()
+                            <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a href="/Tips/LoginToComment/@Model.id">Login to Comment</a>
+                }
+
             </div>
             @foreach (var item in ViewBag.FeedBack)
             {                

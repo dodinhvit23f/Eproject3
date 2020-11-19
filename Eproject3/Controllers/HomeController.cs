@@ -6,14 +6,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace Eproject3.Controllers
 {
     public class HomeController : Controller
     {
         private DatabaseEntities db = new DatabaseEntities();
-        public async Task<ActionResult> Index()
+        public ActionResult Index(int? page)
         {
+            var isvalid = db.Recipes.ToList();
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+
             if (TempData["done"] != null)
             {
                 ViewBag.done = "Done,you have submit your exams successfully";
@@ -21,18 +26,19 @@ namespace Eproject3.Controllers
             var contests = db.Contest;
             ViewBag.Cate = db.Categories;
             var user = (Users)Session["user"];
-            if (user == null || user.Pack_id==3 || user.Roll_id !=1)
+            if (user == null || user.Pack_id == 3 || user.Roll_id != 1)
             {
-                ViewBag.Tips = db.Tips.Where(p=>p.isFree.Value);
-                var isvalid = db.Recipes.Where(p => p.R_Status == 0);
-                return View(await isvalid.ToListAsync());
+                ViewBag.Tips = db.Tips.Where(p => p.isFree.Value);
+                isvalid = db.Recipes.Where(p => p.R_Status == 0).ToList();
+
             }
             else
             {
                 ViewBag.Tips = db.Tips;
-                var isvalid = db.Recipes;
-                return View(await isvalid.ToListAsync());
+                //isvalid = db.Recipes.ToList();
+
             }
+            return View(isvalid.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public ActionResult Search(string kw)
@@ -50,7 +56,6 @@ namespace Eproject3.Controllers
 
             return View();
         }
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

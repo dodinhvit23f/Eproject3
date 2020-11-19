@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Users u = (Users)Session["user"];
+    Users u = new Users();
+    if (Session["user"] != null)
+    {
+        u = (Users)Session["user"];
+    }
 }
 <style>
     .checked {
@@ -105,30 +109,28 @@
             </div>
             <br />
             <div class="col-sm-12 feedback-content">
-                <div class="col-sm-2">
-                    <div class="user-icon-feedback">
-                        @if (u != null)
-                        {
-                            <img src="~/images/@u.Img" alt="Avatar" />
-                        }
-                        else
-                        {
-
-                        }
-                    </div>
-                </div>
-                <div class="col-sm-10 comment">
-                    <div class="col-sm-8 send-feedback">
-                        @u.UAdress
-                        @Html.AntiForgeryToken()
-                        <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
-
-                    </div>
+                @if (Session["user"] != null)
+                {
                     <div class="col-sm-2">
-                        <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                        <div class="user-icon-feedback">
+                            <img src="~/images/@u.Img" alt="Avatar" />
+                        </div>
                     </div>
-                </div>
-
+                    <div class="col-sm-10 comment">
+                        <div class="col-sm-8 send-feedback">
+                            @u.UAdress
+                            @Html.AntiForgeryToken()
+                            <input type="text" id="yourFeedback" name="Content" autocomplete="off" placeholder="Enter feedback" onkeypress="sendFeedback(event, 'yourFeedback')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button onclick="sendFeedbackWithClick('yourFeedback')">Send</button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a href="/Recipes/LoginToComment/@Model.id">Login to Comment</a>
+                }
             </div>
             @foreach (var item in ViewBag.FeedBack)
             {

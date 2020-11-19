@@ -142,6 +142,8 @@ D:\Project3\Eproject3\bin\Antlr3.Runtime.pdb
 D:\Project3\Eproject3\bin\Newtonsoft.Json.xml
 D:\Project3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache
 D:\Project3\Eproject3\obj\Debug\Eproject3.csproj.CopyComplete
-D:\Aptech\Eproject3\Eproject3\bin\System.Net.Http.Formatting.dll
-D:\Aptech\Eproject3\Eproject3\bin\System.Net.Http.Formatting.xml
 D:\Aptech\Eproject3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache
+D:\Aptech\Eproject3\Eproject3\bin\PagedList.dll
+D:\Aptech\Eproject3\Eproject3\bin\PagedList.Mvc.dll
+D:\Aptech\Eproject3\Eproject3\bin\PagedList.xml
+D:\Aptech\Eproject3\Eproject3\bin\PagedList.Mvc.xml
