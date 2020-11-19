@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
 using System.IO;
-
+using PagedList;
 namespace Eproject3.Controllers
 {
     public class RecipesController : Controller
@@ -17,18 +17,22 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Recipes
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int?page)
         {
+            var recipes = db.Recipes.ToList();
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
             var isValid = (Users)Session["user"];
             if (isValid != null)
             {
-                var recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users);
-                return View(await recipes.ToListAsync());
+                 recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users).ToList();
+                
             }
             else
             {
                 return RedirectToAction("LoginView","Users");
-            }            
+            }
+            return View(recipes.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult LoginToComment(int id)
         {

@@ -147,3 +147,7 @@ D:\Aptech\Eproject3\Eproject3\bin\PagedList.dll
 D:\Aptech\Eproject3\Eproject3\bin\PagedList.Mvc.dll
 D:\Aptech\Eproject3\Eproject3\bin\PagedList.xml
 D:\Aptech\Eproject3\Eproject3\bin\PagedList.Mvc.xml
+D:\Project3\Eproject3\bin\PagedList.dll
+D:\Project3\Eproject3\bin\PagedList.Mvc.dll
+D:\Project3\Eproject3\bin\PagedList.xml
+D:\Project3\Eproject3\bin\PagedList.Mvc.xml

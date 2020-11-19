@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
 using System.IO;
-
+using PagedList;
 namespace Eproject3.Controllers
 {
     public class TipsController : Controller
@@ -17,13 +17,15 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Tips
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int?page)
         {
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
             var isValid = (Users)Session["user"];
             if (isValid != null)
             {
-                var tips = db.Tips.Where(p=>p.Use_id==isValid.id).Include(t => t.Users);
-                return View(await tips.ToListAsync());
+                var tips = db.Tips.Where(p=>p.Use_id==isValid.id).Include(t => t.Users).ToList();
+                return View(tips.ToPagedList(pageNumber, pageSize));
             }
             else
             {

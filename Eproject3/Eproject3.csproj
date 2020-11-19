@@ -314,6 +314,7 @@
     <Content Include="Content\BackgroundAnimation.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Views\Recipes\Details.cshtml" />
     <None Include="Content\Rate.scss" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -518,6 +519,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\xuLy.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
