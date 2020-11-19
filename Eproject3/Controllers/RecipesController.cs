@@ -30,7 +30,11 @@ namespace Eproject3.Controllers
                 return RedirectToAction("LoginView","Users");
             }            
         }
-
+        public ActionResult LoginToComment(int id)
+        {
+            TempData["repId"] = id;
+            return RedirectToAction("LoginView","Users");
+        }
         // GET: Recipes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -39,7 +43,7 @@ namespace Eproject3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Lay feedbacks
-            ViewBag.FeedBack = db.FeedBack.Where(m => m.Recipes_id == id).Include(i => i.Users).ToList();
+            ViewBag.FeedBack = db.FeedBack.Where(m => m.Recipes_id == id).Include(i => i.Users).OrderByDescending(i=>i.id).ToList();
             Recipes recipes = await db.Recipes.FindAsync(id);
             if (recipes == null)
             {

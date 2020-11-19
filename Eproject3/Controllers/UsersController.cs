@@ -142,6 +142,15 @@ namespace Eproject3.Controllers
                     {
                         Session["isAdmin"] = true;
                     }
+                    if (TempData["repId"] != null)
+                    {
+                        return RedirectToAction("Details/" + (int)TempData["repId"], "Recipes");
+                    }
+                    if (TempData["TipsID"] != null)
+                    {
+                        return RedirectToAction("Details/" + (int)TempData["TipsID"], "Tips");
+
+                    }
                     return RedirectToAction("index", "Home");
                 }
                 else if (DateTime.Compare(isValid.Exp_Date.Value, DateTime.Now) < 0)

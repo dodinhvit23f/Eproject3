@@ -1,7 +1,6 @@
-﻿@*@model IEnumerable<Eproject3.Models.Recipes>*@
-@using Eproject3.Models
-@model PagedList.IPagedList<Eproject3.Models.Recipes>
+﻿@model PagedList.IPagedList<Eproject3.Models.Recipes>
 @using PagedList.Mvc;
+@using Eproject3.Models
 @{
     ViewBag.Title = "Home Page";
     var Cate = (IEnumerable<Categories>)ViewBag.Cate;
@@ -59,57 +58,33 @@
                         </div>
                     </div>
                 </a>
-
-
             }
+            @*Need Style*@
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
             @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { page}))
+                new { page }))
         </div>
     </div>
-
-    
-
-    <div class="content">
-        <h1>Tips For Your</h1>
-        <div class="container">
-            @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
-          
-            @foreach (var items in tips)
-            {
-                <div class="box-item relative">
-                    <a href="/Tips/Details/@items.id">
-                        <div class="item">
-                            <div class="blur-hover">
-                                <h1>@items.Title</h1>
+    @*
+        <div class="content">
+            <div class="container">
+                @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay
+                <h1>Tips</h1>
+                @foreach (var items in tips)
+                {
+                    <div class="box-item relative">
+                        <a href="/Tips/Details/@items.id">
+                            <div class="item">
+                                <div class="blur-hover">
+                                    <h1>@items.Title</h1>
+                                </div>
+                                <img src="~/images/@items.Img.Split(',').First()" alt="...">
                             </div>
-                            <img src="~/images/@items.Img.Split(',').First()" alt="...">
-                        </div>
-                    </a>
-                </div>
-            }
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
-
-    <div class="content">
-
-        <div class="container">
-            Contest
-            @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay*@
-            @foreach (var items in contests)
-            {
-                <div class="box-item relative">
-                    <a href="/Contests/Details/@items.id">
-                        <div class="item">
-                            <div class="blur-hover">
-                                @items.title                               
-                            </div>
-                            <img src="~/images/@items.img" />
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
-    </div>
+    *@
 </div>
