@@ -1,5 +1,7 @@
-﻿@model IEnumerable<Eproject3.Models.Recipes>
+﻿@*@model IEnumerable<Eproject3.Models.Recipes>*@
 @using Eproject3.Models
+@model PagedList.IPagedList<Eproject3.Models.Recipes>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
     var Cate = (IEnumerable<Categories>)ViewBag.Cate;
@@ -60,6 +62,10 @@
 
 
             }
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page}))
         </div>
     </div>
 
@@ -86,4 +92,24 @@
         </div>
     </div>
 
+    <div class="content">
+
+        <div class="container">
+            Contest
+            @*Cho nay hien thi Contest,An vao thi hien detal no ra,Tran Huu Tu lo phan nay*@
+            @foreach (var items in contests)
+            {
+                <div class="box-item relative">
+                    <a href="/Contests/Details/@items.id">
+                        <div class="item">
+                            <div class="blur-hover">
+                                @items.title                               
+                            </div>
+                            <img src="~/images/@items.img" />
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 </div>
