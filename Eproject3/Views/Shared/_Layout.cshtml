@@ -19,6 +19,11 @@
             window.location.href = path;
         }
 
+        function scrollToBlock(id) {
+            alert(document.getElementById(id).offsetTop);
+            window.scrollTo(0, document.getElementById(id).offsetTop);
+        }
+
         var prevScrollpos = window.pageYOffset;
 
 
@@ -51,7 +56,7 @@
                             @Html.ActionLink("Contact", "Contact", "Home")
                         </li>
                         <li>
-                            @Html.ActionLink("Recipes", "Index", "Home")
+                            <a href="#" onclick="scrollToBlock('RecipePos')">Recipes</a>
                         </li>
                         <li>
                             @Html.ActionLink("Tips", "Index", "Home")

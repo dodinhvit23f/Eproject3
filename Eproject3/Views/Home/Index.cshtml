@@ -42,28 +42,34 @@
     </form>
 
     <div class="content">
-        <h1>Recipes For Your</h1>
-        <div class="container">
-            @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
-            @foreach (var items in Model)
+        <div class="row">
+            <h1 >Recipes For Your</h1>
+            <div class="container" id="RecipePos">
+                @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
+                @foreach (var items in Model)
             {
 
-                <a href="/Recipes/Details/@items.id">
-                    <div class="col-sm-4 box-item relative">
-                        <div class="item">
-                            <div class="blur-hover">
-                                <h1>@items.Title</h1>
+                    <a href="/Recipes/Details/@items.id">
+                        <div class="col-sm-4 box-item relative">
+                            <div class="item">
+                                <div class="blur-hover">
+                                    <h1>@items.Title</h1>
+                                </div>
+                                <img src="~/images/@items.Img.Split(',').First()">
                             </div>
-                            <img src="~/images/@items.Img.Split(',').First()">
                         </div>
-                    </div>
-                </a>
-            }
-            @*Need Style*@
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    </a>
+                }
+                @*Need Style*@
+            </div>
+            <div class="row">
+                <div class="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-            @Html.PagedListPager(Model, page => Url.Action("Index",
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
                 new { page }))
+                </div>
+            </div>
         </div>
     </div>
     @*
