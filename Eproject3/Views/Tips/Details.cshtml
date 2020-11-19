@@ -3,28 +3,27 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-      Users u = (Users)Session["User"];
+    Users u = (Users)Session["User"];
 }
 
 <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 
 <div class="col-sm-12" id="detail-background">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4" id="detail-content">
+    <div class="col-sm-2"></div>
 
-        <div class="col-sm-12 content">
-            <div class="col-sm-12">
+    <div class="col-sm-8 content-detail">
+        <div class="col-sm-12">
 
-                <div class="col-sm-2">
-                    <div class="user-icon">
-                        <img src="\images\@Model.Users.Img" />
-                    </div>
-
+            <div class="col-sm-2">
+                <div class="user-icon">
+                    <img src="~/images/@Model.Users.Img" alt="Avatar" height="50" width="50" />
                 </div>
 
-                <div class="col-sm-5 title">
-                    <h2><i>@Html.DisplayFor(model => model.Title)</i></h2>
-                </div>
+            </div>
+
+            <div class="col-sm-10 title">
+                <i><b>@Html.DisplayFor(@model => @model.Title)</b></i>
+            </div>
 
 
 
@@ -108,25 +107,29 @@
                         <button type="button"><a href="~/Users/LoginView">Login for comment</a></button>
                     }
                 </div>
-                @foreach (var item in ViewBag.FeedBack)
+                @* Hai lan sau nho check null*@
+                @if (ViewBag.FeedBack != null)
                 {
-                    <div class="col-sm-2">
-                        <div class="user-icon-feedback">
-                            <img src="\images\@item.Users.Img" />
+                    foreach (var item in ViewBag.FeedBack)
+                    {
+                        <div class="col-sm-2">
+                            <div class="user-icon-feedback">
+                                <img src="\images\@item.Users.Img" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-9 comment">
+                        <div class="col-sm-9 comment">
 
-                        <strong>@item.Users.UAdress</strong>
-                        <br>
-                        <i>@item.Content</i>
+                            <strong>@item.Users.UAdress</strong>
+                            <br>
+                            <i>@item.Content</i>
 
 
-                    </div>
-
+                        </div>
+                    }
                 }
+
             </div>
-                </div>
+        </div>
 
 
     </div>
