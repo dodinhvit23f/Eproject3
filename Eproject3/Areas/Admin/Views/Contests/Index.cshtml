@@ -169,13 +169,12 @@
                                                         <img src="~/images/@item.img" style="height:50px;width:50px" />
                                                     </th>
                                                     <td>
-                                                        <a href="/Admin/Contesters/Contesters?CtID=@item.id">
+                                                        <a href="/Admin/Contesters/Contesters/@item.id">
                                                             @item.Contester.Count()
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.Contester1.Name)
-                                                    </td>
+                                                        <a href="/Admin/Contesters/Edit/@Html.DisplayFor(modelItem=>item.Contester1.id)">@Html.DisplayFor(modelItem => item.Contester1.Name)</a>                                                    </td>
                                                     <td>
                                                         @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                                                         @Html.ActionLink("Delete", "Delete", new { id = item.id })

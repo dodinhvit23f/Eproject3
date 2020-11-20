@@ -132,6 +132,7 @@
                                         <tbody>
                                             @foreach (var item in Model)
                                             {
+                                                  var ImgList = item.Img.Split(',').ToList();
                                                 <tr>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.Title)
@@ -140,7 +141,13 @@
                                                         @Html.DisplayFor(modelItem => item.Content)
                                                     </td>
                                                     <td>
-                                                        <img style="height:200px;width:180px" src="/images/@Html.DisplayFor(modelItem => item.Img)" />
+                                                       
+                                                        @{
+                                                            foreach (var i in ImgList)
+                                                            {
+                                                                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
+                                                            }
+                                                        }
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.Users.UAdress)

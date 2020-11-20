@@ -140,7 +140,8 @@ namespace Eproject3.Areas.Admin.Controllers
                     recipes.Levels = rate;
                     recipes.R_Status = txtStatus;
                     db.Recipes.Add(recipes);
-                    await db.SaveChangesAsync();                  
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
                 else {
                     ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");

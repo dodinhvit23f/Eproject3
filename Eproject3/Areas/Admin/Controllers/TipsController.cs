@@ -112,10 +112,14 @@ namespace Eproject3.Areas.Admin.Controllers
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
+                tips.Levels = rate;
+                if (isvalid == null)
+                {
+                    return RedirectToAction("LoginView", "Users");
+                }
                 tips.Use_id = isvalid.id;
                 if (flag != 1)
                 {
-                    tips.Levels = rate;
                     db.Tips.Add(tips);
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -208,8 +212,6 @@ namespace Eproject3.Areas.Admin.Controllers
                 }
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
-                var isvalid = (Users)Session["user"];
-                tips.Use_id = isvalid.id;
                 if (Free == 0)
                 {
                     tips.isFree = true;
@@ -218,9 +220,15 @@ namespace Eproject3.Areas.Admin.Controllers
                 {
                     tips.isFree = false;
                 }
+                tips.Levels = rate;
+                var isvalid = (Users)Session["user"];
+                if (isvalid == null)
+                {
+                    return RedirectToAction("LoginView", "Users");
+                }
+                tips.Use_id = isvalid.id;
                 if (flag != 1)
                 {
-                    tips.Levels = rate;
                     db.Entry(tips).State = EntityState.Modified;
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");

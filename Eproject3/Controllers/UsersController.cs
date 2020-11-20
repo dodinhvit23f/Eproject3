@@ -121,6 +121,7 @@ namespace Eproject3.Controllers
             {
                 ViewBag.EpErr = false;
             }
+            TempData["URL"] = Request.Headers["Referer"].ToString();
             return View();
         }
         public async Task<ActionResult> LogOut()
@@ -151,7 +152,7 @@ namespace Eproject3.Controllers
                         return RedirectToAction("Details/" + (int)TempData["TipsID"], "Tips");
 
                     }
-                    return RedirectToAction("index", "Home");
+                    return Redirect(TempData["URL"].ToString());
                 }
                 else if (DateTime.Compare(isValid.Exp_Date.Value, DateTime.Now) < 0)
                 {
