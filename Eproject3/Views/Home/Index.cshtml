@@ -5,16 +5,16 @@
     ViewBag.Title = "Home Page";
     var Cate = (IEnumerable<Categories>)ViewBag.Cate;
     var tips = (IEnumerable<Tips>)ViewBag.Tips;
-    var count = 0;
+   
 }
 <a class="alert-info">@ViewBag.done</a>
 
 <div class="container">
-
-    <div class="content-img">
-    </div>
-    <hr />
     <div class="content  infor">
+        <div class="content-img">
+        </div>
+        <hr />
+
         <div class="col-sm-3"><img src="~/images/unnamed.jpg" /></div>
         @*phan nay la phan gioi thieu thang James Thew nhe Tien*@
         <div class="col-sm-9 introduct">
@@ -22,7 +22,7 @@
         </div>
     </div>
     <hr />
-    @*TienDo oi style cai nay` nhe !!!!!!!!!!!!!!!!!!!*@
+    
     <div class="menu">
         <ul>
             @foreach (var item in Cate)
@@ -33,13 +33,6 @@
             }
         </ul>
     </div>
-    <hr />
-    <form method="get" action="/Home/Search">
-        <div class="search-bar">
-            <input name="kw" id="search-tool" required type="text" placeholder="Search for Tips/Recipes: " />
-            @*<button>Search</button>*@
-        </div>
-    </form>
 
     <div class="content">
         <div class="row">
@@ -65,18 +58,18 @@
             <div class="row">
                 <div class="center">
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
                     @Html.PagedListPager(Model, page => Url.Action("Index",
                 new { page }))
                 </div>
             </div>
         </div>
     </div>
-    @*
+  
         <div class="content">
+            <h1>Tips For Your</h1>
             <div class="container">
-                @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay
-                <h1>Tips</h1>
+                @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay *@
+                
                 @foreach (var items in tips)
                 {
                     <div class="box-item relative">
@@ -91,6 +84,13 @@
                     </div>
                 }
             </div>
+            <div class="row">
+                <div class="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page }))
+                </div>
+            </div>
         </div>
-    *@
+   
 </div>
