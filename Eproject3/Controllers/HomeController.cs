@@ -31,7 +31,6 @@ namespace Eproject3.Controllers
             {
                 ViewBag.Tips = db.Tips.Where(p => p.isFree.Value);
                 isvalid = db.Recipes.Where(p => p.R_Status == 0).ToList();
-
             }
             else { 
                 ViewBag.Tips = db.Tips;

@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
 using System.IO;
-
+using PagedList;
 namespace Eproject3.Controllers
 {
     public class RecipesController : Controller
@@ -17,18 +17,25 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Recipes
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int?page)
         {
+            var recipes = db.Recipes.ToList();
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
             var isValid = (Users)Session["user"];
+            if (TempData["isExaming"] != null)
+            {
+                ViewBag.isExaming = TempData["isExaming"];
+            }
             if (isValid != null)
             {
-                var recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users);
-                return View(await recipes.ToListAsync());
+                 recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users).ToList();                
             }
             else
             {
                 return RedirectToAction("LoginView","Users");
-            }            
+            }
+            return View(recipes.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult LoginToComment(int id)
         {
@@ -61,8 +68,7 @@ namespace Eproject3.Controllers
             Users u = (Users)Session["User"];
             if (u != null)
             {
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");               
                 return View();
             }
             return Redirect("~/Users/LoginView");
@@ -179,6 +185,11 @@ namespace Eproject3.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (db.Exams.Where(p => p.Recipes_id == id).Count() > 0)
+            {
+                TempData["isExaming"] = "This recipe is in an exam,you can not edit it";
+                return RedirectToAction("Index");
             }
             Recipes recipes = await db.Recipes.FindAsync(id);
             if (recipes == null)

@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
-
+using PagedList;
 namespace Eproject3.Controllers
 {
     public class ContestsController : Controller
@@ -16,10 +16,13 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Contests
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int?page)
         {
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
             DateTime next7days = DateTime.Today.AddDays(7);
-            return View(await db.Contest.Where(p => p.exp_time > DateTime.Now || p.C_Time == next7days).ToListAsync());
+            var contest = db.Contest.Where(p => p.exp_time > DateTime.Now || p.C_Time == next7days).ToList();
+            return View( contest.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Contests/Details/5

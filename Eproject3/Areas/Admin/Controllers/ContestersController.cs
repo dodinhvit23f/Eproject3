@@ -48,9 +48,9 @@ namespace Eproject3.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Contesters(int CtID)
+        public async Task<ActionResult> Contesters(int id)
         {
-            var isValid = db.Contest.Where(p => p.id == CtID).FirstOrDefault().Contester;
+            var isValid = db.Contest.Where(p => p.id == id).FirstOrDefault().Contester;
             if (isValid == null)
             {
                 TempData["mess"] = true;
@@ -58,9 +58,14 @@ namespace Eproject3.Areas.Admin.Controllers
             }
             else
             {
-                TempData["ctID"] = CtID;
+                var Exams = db.Exams.Where(p => p.Contest_id == id).OrderByDescending(p => p.Mark);
+                if (Exams.Count() >0)
+                {
+                    db.Contest.Find(id).id_winner = Exams.First().Contester_id;
+                    db.SaveChanges();
+                }
+                TempData["ctID"] = id;
                 return View(isValid);
-
             }
         }
 
@@ -179,9 +184,21 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Contester contester = await db.Contester.FindAsync(id);
+            Exams examId = db.Exams.Where(p => p.Contester_id == id).FirstOrDefault();
+            var examList = db.Exams.Where(p => p.Contest_id == examId.Contest_id).OrderByDescending(p=>p.Mark);
+            if (examList.Count() > 1 )
+            {
+                db.Contest.Find(examId.Contest_id).id_winner = examList.ToArray()[1].Contester_id;
+                db.SaveChanges();
+            }else if (examList.Count() == 1)
+            {
+                db.Contest.Find(examId.Contest_id).id_winner = null;
+                db.SaveChanges();
+            }
+            db.Exams.Remove(examId);
             db.Contester.Remove(contester);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Contesters/"+ examId.Contest_id);
         }
 
         protected override void Dispose(bool disposing)

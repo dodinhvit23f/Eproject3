@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Eproject3.Models;
 using System.IO;
-
+using PagedList;
 namespace Eproject3.Controllers
 {
     public class TipsController : Controller
@@ -17,13 +17,19 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Tips
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int?page)
         {
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
             var isValid = (Users)Session["user"];
+            //if (TempData["isExaming"] != null)
+            //{
+            //    ViewBag.isExaming = TempData["isExaming"];
+            //}
             if (isValid != null)
             {
-                var tips = db.Tips.Where(p=>p.Use_id==isValid.id).Include(t => t.Users);
-                return View(await tips.ToListAsync());
+                var tips = db.Tips.Where(p=>p.Use_id==isValid.id).Include(t => t.Users).ToList();
+                return View(tips.ToPagedList(pageNumber, pageSize));
             }
             else
             {
@@ -56,7 +62,7 @@ namespace Eproject3.Controllers
         // GET: Tips/Create
         public ActionResult Create()
         {
-            Users u = (Users)Session["User"];
+            Users u = (Users)Session["user"];
             if (u != null)
             {
                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
@@ -153,6 +159,11 @@ namespace Eproject3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //if (db.Exams.Where(p => p. == id).Count() > 0)
+            //{
+            //    TempData["isExaming"] = "This recipe is in an exam,you can not edit it";
+            //    return RedirectToAction("Index");
+            //}
             Tips tips = await db.Tips.FindAsync(id);
             if (tips == null)
             {
