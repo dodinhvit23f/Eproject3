@@ -453,7 +453,8 @@ a {
     border-radius: 20px;
     text-align: center;
     z-index: 99;
-    margin-left: 34%;
+    
+    background: none;
 }
 
 .user-menu a {
@@ -515,4 +516,12 @@ a {
      border: 1px solid black;
      box-shadow: 5px 10px #888888;
      border-radius:4px;
+     margin-bottom:15px;
+}
+
+.body-content{
+    background: none;
+}
+.none-height{
+    height:0px;
 }
