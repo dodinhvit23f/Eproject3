@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Eproject3.Models.Recipes>
+﻿@model PagedList.IPagedList<Eproject3.Models.Recipes>
 @using Eproject3.Models;
-
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,11 +37,7 @@
     </div>
     <div>
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
         @Html.PagedListPager(Model, page => Url.Action("Index",
-            new { page }))
+                new { page }))
     </div>
 </div>
-
-
-</table>
