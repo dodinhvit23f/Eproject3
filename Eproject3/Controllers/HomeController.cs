@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using PagedList.Mvc;
 using Eproject3.Repo;
 namespace Eproject3.Controllers
 {
@@ -37,6 +38,7 @@ namespace Eproject3.Controllers
                 //isvalid = db.Recipes.ToList();
             }         
             //ngon roi`
+            //Ngon ro
             return View(isvalid.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]

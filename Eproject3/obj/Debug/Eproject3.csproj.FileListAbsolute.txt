@@ -119,7 +119,6 @@ D:\Project3\Eproject3\bin\Newtonsoft.Json.dll
 D:\Project3\Eproject3\bin\System.Web.Helpers.dll
 D:\Project3\Eproject3\bin\System.Web.Mvc.dll
 D:\Project3\Eproject3\bin\System.Web.Optimization.dll
-D:\Project3\Eproject3\bin\System.Web.Razor.dll
 D:\Project3\Eproject3\bin\System.Web.WebPages.Deployment.dll
 D:\Project3\Eproject3\bin\System.Web.WebPages.dll
 D:\Project3\Eproject3\bin\System.Web.WebPages.Razor.dll
@@ -134,13 +133,11 @@ D:\Project3\Eproject3\bin\Microsoft.ApplicationInsights.xml
 D:\Project3\Eproject3\bin\System.Web.Helpers.xml
 D:\Project3\Eproject3\bin\System.Web.Mvc.xml
 D:\Project3\Eproject3\bin\System.Web.Optimization.xml
-D:\Project3\Eproject3\bin\System.Web.Razor.xml
 D:\Project3\Eproject3\bin\System.Web.WebPages.xml
 D:\Project3\Eproject3\bin\System.Web.WebPages.Deployment.xml
 D:\Project3\Eproject3\bin\System.Web.WebPages.Razor.xml
 D:\Project3\Eproject3\bin\Antlr3.Runtime.pdb
 D:\Project3\Eproject3\bin\Newtonsoft.Json.xml
-D:\Project3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache
 D:\Project3\Eproject3\obj\Debug\Eproject3.csproj.CopyComplete
 D:\Aptech\Eproject3\Eproject3\obj\Debug\Eproject3.csprojAssemblyReference.cache
 D:\Aptech\Eproject3\Eproject3\bin\PagedList.dll
