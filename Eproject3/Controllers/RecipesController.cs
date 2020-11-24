@@ -10,7 +10,6 @@ using System.Web.Mvc;
 using Eproject3.Models;
 using System.IO;
 using PagedList;
-
 namespace Eproject3.Controllers
 {
     public class RecipesController : Controller
@@ -24,13 +23,10 @@ namespace Eproject3.Controllers
             int pageSize = 6;
             int pageNumber = (page ?? 1);
             var isValid = (Users)Session["user"];
-            if (TempData["isExaming"] != null)
-            {
-                ViewBag.isExaming = TempData["isExaming"];
-            }
             if (isValid != null)
             {
-                 recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users).ToList();                
+                 recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users).ToList();
+                
             }
             else
             {
@@ -69,7 +65,8 @@ namespace Eproject3.Controllers
             Users u = (Users)Session["User"];
             if (u != null)
             {
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");               
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                
                 return View();
             }
             return Redirect("~/Users/LoginView");
@@ -105,7 +102,7 @@ namespace Eproject3.Controllers
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
                             }
-                            url_img += Path.GetFileName(img.FileName) + ",";
+                            url_img += Path.GetFileName(img.FileName) + "$";
                         }
                         else
                         {
@@ -133,7 +130,7 @@ namespace Eproject3.Controllers
                         if (text != "")
                         {
 
-                            Cont += text + ",";
+                            Cont += text + "$";
                         }
                     }
                     foreach (var ingredent in txtIgredent)
@@ -141,7 +138,7 @@ namespace Eproject3.Controllers
                         if (ingredent != "")
                         {
 
-                            ingre += ingredent + ",";
+                            ingre += ingredent + "$";
                         }
                     }
                     Cont = Cont.Substring(0, Cont.Length - 1);
@@ -187,11 +184,6 @@ namespace Eproject3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (db.Exams.Where(p => p.Recipes_id == id).Count() > 0)
-            {
-                TempData["isExaming"] = "This recipe is in an exam,you can not edit it";
-                return RedirectToAction("Index");
-            }
             Recipes recipes = await db.Recipes.FindAsync(id);
             if (recipes == null)
             {
@@ -230,7 +222,7 @@ namespace Eproject3.Controllers
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
                             }
-                            url_img += Path.GetFileName(img.FileName) + ",";
+                            url_img += Path.GetFileName(img.FileName) + "$";
                             recipes.Img = url_img.Substring(0, url_img.Length - 1);
                         }
                         if (flag != 1) {
@@ -248,7 +240,7 @@ namespace Eproject3.Controllers
                     if (text != "")
                     {
 
-                        Cont += text + ",";
+                        Cont += text + "$";
                     }
                 }
                 foreach (var ingredent in txtIgredent)
@@ -256,7 +248,7 @@ namespace Eproject3.Controllers
                     if (ingredent != "")
                     {
 
-                        ingre += ingredent + ",";
+                        ingre += ingredent + "$";
                     }
                 }
                 if (Session["user"] != null)

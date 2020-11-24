@@ -23,7 +23,7 @@
 
             <div class="col-sm-2">
                 <div class="user-icon">
-                    <img src="~/images/" alt="Avatar" height="50" width="50" />
+                    <img src="~/images/@Model.Users.Img" alt="Avatar" height="50" width="50" />
                 </div>
 
             </div>
@@ -43,7 +43,7 @@
                     <div class="col-sm-12">
                         <ul>
                             @{
-                                List<string> ingre = Model.ingredent.Split(',').ToList();
+                                List<string> ingre = Model.ingredent.Split('$').ToList();
                                 foreach (var items in ingre)
                                 {
                                     <li>@items</li>
@@ -62,8 +62,8 @@
                 <h3>How to do</h3>
                 <div class="col-sm-12">
                     @{
-                        var Content_step = Model.Content.Split(',').ToList();
-                        var ImgList = Model.Img.Split(',').ToList();
+                        var Content_step = Model.Content.Split('$').ToList();
+                        var ImgList = Model.Img.Split('$').ToList();
                         int i = 0;
                         foreach (var image in ImgList)
                         {

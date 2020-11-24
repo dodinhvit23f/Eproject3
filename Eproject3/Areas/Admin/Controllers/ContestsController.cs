@@ -19,7 +19,6 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests
         public async Task<ActionResult> Index()
         {
-            
             return View(await db.Contest.ToListAsync());
         }
 

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
-using PagedList.Mvc;
-using Eproject3.Repo;
+
 namespace Eproject3.Controllers
 {
     public class HomeController : Controller
@@ -16,29 +15,29 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
         public ActionResult Index(int? page)
         {
-             
             var isvalid = db.Recipes.ToList();
             int pageSize = 6;
             int pageNumber = (page ?? 1);
-           
+
             if (TempData["done"] != null)
             {
                 ViewBag.done = "Done,you have submit your exams successfully";
             }
             var contests = db.Contest;
-            ViewBag.Cate = db.Categories.Take(8);
+            ViewBag.Cate = db.Categories;
             var user = (Users)Session["user"];
             if (user == null || user.Pack_id == 3 || user.Roll_id != 1)
             {
                 ViewBag.Tips = db.Tips.Where(p => p.isFree.Value);
                 isvalid = db.Recipes.Where(p => p.R_Status == 0).ToList();
+
             }
-            else { 
+            else
+            {
                 ViewBag.Tips = db.Tips;
                 //isvalid = db.Recipes.ToList();
-            }         
-            //ngon roi`
-            //Ngon ro
+
+            }
             return View(isvalid.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]

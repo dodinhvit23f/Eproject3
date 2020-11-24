@@ -19,7 +19,6 @@
             window.location.href = path;
         }
 
-
         var prevScrollpos = window.pageYOffset;
 
 
@@ -52,7 +51,7 @@
                             @Html.ActionLink("Contact", "Contact", "Home")
                         </li>
                         <li>
-                            <a href="/Home/">Recipes</a>
+                            @Html.ActionLink("Recipes", "Index", "Home")
                         </li>
                         <li>
                             @Html.ActionLink("Tips", "Index", "Home")
@@ -83,20 +82,6 @@
         </nav>
     </header>
     <div class="container body-content">
-       
-
-           
-          
-            @*TienDo oi style cai nay` nhe !!!!!!!!!!!!!!!!!!!*@
-
-
-            <form method="get" action="/Home/Search" class="none-height">
-                <div class="search-bar">
-                    <input name="kw" id="search-tool" required type="text" placeholder="Search for Tips/Recipes: " />
-                    @*<button>Search</button>*@
-                </div>
-            </form>
-       
         @RenderBody()
     </div>
     <footer>

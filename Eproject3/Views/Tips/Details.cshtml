@@ -36,8 +36,8 @@
                 <h3>How to do</h3>
                 <div class="col-sm-12">
                     @{
-                        var Content_step = Model.Content.Split(',').ToList();
-                        var ImgList = Model.Img.Split(',').ToList();
+                        var Content_step = Model.Content.Split('$').ToList();
+                        var ImgList = Model.Img.Split('$').ToList();
                         int i = 0;
                         foreach (var image in ImgList)
                         {

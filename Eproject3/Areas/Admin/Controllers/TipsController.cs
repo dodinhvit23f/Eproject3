@@ -78,7 +78,7 @@ namespace Eproject3.Areas.Admin.Controllers
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(tips);
                             }
-                            url_img += Path.GetFileName(img.FileName) + ",";
+                            url_img += Path.GetFileName(img.FileName) + "$";
                         }
                         else
                         {
@@ -106,20 +106,20 @@ namespace Eproject3.Areas.Admin.Controllers
                     if (text != "")
                     {
 
-                        Cont += text + ",";
+                        Cont += text + "$";
                     }
                 }
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
                 var isvalid = (Users)Session["user"];
-                tips.Levels = rate;
-                if (isvalid == null)
-                {
+                if (isvalid == null) {
                     return RedirectToAction("LoginView", "Users");
                 }
                 tips.Use_id = isvalid.id;
+                
                 if (flag != 1)
                 {
+                    tips.Levels = rate;
                     db.Tips.Add(tips);
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -179,7 +179,7 @@ namespace Eproject3.Areas.Admin.Controllers
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(tips);
                             }
-                            url_img += Path.GetFileName(img.FileName) + ",";
+                            url_img += Path.GetFileName(img.FileName) + "$";
                         }
                         else
                         {
@@ -207,11 +207,17 @@ namespace Eproject3.Areas.Admin.Controllers
                     if (text != "")
                     {
 
-                        Cont += text + ",";
+                        Cont += text + "$";
                     }
                 }
                 Cont = Cont.Substring(0, Cont.Length - 1);
                 tips.Content = Cont;
+                var isvalid = (Users)Session["user"];
+                if (isvalid == null)
+                {
+                    return RedirectToAction("LoginView", "Users");
+                }
+                tips.Use_id = isvalid.id;
                 if (Free == 0)
                 {
                     tips.isFree = true;
@@ -220,15 +226,9 @@ namespace Eproject3.Areas.Admin.Controllers
                 {
                     tips.isFree = false;
                 }
-                tips.Levels = rate;
-                var isvalid = (Users)Session["user"];
-                if (isvalid == null)
-                {
-                    return RedirectToAction("LoginView", "Users");
-                }
-                tips.Use_id = isvalid.id;
                 if (flag != 1)
                 {
+                    tips.Levels = rate;
                     db.Entry(tips).State = EntityState.Modified;
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -264,15 +264,6 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Tips tips = await db.Tips.FindAsync(id);
-            List<int> feedID = new List<int>();
-            foreach (var items in db.FeedBack.Where(p => p.Tip_id == id))
-            {
-                feedID.Add(items.id);
-            }
-            for (int i = 0; i < feedID.Count(); i++)
-            {
-                db.FeedBack.Remove(db.FeedBack.Find(feedID.ElementAt(i)));
-            }
             db.Tips.Remove(tips);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

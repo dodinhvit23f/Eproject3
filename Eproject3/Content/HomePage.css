@@ -205,7 +205,9 @@ footer a {
     color: black;
 }
 
-
+ul {
+    height: 60px;
+}
 
 
 .menu li > * {
@@ -213,9 +215,7 @@ footer a {
     text-decoration: none;
     margin: 0px;
 }
-.menu > ul{
-     height: 60px;
-}
+
 
 .menu > ul > li {
     height: 60px;
@@ -225,7 +225,6 @@ footer a {
     padding-top: 15px;
     position: relative;
     min-width: 100px;
-   
 }
 
 
@@ -453,8 +452,7 @@ a {
     border-radius: 20px;
     text-align: center;
     z-index: 99;
-    
-    background: none;
+    margin-left: 34%;
 }
 
 .user-menu a {
@@ -462,7 +460,9 @@ a {
     color: black;
 }
 
-
+ul {
+    height: 60px;
+}
 
 .user-menu{
     margin-left:8%;
@@ -510,18 +510,4 @@ a {
 
 #myCarousel{
      height: 400px;
-}
-
-.form-style{
-     border: 1px solid black;
-     box-shadow: 5px 10px #888888;
-     border-radius:4px;
-     margin-bottom:15px;
-}
-
-.body-content{
-    background: none;
-}
-.none-height{
-    height:0px;
 }

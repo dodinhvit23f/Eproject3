@@ -1,4 +1,5 @@
 ﻿@model Eproject3.Models.Recipes
+
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -96,19 +97,21 @@
         </div>
     }
     <script src="~/Content/js/core/jquery.3.2.1.min.js"></script>
-    <script>
-        $("#addContent").click(function e() {
-            $("<p id=\"cont\"> <input type=\"text\" id=\"content\" name=\"txtText\" required />" + " <input type=\"file\" name=\"Url\" /></p>").insertBefore("#addContent");
-        });
-        $("#RemoveContent").click(function e() {
-            $("#RemoveContent").prev().prev().remove();
-        });
-        $("#addIgre").click(function e() {
-            $("<p id=\"igre\"> <input type=\"text\" id=\"content\" name=\"txtIgredent\" /></p>").insertBefore("#addIgre");
-        });
-        $("#RemoveIgre").click(function e() {
-            $("#RemoveIgre").prev().prev().remove();
-        });
-    </script>
-    @Scripts.Render("~/bundles/jqueryval")
-    
+    @*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<script>
+    $("#addContent").click(function e() {
+    $("<p id=\"cont\"> <input type=\"text\" id=\"content\" name=\"txtText\" required />" + " <input type=\"file\" name=\"Url\" /></p>").insertBefore("#addContent");
+});
+$("#RemoveContent").click(function e() {
+    $("#RemoveContent").prev().prev().remove();
+});
+$("#addIgre").click(function e() {
+    $("<p id=\"igre\"> <input type=\"text\" id=\"content\" name=\"txtIgredent\" /></p>").insertBefore("#addIgre");
+});
+$("#RemoveIgre").click(function e() {
+    $("#RemoveIgre").prev().prev().remove();
+});
+
+</script>

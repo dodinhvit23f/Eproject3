@@ -83,7 +83,7 @@ namespace Eproject3.Areas.Admin.Controllers
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
                             }
-                            url_img += Path.GetFileName(img.FileName) + ",";
+                            url_img += Path.GetFileName(img.FileName) + "$";
                         }
                         else
                         {
@@ -112,7 +112,7 @@ namespace Eproject3.Areas.Admin.Controllers
                     if (text != "")
                     {
 
-                        Cont += text + ",";
+                        Cont += text + "$";
                     }
                 }
                 foreach (var ingredent in txtIgredent)
@@ -120,7 +120,7 @@ namespace Eproject3.Areas.Admin.Controllers
                     if (ingredent != "")
                     {
 
-                        ingre += ingredent + ",";
+                        ingre += ingredent + "$";
                     }
                 }
                 Cont = Cont.Substring(0, Cont.Length - 1);
@@ -196,7 +196,7 @@ namespace Eproject3.Areas.Admin.Controllers
                                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                                 return View(recipes);
                             }
-                            url_img += Path.GetFileName(img.FileName) + ",";
+                            url_img += Path.GetFileName(img.FileName) + "$";
                             recipes.Img = url_img.Substring(0, url_img.Length - 1);
                         }
                         if (flag != 1)
@@ -219,7 +219,7 @@ namespace Eproject3.Areas.Admin.Controllers
                     if (text != "")
                     {
 
-                        Cont += text + ",";
+                        Cont += text + "$";
                     }
                 }
                 foreach (var ingredent in txtIgredent)
@@ -227,7 +227,7 @@ namespace Eproject3.Areas.Admin.Controllers
                     if (ingredent != "")
                     {
 
-                        ingre += ingredent + ",";
+                        ingre += ingredent + "$";
                     }
                 }
                 if (Session["user"] != null)
@@ -275,15 +275,6 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Recipes recipes = await db.Recipes.FindAsync(id);
-            List<int> feedID = new List<int>();
-            foreach (var items in db.FeedBack.Where(p => p.Recipes_id == id))
-            {
-                feedID.Add(items.id);
-            }
-            for (int i = 0; i < feedID.Count(); i++)
-            {
-                db.FeedBack.Remove(db.FeedBack.Find(feedID.ElementAt(i)));
-            }
             db.Recipes.Remove(recipes);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
