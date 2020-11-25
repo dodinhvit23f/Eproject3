@@ -58,18 +58,18 @@
             {
                 @*Thay link can cham diem vao day*@
 
-                <a href="/Recipes/Details/@items.Recipes.id">
-                    <div class="col-sm-4 box-item relative">
-                        <div class="blur-hover">
-                            <h1>@items.Recipes.Title</h1>
+                <div class="box-item relative">
+                    <a href="/Recipes/Details/@items.Recipes.id">
+                        <div class="item">
+                            <div class="blur-hover">
+                                <h1>@items.Recipes.Title</h1>
+                            </div>
+                            <img src="~/images/@items.Recipes.Img.Split(',').First()">
                         </div>
-                        <img src="~/images/@items.Recipes.Img.Split(',').First()">
-                    </div>
+                    </a>
+                </div>
+        }
 
-                </a>
-
-            }
-        </div>
     }
     else
     {

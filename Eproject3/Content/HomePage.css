@@ -105,8 +105,8 @@ footer a {
 
 
     .item img {
-        width: 100%;
-        height: 100%;
+        width: inherit;
+        height: inherit;
         position: absolute;
         object-fit: cover;
         -webkit-text-size-adjust: 100%;
