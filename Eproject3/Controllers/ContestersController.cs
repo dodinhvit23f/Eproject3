@@ -53,6 +53,7 @@ namespace Eproject3.Controllers
             ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", contester.Use_id);
             if (ModelState.IsValid)
             {
+                int ctId = (int)TempData["ctId"];
                 if (Session["user"] != null )
                 {
                     var isValid = (Users)Session["user"];
@@ -63,10 +64,10 @@ namespace Eproject3.Controllers
                 else {
                     contester.Use_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
                 }
-                if (db.Contester.Where(p => p.Phone == contester.Phone).FirstOrDefault() != null)
+                if (db.Contester.Where(p => p.Phone == contester.Phone && p.Contest_id== ctId).FirstOrDefault() != null)
                 {
                     TempData["exist"] = "This phone number has been registered before,Pls try another one";
-                    return RedirectToAction("Details/"+ (int)TempData["ctId"], "Contests");
+                    return RedirectToAction("Details/"+ ctId, "Contests");
                 }
                 contester.Contest_id = (int)TempData["ctId"];
                 db.Contester.Add(contester);

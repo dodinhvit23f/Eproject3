@@ -59,7 +59,6 @@ namespace Eproject3.Controllers
                 ViewBag.Recipes_id = new SelectList(db.Recipes.Where(p => p.id == reID), "id", "Title");
             }
             return View();
-
         }
         public ActionResult Supplement()
         {

@@ -51,9 +51,9 @@
         <div class="col-sm-2"></div>
     </div>
     <div class="col-sm-12">
-    @if (exams != null)
-    {
-        <h1>Submission</h1>
+        @if (exams != null)
+        {
+            <h1>Submissions</h1>
             foreach (var items in exams)
             {
                 @*Thay link can cham diem vao day*@
@@ -65,17 +65,15 @@
                         </div>
                         <img src="~/images/@items.Recipes.Img.Split(',').First()">
                     </div>
-
                 </a>
-
             }
-        </div>
-    }
-    else
-    {
+        }
+        else
+        {
             <h4>No Exams yet </h4>
         }
     </div>
+</div>
 
 
 
