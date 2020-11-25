@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cate_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Contest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="C_Time" Type="datetime" />
+    <Property Name="exp_time" Type="datetime" />
+    <Property Name="C_Description" Type="text" />
+    <Property Name="img" Type="varchar" MaxLength="100" />
+    <Property Name="id_winner" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="200" />
+    <Property Name="requirement" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Contester">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Use_id" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="10" />
+    <Property Name="Contest_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Exams">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Contest_id" Type="int" />
+    <Property Name="Mark" Type="int" />
+    <Property Name="Contester_id" Type="int" />
+    <Property Name="Recipes_id" Type="int" />
+    <Property Name="E_Status" Type="int" />
+  </EntityType>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Use_id" Type="int" />
+    <Property Name="Recipes_id" Type="int" />
+    <Property Name="Content" Type="varchar" MaxLength="300" />
+    <Property Name="Tip_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Packs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="price" Type="float" />
+  </EntityType>
+  <EntityType Name="Recipes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="100" />
+    <Property Name="Content" Type="text" />
+    <Property Name="Img" Type="varchar" MaxLength="500" />
+    <Property Name="Contester_id" Type="int" />
+    <Property Name="R_Status" Type="int" />
+    <Property Name="ingredent" Type="varchar" MaxLength="300" />
+    <Property Name="Levels" Type="varchar" MaxLength="20" />
+    <Property Name="Cate_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tips">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Use_id" Type="int" />
+    <Property Name="Content" Type="text" />
+    <Property Name="Img" Type="varchar" MaxLength="500" />
+    <Property Name="isFree" Type="bit" />
+    <Property Name="Title" Type="varchar" MaxLength="100" />
+    <Property Name="Levels" Type="varchar" MaxLength="20" />
+    <Property Name="Cate_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UPhone" Type="varchar" MaxLength="10" />
+    <Property Name="UPass" Type="varchar" MaxLength="50" />
+    <Property Name="UAdress" Type="varchar" MaxLength="100" />
+    <Property Name="Img" Type="varchar" MaxLength="500" />
+    <Property Name="Roll_id" Type="int" />
+    <Property Name="Pack_id" Type="int" />
+    <Property Name="Exp_Date" Type="datetime" />
+    <Property Name="AccNum" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__Contest__id_winn__6E01572D">
+    <End Role="Contester" Type="Self.Contester" Multiplicity="0..1" />
+    <End Role="Contest" Type="Self.Contest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contester">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contest">
+        <PropertyRef Name="id_winner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contester__Conte__5AEE82B9">
+    <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
+    <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contest">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contester">
+        <PropertyRef Name="Contest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contester__Use_i__2F10007B">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Contester" Type="Self.Contester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contester">
+        <PropertyRef Name="Use_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exams__Contest_i__4222D4EF">
+    <End Role="Contest" Type="Self.Contest" Multiplicity="0..1" />
+    <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contest">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exams">
+        <PropertyRef Name="Contest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exams__Contester__4316F928">
+    <End Role="Contester" Type="Self.Contester" Multiplicity="0..1" />
+    <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contester">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exams">
+        <PropertyRef Name="Contester_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exams__Recipes_i__440B1D61">
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="0..1" />
+    <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exams">
+        <PropertyRef Name="Recipes_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FeedBack__Recipe__4AB81AF0">
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="0..1" />
+    <End Role="FeedBack" Type="Self.FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="Recipes_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FeedBack__Tip_id__4BAC3F29">
+    <End Role="Tips" Type="Self.Tips" Multiplicity="0..1" />
+    <End Role="FeedBack" Type="Self.FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tips">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="Tip_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FeedBack__Use_id__49C3F6B7">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="FeedBack" Type="Self.FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="Use_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipes__Cate_id__2739D489">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Recipes">
+        <PropertyRef Name="Cate_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipes__User__3F466844">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Recipes">
+        <PropertyRef Name="Contester_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tips__Cate_id__282DF8C2">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Tips" Type="Self.Tips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tips">
+        <PropertyRef Name="Cate_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tips__Use_id__46E78A0C">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Tips" Type="Self.Tips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tips">
+        <PropertyRef Name="Use_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__Pack_id__2C3393D0">
+    <End Role="Packs" Type="Self.Packs" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Packs">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Pack_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__Roll_id__2B3F6F97">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Roll_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contest" EntityType="Self.Contest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contester" EntityType="Self.Contester" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exams" EntityType="Self.Exams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Packs" EntityType="Self.Packs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Recipes" EntityType="Self.Recipes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tips" EntityType="Self.Tips" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Contest__id_winn__6E01572D" Association="Self.FK__Contest__id_winn__6E01572D">
+      <End Role="Contester" EntitySet="Contester" />
+      <End Role="Contest" EntitySet="Contest" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contester__Conte__5AEE82B9" Association="Self.FK__Contester__Conte__5AEE82B9">
+      <End Role="Contest" EntitySet="Contest" />
+      <End Role="Contester" EntitySet="Contester" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contester__Use_i__2F10007B" Association="Self.FK__Contester__Use_i__2F10007B">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Contester" EntitySet="Contester" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exams__Contest_i__4222D4EF" Association="Self.FK__Exams__Contest_i__4222D4EF">
+      <End Role="Contest" EntitySet="Contest" />
+      <End Role="Exams" EntitySet="Exams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exams__Contester__4316F928" Association="Self.FK__Exams__Contester__4316F928">
+      <End Role="Contester" EntitySet="Contester" />
+      <End Role="Exams" EntitySet="Exams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exams__Recipes_i__440B1D61" Association="Self.FK__Exams__Recipes_i__440B1D61">
+      <End Role="Recipes" EntitySet="Recipes" />
+      <End Role="Exams" EntitySet="Exams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FeedBack__Recipe__4AB81AF0" Association="Self.FK__FeedBack__Recipe__4AB81AF0">
+      <End Role="Recipes" EntitySet="Recipes" />
+      <End Role="FeedBack" EntitySet="FeedBack" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FeedBack__Tip_id__4BAC3F29" Association="Self.FK__FeedBack__Tip_id__4BAC3F29">
+      <End Role="Tips" EntitySet="Tips" />
+      <End Role="FeedBack" EntitySet="FeedBack" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FeedBack__Use_id__49C3F6B7" Association="Self.FK__FeedBack__Use_id__49C3F6B7">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="FeedBack" EntitySet="FeedBack" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipes__Cate_id__2739D489" Association="Self.FK__Recipes__Cate_id__2739D489">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Recipes" EntitySet="Recipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipes__User__3F466844" Association="Self.FK__Recipes__User__3F466844">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Recipes" EntitySet="Recipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tips__Cate_id__282DF8C2" Association="Self.FK__Tips__Cate_id__282DF8C2">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Tips" EntitySet="Tips" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tips__Use_id__46E78A0C" Association="Self.FK__Tips__Use_id__46E78A0C">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Tips" EntitySet="Tips" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__Pack_id__2C3393D0" Association="Self.FK__Users__Pack_id__2C3393D0">
+      <End Role="Packs" EntitySet="Packs" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__Roll_id__2B3F6F97" Association="Self.FK__Users__Roll_id__2B3F6F97">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
