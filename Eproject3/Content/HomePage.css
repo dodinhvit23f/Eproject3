@@ -105,8 +105,8 @@ footer a {
 
 
     .item img {
-        width: 100%;
-        height: 100%;
+        width: inherit;
+        height: inherit;
         position: absolute;
         object-fit: cover;
         -webkit-text-size-adjust: 100%;
@@ -510,4 +510,11 @@ ul {
 
 #myCarousel{
      height: 400px;
+}
+
+.form-style{
+     border: 1px solid black;
+     box-shadow: 5px 10px #888888;
+     border-radius:4px;
+     margin-bottom:15px;
 }
