@@ -13,11 +13,19 @@ namespace Eproject3.Controllers
     public class HomeController : Controller
     {
         private DatabaseEntities db = new DatabaseEntities();
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page,int? pagetips)
         {
             var isvalid = db.Recipes.ToList();
             int pageSize = 6;
             int pageNumber = (page ?? 1);
+            int pagetipsNumber;
+            if (pagetips == null)
+            {
+                pagetipsNumber = 1;
+            }
+            else {
+                pagetipsNumber =(int)pagetips;
+            }
 
             if (TempData["done"] != null)
             {
@@ -34,6 +42,8 @@ namespace Eproject3.Controllers
             }
             else
             {
+                ViewBag.pagetipnumber = pagetipsNumber;
+                ViewBag.pagesize = 6;
                 ViewBag.Tips = db.Tips;
                 //isvalid = db.Recipes.ToList();
 

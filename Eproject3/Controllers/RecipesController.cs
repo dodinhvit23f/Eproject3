@@ -63,15 +63,14 @@ namespace Eproject3.Controllers
         public ActionResult Create()
         {
             Users u = (Users)Session["User"];
-            if (u != null)
+            if (u != null || TempData["Supplement"] != null )
             {
-                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
-                
+                TempData["Supplement"] = true;
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");                
                 return View();
             }
             return Redirect("~/Users/LoginView");
         }
-
         // POST: Recipes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

@@ -1,10 +1,22 @@
 ﻿@model PagedList.IPagedList<Eproject3.Models.Recipes>
 @using PagedList.Mvc;
+@using PagedList;
 @using Eproject3.Models
 @{
+    int pagenumber;
+    int pageSize = 2;
+    if (ViewBag.pagetipnumber == null)
+    {
+         pagenumber = 1;
+    }
+    else {
+         pagenumber = ViewBag.pagetipnumber;
+    }
+   
     ViewBag.Title = "Home Page";
     var Cate = (IEnumerable<Categories>)ViewBag.Cate;
-    var tips = (IEnumerable<Tips>)ViewBag.Tips;
+    var tiplist = (IEnumerable<Tips>)ViewBag.tips;
+    PagedList.IPagedList<Eproject3.Models.Tips> tips = tiplist.ToList().ToPagedList(pagenumber , pageSize);
     var count = 0;
 }
 <a class="alert-info">@ViewBag.done</a>
@@ -59,32 +71,49 @@
                     </div>
                 </a>
             }
-            @*Need Style*@
+            <div class="row">
+                <div class="center">
+                    @*Need Style*@
+
+                </div>
+            </div>
+        </div>
+        <div>
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
             @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { page }))
+        new { page }))
         </div>
     </div>
-    @*
-        <div class="content">
-            <div class="container">
-                @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay
-                <h1>Tips</h1>
-                @foreach (var items in tips)
-                {
-                    <div class="box-item relative">
-                        <a href="/Tips/Details/@items.id">
-                            <div class="item">
-                                <div class="blur-hover">
-                                    <h1>@items.Title</h1>
-                                </div>
-                                <img src="~/images/@items.Img.Split(',').First()" alt="...">
+
+    <div class="content">
+        <div class="container">
+            @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*/*@
+            <h1>Tips</h1>
+            @foreach (var items in tips)
+            {
+                <div class="box-item relative">
+                    <a href="/Tips/Details/@items.id">
+                        <div class="item">
+                            <div class="blur-hover">
+                                <h1>@items.Title</h1>
                             </div>
-                        </a>
-                    </div>
-                }
-            </div>
+                            <img src="~/images/@items.Img.Split(',').First()" alt="...">
+                        </div>
+                    </a>
+                </div>
+            }
         </div>
-    *@
+    </div>
+    <div class="row">
+        <div class="center">
+            @*Need Style*@
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(tips, pagetips => Url.Action("Index",
+                new { pagetips }))
+        </div>
+    </div>
 </div>
+
+
