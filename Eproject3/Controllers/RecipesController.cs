@@ -17,20 +17,23 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Recipes
-        public async Task<ActionResult> Index(int?page)
+        public ActionResult Index(int? page)
         {
             var recipes = db.Recipes.ToList();
             int pageSize = 6;
             int pageNumber = (page ?? 1);
             var isValid = (Users)Session["user"];
+            if (TempData["exi"] != null)
+            {
+                ViewBag.exi = TempData["exi"];
+            }
             if (isValid != null)
             {
-                 recipes = db.Recipes.Where(p=>p.Contester_id==isValid.id).Include(r => r.Users).ToList();
-                
+                recipes = db.Recipes.Where(p => p.Contester_id == isValid.id).Include(r => r.Users).ToList();
             }
             else
             {
-                return RedirectToAction("LoginView","Users");
+                return RedirectToAction("LoginView", "Users");
             }
             return View(recipes.ToPagedList(pageNumber, pageSize));
         }
@@ -183,6 +186,11 @@ namespace Eproject3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (db.Exams.Where(p=>p.Recipes_id==id).Count() >0 )
+            {
+                TempData["exi"] = "This recipe is in a submission,you can not edit it";
+                return RedirectToAction("Index");
+            }
             Recipes recipes = await db.Recipes.FindAsync(id);
             if (recipes == null)
             {
@@ -280,6 +288,11 @@ namespace Eproject3.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (db.Exams.Where(p => p.Recipes_id == id).Count() > 0)
+            {
+                TempData["exi"] = "This recipe is in a submission,you can not edit it";
+                return RedirectToAction("Index");
             }
             Recipes recipes = await db.Recipes.FindAsync(id);
             if (recipes == null)

@@ -18,44 +18,58 @@
 <div class="content">
     <h1>Recipes</h1>
     <div class="container">
-        @*Cho nay hien thi Recipes,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
-        @foreach (var items in recipes)
+        @if (recipes.Count() > 0)
         {
-            <a href="/Recipes/Details/@items.id">
-                <div class="col-sm-4">
-                    <div class="col-sm-4 box-item relative">
-                        <div class="item">
-                            <div class="blur-hover">
-                                <h1>@items.Title</h1>
+            foreach (var items in recipes)
+            {
+                <a href="/Recipes/Details/@items.id">
+                    <div class="col-sm-4">
+                        <div class="col-sm-4 box-item relative">
+                            <div class="item">
+                                <div class="blur-hover">
+                                    <h1>@items.Title</h1>
+                                </div>
+                                <img src="~/images/@items.Img.Split(',').First()">
                             </div>
-                            <img src="~/images/@items.Img.Split(',').First()">
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            }
         }
+        else
+        {
+            <h4>Oop.No recipes found</h4>
+        }
+
     </div>
 </div>
 <div class="content">
     <div class="container">
         @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*@
         <h1>Tips</h1>
-        @foreach (var items in tips)
+        @if (tips.Count() > 0)
         {
+            foreach (var items in tips)
+            {
 
-            <a href="/Tips/Details/@items.id">
-                <div class="col-sm-4">
-                    <div class="col-sm-4 box-item relative">
-                        <div class="item">
-                            <div class="blur-hover">
-                                <h1>@items.Content</h1>
+                <a href="/Tips/Details/@items.id">
+                    <div class="col-sm-4">
+                        <div class="col-sm-4 box-item relative">
+                            <div class="item">
+                                <div class="blur-hover">
+                                    <h1>@items.Content</h1>
+                                </div>
+                                <img src="~/images/@items.Img.Split(',').First()">
                             </div>
-                            <img src="~/images/@items.Img.Split(',').First()">
                         </div>
                     </div>
-                </div>
-            </a>
-
+                </a>
+            }
         }
+        else
+        {
+            <h4>Oop.No tips found</h4>
+        }
+
     </div>
 </div>

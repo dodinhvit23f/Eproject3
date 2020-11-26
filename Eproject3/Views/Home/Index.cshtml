@@ -8,7 +8,6 @@
     var count = 0;
 }
 <a class="alert-info">@ViewBag.done</a>
-
 <div class="container">
 
     <div class="content-img">
@@ -68,35 +67,6 @@
                 new { page }))
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="container">
-            @*Cho nay hien thi Tips,An vao thi hien detal no ra,Dao Ngoc Hai lo phan nay*/*@
-            <h1>Tips</h1>
-            @foreach (var items in tips)
-            {
-                <div class="box-item relative">
-                    <a href="/Tips/Details/@items.id">
-                        <div class="item">
-                            <div class="blur-hover">
-                                <h1>@items.Title</h1>
-                            </div>
-                            <img src="~/images/@items.Img.Split(',').First()" alt="...">
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="row">
-        <div class="center">
-            @*Need Style*@
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-            @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { page }))
         </div>
     </div>
 </div>

@@ -21,7 +21,7 @@ namespace Eproject3.Controllers
             int pageSize = 6;
             int pageNumber = (page ?? 1);
             DateTime next7days = DateTime.Today.AddDays(7);
-            var contest = db.Contest.Where(p => p.exp_time > DateTime.Now || p.C_Time == next7days).ToList();
+            var contest = db.Contest.OrderByDescending(p=>p.id).ToList();
             return View( contest.ToPagedList(pageNumber, pageSize));
         }
 

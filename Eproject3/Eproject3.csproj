@@ -581,6 +581,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Tips\Details.cshtml" />
+    <Content Include="Views\Home\Tips.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Content\" />

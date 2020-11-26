@@ -14,6 +14,7 @@
             <div class="col-sm-12">
                 <a style="color:red">@ViewBag.early</a>
                 <a style="color:red">@ViewBag.exist</a>
+                <a style="color:red">@ViewBag.over</a>
                 <div class="center"><h1>@Html.DisplayFor(model => model.title)</h1></div>
                 <hr />
                 <p><b>Description</b></p>
@@ -63,8 +64,10 @@
                     <div class="item">
                         <div class="blur-hover">
                             <h1>@items.Recipes.Title</h1>
+                            <h3 style="color:red">Mark:@items.Mark</h3>
                         </div>
                         <img src="~/images/@items.Recipes.Img.Split(',').First()">
+                        
                     </div>
                 </a>
             </div>
