@@ -29,12 +29,12 @@ namespace Eproject3.Areas.Admin.Controllers
             var contester = db.Contester.Include(c => c.Users);
             return View(await contester.ToListAsync());
         }
-        public async Task<ActionResult> Exams(int cterID)
+        public ActionResult Exams(int cterID)
         {
             var isValid = db.Exams.Where(p => p.Contester_id == cterID).FirstOrDefault();
             if (isValid == null)
             {
-                return RedirectToAction("Index","Contests");
+                return RedirectToAction("Index", "Contests");
             }
             else
             {
@@ -48,9 +48,9 @@ namespace Eproject3.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Contesters(int CtID)
+        public ActionResult Contesters(int id)
         {
-            var isValid = db.Contest.Where(p => p.id == CtID).FirstOrDefault().Contester;
+            var isValid = db.Contest.Where(p => p.id == id).FirstOrDefault().Contester;
             if (isValid == null)
             {
                 TempData["mess"] = true;
@@ -58,9 +58,8 @@ namespace Eproject3.Areas.Admin.Controllers
             }
             else
             {
-                TempData["ctID"] = CtID;
+                TempData["ctID"] = id;
                 return View(isValid);
-
             }
         }
 
@@ -104,11 +103,6 @@ namespace Eproject3.Areas.Admin.Controllers
 
             ViewBag.Use_id = new SelectList(db.Users, "id", "UAdress", contester.Use_id);
             return View(contester);
-        }
-        public ActionResult Regist4Contest(int Contest_id)
-        {
-            ViewBag.Contest_id = Contest_id;
-            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

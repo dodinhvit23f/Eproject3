@@ -66,9 +66,14 @@ namespace Eproject3.Controllers
         public ActionResult Create()
         {
             Users u = (Users)Session["User"];
-            if (u != null || TempData["Supplement"] != null )
+            if (TempData["Supplement"] != null)
             {
                 TempData["Supplement"] = true;
+                ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
+                return View();
+            }
+            if (u != null   )
+            {
                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");                
                 return View();
             }

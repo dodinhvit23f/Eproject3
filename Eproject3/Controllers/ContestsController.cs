@@ -16,19 +16,19 @@ namespace Eproject3.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: Contests
-        public async Task<ActionResult> Index(int?page)
+        public ActionResult Index(int? page)
         {
             int pageSize = 6;
             int pageNumber = (page ?? 1);
             DateTime next7days = DateTime.Today.AddDays(7);
-            var contest = db.Contest.OrderByDescending(p=>p.id).ToList();
-            return View( contest.ToPagedList(pageNumber, pageSize));
+            var contest = db.Contest.OrderByDescending(p => p.id).ToList();
+            return View(contest.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Contests/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            ViewBag.exams = db.Exams.Where(p=>p.Contest_id==id);
+            ViewBag.exams = db.Exams.Where(p=>p.Contest_id==id).OrderByDescending(p=>p.Mark);
             if (TempData["over"] != null)
             {
                 ViewBag.over = TempData["over"];
