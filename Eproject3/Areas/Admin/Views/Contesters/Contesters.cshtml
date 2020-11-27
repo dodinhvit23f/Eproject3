@@ -58,7 +58,7 @@
                             Not marked
                         </td>
                         <td>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                            <a href="/Admin/Contesters/Delete/@item.id">Eliminate this </a>
                         </td>
                     </tr>
                 }
@@ -83,7 +83,7 @@
                             marked
                         </td>
                         <td>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                            <a href="/Admin/Contesters/Delete/@item.id">Eliminate this </a>
                         </td>
                     </tr>
                 }

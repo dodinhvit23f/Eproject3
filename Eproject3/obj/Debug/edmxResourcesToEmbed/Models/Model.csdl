@@ -9,11 +9,11 @@
     <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Contest_i__4222D4EF" FromRole="Contest" ToRole="Exams" />
     <NavigationProperty Name="Contester" Relationship="Database1Model.FK__Contester__Conte__5AEE82B9" FromRole="Contest" ToRole="Contester" />
     <Property Name="exp_time" Type="DateTime" Precision="3" />
-    <Property Name="C_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="C_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="img" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="id_winner" Type="Int32" />
     <NavigationProperty Name="Contester1" Relationship="Database1Model.FK__Contest__id_winn__6E01572D" FromRole="Contest" ToRole="Contester" />
-    <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="requirement" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Contester">
@@ -52,7 +52,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Use_id" Type="Int32" />
     <Property Name="Recipes_id" Type="Int32" />
-    <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Tip_id" Type="Int32" />
     <NavigationProperty Name="Recipes" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="FeedBack" ToRole="Recipes" />
     <NavigationProperty Name="Tips" Relationship="Self.FK__FeedBack__Tip_id__4BAC3F29" FromRole="FeedBack" ToRole="Tips" />
@@ -72,15 +72,15 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Contester_id" Type="Int32" />
     <Property Name="R_Status" Type="Int32" />
     <NavigationProperty Name="Contester" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Recipes" ToRole="Contester" />
     <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__Recipes_i__440B1D61" FromRole="Recipes" ToRole="Exams" />
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Recipe__4AB81AF0" FromRole="Recipes" ToRole="FeedBack" />
-    <Property Name="ingredent" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ingredent" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Database1Model.FK__Recipes__User__3F466844" FromRole="Recipes" ToRole="Users" />
     <Property Name="Levels" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Cate_id" Type="Int32" />
@@ -100,11 +100,11 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Use_id" Type="Int32" />
-    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="FeedBack" Relationship="Self.FK__FeedBack__Tip_id__4BAC3F29" FromRole="Tips" ToRole="FeedBack" />
     <NavigationProperty Name="Users" Relationship="Self.FK__Tips__Use_id__46E78A0C" FromRole="Tips" ToRole="Users" />
-    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Levels" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Cate_id" Type="Int32" />
     <NavigationProperty Name="Categories" Relationship="Database1Model.FK__Tips__Cate_id__282DF8C2" FromRole="Tips" ToRole="Categories" />

@@ -24,19 +24,33 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Content)
+            @{
+                var Content_step = Model.Content.Split('$').ToList();
+                var ImgList = Model.Img.Split('$').ToList();
+                int i = 0;
+                foreach (var image in ImgList)
+                {
+                    i++;
+                    <div class="col-sm-12">
+                        <p>Step @i: @Content_step.ElementAt(i - 1)</p>
+                    </div>
+                    <div> <img  style="height:200px;width:160px" src="~/images/@image" alt="Food" /> </div>
+
+                }
+            }
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Img)
-        </dt>
-        <dd>
-            <img style="height:200px;width:180px" src="~/images/@Html.DisplayFor(model => model.Img)" />
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ingredent)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ingredent)
+            @{
+                List<string> ingre = Model.ingredent.Split('$').ToList();
+                foreach (var items in ingre)
+                {
+                    <li>@items</li>
+                }
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Levels)

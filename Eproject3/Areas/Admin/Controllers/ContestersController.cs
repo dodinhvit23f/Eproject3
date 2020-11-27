@@ -50,7 +50,13 @@ namespace Eproject3.Areas.Admin.Controllers
 
         public ActionResult Contesters(int id)
         {
-            var isValid = db.Contest.Where(p => p.id == id).FirstOrDefault().Contester;
+            var isValid = db.Contest.Where(p => p.id == id).FirstOrDefault();
+            if (isValid.Contester.Count() >0)
+            {
+                isValid.id_winner = db.Exams.Where(p => p.Contest_id == id).OrderByDescending(p => p.Mark).First().Contester_id;
+                isValid.Contester1 = db.Exams.Where(p => p.Contest_id == id).OrderByDescending(p => p.Mark).First().Contester;
+                db.SaveChanges();
+            }
             if (isValid == null)
             {
                 TempData["mess"] = true;
@@ -59,7 +65,7 @@ namespace Eproject3.Areas.Admin.Controllers
             else
             {
                 TempData["ctID"] = id;
-                return View(isValid);
+                return View(isValid.Contester);
             }
         }
 
@@ -173,9 +179,15 @@ namespace Eproject3.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Contester contester = await db.Contester.FindAsync(id);
+            var contest = db.Contest.Where(p => p.id_winner == id).FirstOrDefault();
+            if (contest != null)
+            {
+                contest.id_winner = null;
+            }
+            db.Exams.ToList().RemoveAll(p => p.Contester_id == id);
             db.Contester.Remove(contester);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Contesters/"+contest.id);
         }
 
         protected override void Dispose(bool disposing)

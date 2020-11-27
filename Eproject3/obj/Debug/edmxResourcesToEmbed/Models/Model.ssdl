@@ -14,10 +14,10 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="C_Time" Type="datetime" />
     <Property Name="exp_time" Type="datetime" />
-    <Property Name="C_Description" Type="text" />
-    <Property Name="img" Type="varchar" MaxLength="100" />
+    <Property Name="C_Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="img" Type="nvarchar" MaxLength="500" />
     <Property Name="id_winner" Type="int" />
-    <Property Name="title" Type="varchar" MaxLength="200" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" />
     <Property Name="requirement" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="Contester">
@@ -48,7 +48,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Use_id" Type="int" />
     <Property Name="Recipes_id" Type="int" />
-    <Property Name="Content" Type="varchar" MaxLength="300" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" />
     <Property Name="Tip_id" Type="int" />
   </EntityType>
   <EntityType Name="Packs">
@@ -64,12 +64,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="varchar" MaxLength="100" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
     <Property Name="Content" Type="text" />
-    <Property Name="Img" Type="varchar" MaxLength="500" />
+    <Property Name="Img" Type="nvarchar" MaxLength="500" />
     <Property Name="Contester_id" Type="int" />
     <Property Name="R_Status" Type="int" />
-    <Property Name="ingredent" Type="varchar" MaxLength="300" />
+    <Property Name="ingredent" Type="nvarchar" MaxLength="500" />
     <Property Name="Levels" Type="varchar" MaxLength="20" />
     <Property Name="Cate_id" Type="int" />
   </EntityType>
@@ -86,10 +86,10 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Use_id" Type="int" />
-    <Property Name="Content" Type="text" />
-    <Property Name="Img" Type="varchar" MaxLength="500" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" />
+    <Property Name="Img" Type="nvarchar" MaxLength="500" />
     <Property Name="isFree" Type="bit" />
-    <Property Name="Title" Type="varchar" MaxLength="100" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
     <Property Name="Levels" Type="varchar" MaxLength="20" />
     <Property Name="Cate_id" Type="int" />
   </EntityType>
