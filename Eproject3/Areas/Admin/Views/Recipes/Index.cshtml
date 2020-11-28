@@ -130,7 +130,7 @@
                                         <tbody>
                                             @foreach (var item in Model)
                                             {
-                                                var ImgList = item.Img.Split('$').ToList();
+                                                var ImgList = item.Img.Split('$*').ToList();
                                                 <tr>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.Title)
