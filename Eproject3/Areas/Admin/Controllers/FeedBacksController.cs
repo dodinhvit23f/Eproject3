@@ -16,12 +16,20 @@ namespace Eproject3.Areas.Admin.Controllers
         private DatabaseEntities db = new DatabaseEntities();
 
         // GET: FeedBacks
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int id,int type)
         {
-            var feedBack = db.FeedBack.Include(f => f.Recipes).Include(f => f.Tips).Include(f => f.Users);
+            IQueryable<FeedBack> feedBack = null;
+            if (type==0)
+            {
+                 feedBack = db.FeedBack.Where(p=>p.Recipes_id==id).Include(f => f.Recipes).Include(f => f.Tips).Include(f => f.Users);
+            }
+            else
+            {
+                feedBack = db.FeedBack.Where(p=>p.Tip_id==id).Include(f => f.Recipes).Include(f => f.Tips).Include(f => f.Users);
+            }
             return View(await feedBack.ToListAsync());
         }
-
+        
         // GET: FeedBacks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -67,41 +75,7 @@ namespace Eproject3.Areas.Admin.Controllers
         }
 
         // GET: FeedBacks/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FeedBack feedBack = await db.FeedBack.FindAsync(id);
-            if (feedBack == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);
-            ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content", feedBack.Tip_id);
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
-            return View(feedBack);
-        }
-
-        // POST: FeedBacks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,Use_id,Recipes_id,Content,Tip_id")] FeedBack feedBack)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(feedBack).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);
-            ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content", feedBack.Tip_id);
-            ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
-            return View(feedBack);
-        }
+      
 
         // GET: FeedBacks/Delete/5
         public async Task<ActionResult> Delete(int? id)
@@ -126,7 +100,7 @@ namespace Eproject3.Areas.Admin.Controllers
             FeedBack feedBack = await db.FeedBack.FindAsync(id);
             db.FeedBack.Remove(feedBack);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Recipes");
         }
 
         protected override void Dispose(bool disposing)

@@ -19,6 +19,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Tips
         public async Task<ActionResult> Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var tips = db.Tips.Include(t => t.Users);
             return View(await tips.ToListAsync());
         }
@@ -138,6 +142,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Tips/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -246,6 +254,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Tips/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

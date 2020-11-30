@@ -19,6 +19,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests
         public async Task<ActionResult> Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View(await db.Contest.OrderByDescending(p=>p.id).ToListAsync());
         }
 
@@ -40,6 +44,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Create
         public ActionResult Create()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -80,6 +88,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -132,6 +144,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (TempData["cas"] != null)
             {
                 ViewBag.cas = "There are contestants in this contest,can not drop";

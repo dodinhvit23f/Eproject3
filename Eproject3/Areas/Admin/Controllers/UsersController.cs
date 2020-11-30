@@ -19,6 +19,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var users = db.Users.Include(u => u.Packs).Include(u => u.Roles);
             return View(await users.ToListAsync());
         }
@@ -31,7 +35,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
             return View();
@@ -151,7 +158,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -192,6 +202,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (TempData["cass"] != null)
             {
                 ViewBag.cass = "This user posted tips or recipes can not drop";
