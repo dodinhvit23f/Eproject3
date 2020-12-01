@@ -1,11 +1,13 @@
 ﻿@model Eproject3.Models.Contest
 @using Eproject3.Models
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var exams = (IEnumerable<Exams>)ViewBag.exams;
+    PagedList.IPagedList<Eproject3.Models.Exams> exams = ViewBag.exams;
+    
 }
-    <meta charshet="utf-8" />
+<meta charshet="utf-8" />
 <div class="col-sm-12" id="detail-background">
     <div class="row">
         <div class="col-sm-2"></div>
@@ -36,46 +38,52 @@
                     }
                     else
                     {
-                <a href="/Recipes/Details/@Html.DisplayFor(model=>model.Contester1.Exams.First().Recipes_id)">@Html.DisplayFor(model => model.Contester1.Name)</a>
-                    }               
+                        <a href="/Recipes/Details/@Html.DisplayFor(model=>model.Contester1.Exams.First().Recipes_id)">@Html.DisplayFor(model => model.Contester1.Name)</a>
+                    }
                 </div>
                 <div class="col-sm-12">
                     <div class="center-content">
                         <img class="blog-img" src="~/images/@Html.DisplayFor(model => model.img)" />
                     </div>
                 </div>
-                <div class="winner"> 
-                        <a href="/Contests/Join/@Html.DisplayFor(model => model.id)">Join this contest</a> 
+                <div class="winner">
+                    <a href="/Contests/Join/@Html.DisplayFor(model => model.id)">Join this contest</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-2"></div>
     </div>
     <div class="col-sm-12">
-    @if (exams != null)
-    {
-        <h1>Submissions</h1>
-        foreach (var items in exams)
+        @if (exams != null)
         {
-            @*Thay link can cham diem vao day*@
+            <h1>Submissions</h1>
+            foreach (var items in exams)
+            {
+                @*Thay link can cham diem vao day*@
 
-            <div class="box-item relative">
-                <a href="/Recipes/Details/@items.Recipes.id">
-                    <div class="item">
-                        <div class="blur-hover">
-                            <h1>@items.Recipes.Title</h1>
-                            <h3 style="color:red">Mark:@items.Mark</h3>
+                <div class="box-item relative">
+                    <a href="/Recipes/Details/@items.Recipes.id">
+                        <div class="item">
+                            <div class="blur-hover">
+                                <h1>@items.Recipes.Title</h1>
+                                <h3 style="color:red">Mark:@items.Mark</h3>
+                            </div>
+                            <img src="~/images/@items.Recipes.Img.Split('$').First()">
                         </div>
-                        <img src="~/images/@items.Recipes.Img.Split('$').First()">
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            }
         }
-    }
-    else
-    {
-        <h4>No Exams yet </h4>
-    }
+        else
+        {
+            <h4>No Exams yet </h4>
+        }
+    </div>
+    <div>
+        Page @(exams.PageCount < exams.PageNumber ? 0 : exams.PageNumber) of @exams.PageCount
+
+        @Html.PagedListPager(exams, page => Url.Action("Details",
+            new { page }))
     </div>
 </div>
 
