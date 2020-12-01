@@ -137,7 +137,9 @@ namespace Eproject3.Areas.Admin.Controllers
                         return View();
                     }
                     users.Img = url_img.Substring(0, url_img.Length - 1);
-                    db.SaveChangesAsync();
+                    var u = db.Users.Find(users.id);
+                    u.Img = users.Img;
+                    db.SaveChanges();
                     Session["user"] = users;
                     return RedirectToAction("Index","Home");
                 }
@@ -189,7 +191,6 @@ namespace Eproject3.Areas.Admin.Controllers
                 users.Exp_Date = isValid.Exp_Date;
                 users.Pack_id = isValid.Pack_id;
                 users.Roll_id = isValid.Roll_id;
-                //users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

@@ -11,9 +11,6 @@
         <div class="col-sm-5 form-style">
             <div class="col-sm-12">
                 <div class="user-icon">
-                    @*
-                        thêm thẻ img ở đây
-                    *@
                     <img src="/images/@Html.DisplayFor(model=>model.Img)" height="50" width="50" alt="Avatar" />
                 </div>
 
@@ -31,7 +28,6 @@
                         <div class="col-md-10">
                             @Html.ValidationMessageFor(model => model.UPhone, "", new { @class = "text-danger" })
                             @Html.DisplayFor(model => model.UPhone, new { htmlAttributes = new { @class = "form-control font27" } })
-
                         </div>
                     </div>
                     @Html.HiddenFor(model => model.UPass, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
