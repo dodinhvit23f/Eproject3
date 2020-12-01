@@ -114,7 +114,7 @@ namespace Eproject3.Controllers
                 feedBack.Use_id = use_id;
                 feedBack.Recipes_id = recipes_id;
                 feedBack.Content = Content;
-                feedBack.Tip_id = 1;
+                feedBack.Tip_id = null;
                 db.FeedBack.Add(feedBack);
                 await db.SaveChangesAsync();
                 return Redirect(Request.Headers["Referer"].ToString());

@@ -26,9 +26,11 @@ namespace Eproject3.Controllers
         }
 
         // GET: Contests/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? id,int? page)
         {
-            ViewBag.exams = db.Exams.Where(p=>p.Contest_id==id).OrderByDescending(p=>p.Mark);
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+            ViewBag.exams = db.Exams.Where(p=>p.Contest_id==id).OrderByDescending(p=>p.Mark).ToList().ToPagedList(pageNumber,pageSize);
             if (TempData["over"] != null)
             {
                 ViewBag.over = TempData["over"];
