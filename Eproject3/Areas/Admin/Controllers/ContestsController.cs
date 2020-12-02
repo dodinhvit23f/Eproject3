@@ -109,7 +109,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,img")] Contest contest, HttpPostedFileBase Url)
+        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,img,id_winner")] Contest contest, HttpPostedFileBase Url)
         {
             if (DateTime.Compare(contest.C_Time.Value, contest.exp_time.Value) > 0)
             {
@@ -179,7 +179,15 @@ namespace Eproject3.Areas.Admin.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        public async Task<ActionResult> ForceDelete(int id)
+        {
+            db.Exams.ToList().RemoveAll(p=>p.Contest_id==id);
+            db.Contester.ToList().RemoveAll(p=>p.Contest_id==id);
+            Contest contest = await db.Contest.FindAsync(id);
+            db.Contest.Remove(contest);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -54,7 +54,6 @@ namespace Eproject3.Areas.Admin.Controllers
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
             string url_img = "";
-
             if (ModelState.IsValid)
             {
                 if (Url != null)
