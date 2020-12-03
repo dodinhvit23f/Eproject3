@@ -70,8 +70,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="500" />
-          <Property Name="Content" Type="text" />
-          <Property Name="Img" Type="nvarchar" MaxLength="500" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Img" Type="nvarchar" MaxLength="1000" />
           <Property Name="Contester_id" Type="int" />
           <Property Name="R_Status" Type="int" />
           <Property Name="ingredent" Type="nvarchar" MaxLength="500" />
@@ -441,8 +441,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Img" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Img" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Contester_id" Type="Int32" />
           <Property Name="R_Status" Type="Int32" />
           <NavigationProperty Name="Contester" Relationship="Self.FK__Recipes__Contest__3F466844" FromRole="Recipes" ToRole="Contester" />
