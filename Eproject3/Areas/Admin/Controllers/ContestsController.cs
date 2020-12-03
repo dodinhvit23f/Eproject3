@@ -19,7 +19,11 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests
         public async Task<ActionResult> Index()
         {
-            return View(await db.Contest.ToListAsync());
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            return View(await db.Contest.OrderByDescending(p=>p.id).ToListAsync());
         }
 
         // GET: Contests/Details/5
@@ -40,6 +44,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Create
         public ActionResult Create()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -80,6 +88,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,7 +109,7 @@ namespace Eproject3.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,img")] Contest contest, HttpPostedFileBase Url)
+        public async Task<ActionResult> Edit([Bind(Include = "id,title,requirement,C_Time,exp_time,C_Description,img,id_winner")] Contest contest, HttpPostedFileBase Url)
         {
             if (DateTime.Compare(contest.C_Time.Value, contest.exp_time.Value) > 0)
             {
@@ -132,6 +144,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Contests/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (TempData["cas"] != null)
             {
                 ViewBag.cas = "There are contestants in this contest,can not drop";
@@ -163,7 +179,15 @@ namespace Eproject3.Areas.Admin.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        public async Task<ActionResult> ForceDelete(int id)
+        {
+            db.Exams.ToList().RemoveAll(p=>p.Contest_id==id);
+            db.Contester.ToList().RemoveAll(p=>p.Contest_id==id);
+            Contest contest = await db.Contest.FindAsync(id);
+            db.Contest.Remove(contest);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

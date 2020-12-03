@@ -19,6 +19,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var users = db.Users.Include(u => u.Packs).Include(u => u.Roles);
             return View(await users.ToListAsync());
         }
@@ -31,7 +35,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name");
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name");
             return View();
@@ -47,7 +54,6 @@ namespace Eproject3.Areas.Admin.Controllers
             string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
             string url_img = "";
-
             if (ModelState.IsValid)
             {
                 if (Url != null)
@@ -130,7 +136,9 @@ namespace Eproject3.Areas.Admin.Controllers
                         return View();
                     }
                     users.Img = url_img.Substring(0, url_img.Length - 1);
-                    db.SaveChangesAsync();
+                    var u = db.Users.Find(users.id);
+                    u.Img = users.Img;
+                    db.SaveChanges();
                     Session["user"] = users;
                     return RedirectToAction("Index","Home");
                 }
@@ -151,7 +159,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -179,7 +190,6 @@ namespace Eproject3.Areas.Admin.Controllers
                 users.Exp_Date = isValid.Exp_Date;
                 users.Pack_id = isValid.Pack_id;
                 users.Roll_id = isValid.Roll_id;
-                //users.UPass = r.HashPwd(users.UPass);
                 db.Entry(users).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -192,6 +202,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Users/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (TempData["cass"] != null)
             {
                 ViewBag.cass = "This user posted tips or recipes can not drop";

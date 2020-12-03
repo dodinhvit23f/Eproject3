@@ -49,7 +49,6 @@ namespace PaymentAp.Controllers
 
             db.clients.Add(client);
             await db.SaveChangesAsync();
-
             return CreatedAtRoute("DefaultApi", new { id = client.id }, client);
         }
 

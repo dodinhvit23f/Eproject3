@@ -278,6 +278,7 @@
     <Content Include="Content\css\light-bootstrap-dashboard.css" />
     <Content Include="Content\DetailRecipes.css" />
     <Content Include="Content\fonts\nucleo-icons.svg" />
+    <Content Include="Content\HomePage.css" />
     <Content Include="Content\img\apple-icon.png" />
     <Content Include="Content\img\default-avatar.png" />
     <Content Include="Content\img\faces\face-0.jpg" />

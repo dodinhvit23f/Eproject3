@@ -19,6 +19,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var recipes = db.Recipes.Include(r => r.Users);
             return View(await recipes.ToListAsync());
         }
@@ -154,6 +158,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Recipes/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -257,6 +265,10 @@ namespace Eproject3.Areas.Admin.Controllers
             // GET: Recipes/Delete/5
             public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

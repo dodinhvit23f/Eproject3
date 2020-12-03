@@ -1,78 +1,4 @@
-﻿@*@model IEnumerable<Eproject3.Models.Users>
-    @using Eproject3.Repo
-    @{
-        Repository r = new Repository();
-        ViewBag.Title = "Index";
-        Layout = null;
-    }
-
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                Profile picture
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UPhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UPass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UAdress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Exp_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Packs.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Roles.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccNum)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-    <tr>
-        <th>
-            <img src="~/images/@item.Img" />
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => item.UPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UPass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UAdress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Exp_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Packs.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Roles.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccNum)
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-    </tr>
-    }
-    </table>*@
-@using Eproject3.Models
+﻿@using Eproject3.Models
 @model IEnumerable<Eproject3.Models.Users>
 @Styles.Render("~/Content/content/bootstrap.min.css")
 @Styles.Render("~/Content/content/light-bootstrap-dashboard.css")
@@ -117,6 +43,12 @@
                         <a class="nav-link" href="/Admin/Recipes">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Recipes</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/Admin/Categories">
+                            <i class="nc-icon nc-bullet-list-67"></i>
+                            <p>Category</p>
                         </a>
                     </li>
                     <li>
