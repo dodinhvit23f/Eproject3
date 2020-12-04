@@ -68,11 +68,12 @@ namespace Eproject3.Controllers
             Users u = (Users)Session["User"];
             if (TempData["Supplement"] != null)
             {
-                TempData["Supplement"] = true;
+                TempData["Supplement"] = null;
+                TempData["returndi"] = true;
                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");
                 return View();
             }
-            if (u != null   )
+            if (u != null)
             {
                 ViewBag.Cate_id = new SelectList(db.Categories.ToList(), "id", "Cate_name");                
                 return View();
@@ -151,21 +152,11 @@ namespace Eproject3.Controllers
                     Cont = Cont.Substring(0, Cont.Length - 1);
                     recipes.Content = Cont;
                     recipes.ingredent = ingre.Substring(0, ingre.Length - 1);
-                if (Session["user"] != null)
-                {
-                    var isvalid = (Users)Session["user"];
-                    recipes.Contester_id = isvalid.id;
-                }
-                else
-                {
-                    recipes.Contester_id = db.Users.Where(p => p.UPhone == "000").FirstOrDefault().id;
-                }
                 if (flag != 1)
                 if (Session["user"] != null)
                 {
                     var isvalid = (Users)Session["user"];
-                    recipes.Contester_id = isvalid.id;
-                        
+                    recipes.Contester_id = isvalid.id;                       
                 }
                 else
                 {
@@ -175,8 +166,9 @@ namespace Eproject3.Controllers
                 recipes.R_Status = txtStatus;
                 db.Recipes.Add(recipes);
                 await db.SaveChangesAsync();             
-                if (TempData["Supplement"] != null)
+                if (TempData["returndi"] != null)
                 {
+                    TempData["returndi"] = null;
                     TempData["reId"] = recipes.id;
                     return RedirectToAction("Create","Exams");
                 }                
