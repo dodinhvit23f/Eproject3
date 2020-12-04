@@ -516,5 +516,7 @@ ul {
      border: 1px solid black;
      box-shadow: 5px 10px #888888;
      border-radius:4px;
-     margin-bottom:15px;
+     margin-bottom:50px;
+	 
+	 margin-top:30px;
 }

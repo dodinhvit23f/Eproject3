@@ -58,14 +58,14 @@
                     </div>
                 </a>
             }
-            <div class="row">
-                <div class="center">
-                    @*Need Style*@
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        </div>
+        <div class="row">
+            <div class="center">
+                @*Need Style*@
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                @Html.PagedListPager(Model, page => Url.Action("Index",
                 new { page }))
-                </div>
             </div>
         </div>
     </div>
