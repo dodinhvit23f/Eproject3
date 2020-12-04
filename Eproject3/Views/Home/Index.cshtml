@@ -53,23 +53,20 @@
                             <div class="blur-hover">
                                 <h1>@items.Title</h1>
                             </div>
-                            <img src="~/images/@items.Img.Split('$').First()">
+                            <img src="~/images/@items.Img.Split('$').Last()">
                         </div>
                     </div>
                 </a>
             }
-            <div class="row">
-                <div class="center">
-                    @*Need Style*@
-                  
-                </div>
-            </div>
         </div>
-        <div>
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <div class="row">
+            <div class="center">
+                @*Need Style*@
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-            @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page }))
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page }))
+            </div>
         </div>
     </div>
 </div>

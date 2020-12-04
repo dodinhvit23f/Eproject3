@@ -150,7 +150,6 @@ namespace Eproject3.Controllers
                     if (TempData["TipsID"] != null)
                     {
                         return RedirectToAction("Details/" + (int)TempData["TipsID"], "Tips");
-
                     }
                     return Redirect(TempData["URL"].ToString());
                 }

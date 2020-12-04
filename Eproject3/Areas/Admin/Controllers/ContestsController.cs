@@ -60,7 +60,7 @@ namespace Eproject3.Areas.Admin.Controllers
         {
             if (DateTime.Compare(contest.C_Time.Value,contest.exp_time.Value) >0)
             {
-                ViewBag.Soon = "Start date can not be earlier than end date ";
+                ViewBag.Soon = "Start date can not be later than end date ";
                 return View(contest);
             }
             string url_img = "";
