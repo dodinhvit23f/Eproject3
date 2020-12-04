@@ -18,6 +18,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Admin/Categories
         public async Task<ActionResult> Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View(await db.Categories.ToListAsync());
         }
 
@@ -39,6 +43,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Admin/Categories/Create
         public ActionResult Create()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -62,6 +70,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Admin/Categories/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +105,10 @@ namespace Eproject3.Areas.Admin.Controllers
         // GET: Admin/Categories/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

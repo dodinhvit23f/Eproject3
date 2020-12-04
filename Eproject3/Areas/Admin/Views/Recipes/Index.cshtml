@@ -46,6 +46,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="nav-link" href="/Admin/Categories">
+                            <i class="nc-icon nc-bullet-list-67"></i>
+                            <p>Category</p>
+                        </a>
+                    </li>
+                    <li>
                         <a class="nav-link" href="/Admin/Tips">
                             <i class="nc-icon nc-notes"></i>
                             <p>Tips</p>
@@ -124,6 +130,7 @@
                                                 <th>Status</th>
                                                 <th>Levels</th>
                                                 <th>Categories</th>
+                                                <th>Comments</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -159,7 +166,9 @@
                                                         @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
                                                     </td>
                                                     <td>
-                                                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                                        <a href="/Admin/FeedBacks/Index?id=@Html.DisplayFor(modelItem=>item.id)&type=0">@item.FeedBack.Count()</a>
+                                                    </td>
+                                                    <td>
                                                         @Html.ActionLink("Delete", "Delete", new { id = item.id })
                                                     </td>
                                                 </tr>

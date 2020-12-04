@@ -16,6 +16,8 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id)
+    @Html.EditorFor(model=>model.id_winner)
+    @Html.EditorFor(model=>model.Contester1)
     <div class="form-group">
         @Html.LabelFor(model => model.C_Time, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

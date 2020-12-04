@@ -41,6 +41,12 @@
                             <p>Recipes</p>
                         </a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="/Admin/Categories">
+                            <i class="nc-icon nc-bullet-list-67"></i>
+                            <p>Category</p>
+                        </a>
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/Admin/Tips">
                             <i class="nc-icon nc-notes"></i>
@@ -120,6 +126,7 @@
                                                 <th>Category</th>
                                                 <th>Level</th>
                                                 <th>Isfree</th>
+                                                <th>Comments</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -127,38 +134,41 @@
                                             @foreach (var item in Model)
                                             {
                                                   var ImgList = item.Img.Split('$').ToList();
-                                                <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Title)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Content)
-                                                    </td>
-                                                    <td>
-                                                       
-                                                        @{
-                                                            foreach (var i in ImgList)
-                                                            {
-                                                                <span> <img src="~/images/@(i)" height="200" width="200" /></span>
-                                                            }
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Title)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Content)
+                                                </td>
+                                                <td>
+
+                                                    @{
+                                                        foreach (var i in ImgList)
+                                                        {
+                                                            <span> <img src="~/images/@(i)" height="200" width="200" /></span>
                                                         }
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Users.UAdress)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Levels)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.isFree)
-                                                    </td>
-                                                    <td>
-                                                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                                                    </td>
-                                                </tr>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Users.UAdress)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Categories.Cate_Name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Levels)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.isFree)
+                                                </td>
+                                                <td>
+                                                    <a href="/Admin/FeedBacks/Index?id=@Html.DisplayFor(modelItem=>item.id)&type=1">@item.FeedBack.Count</a>
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                                </td>
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>

@@ -62,9 +62,17 @@ namespace Eproject3.Controllers
                 }
                 FeedBack feedBack = new FeedBack();
                 feedBack.Use_id = Use_id;
-                feedBack.Recipes_id = Recipes_id;
+                if (Recipes_id != null)
+                {
+                    feedBack.Recipes_id = Recipes_id;
+                    feedBack.Tip_id = null;
+                }
+                else {
+                    feedBack.Tip_id = Tip_id;
+                    feedBack.Recipes_id = null;
+                }
                 feedBack.Content = Content;
-                feedBack.Tip_id = Tip_id;
+               
                 db.FeedBack.Add(feedBack);
                 await db.SaveChangesAsync();
                 return Redirect(Request.Headers["Referer"].ToString());
@@ -106,7 +114,7 @@ namespace Eproject3.Controllers
                 feedBack.Use_id = use_id;
                 feedBack.Recipes_id = recipes_id;
                 feedBack.Content = Content;
-                feedBack.Tip_id = 1;
+                feedBack.Tip_id = null;
                 db.FeedBack.Add(feedBack);
                 await db.SaveChangesAsync();
                 return Redirect(Request.Headers["Referer"].ToString());
@@ -119,7 +127,47 @@ namespace Eproject3.Controllers
             //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
             //return View(feedBack);
         }
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateTips(string Use_id, string Tip_id, string Content)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Use_id == null)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
+                int use_id = -1;
+                int.TryParse(Use_id, out use_id);
+                if (use_id < 0)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
 
+                int tip_id = -1;
+                int.TryParse(Tip_id, out tip_id);
+                if (tip_id < 0)
+                {
+                    return Redirect("~/Users/LoginView");
+                }
+
+                FeedBack feedBack = new FeedBack();
+                feedBack.Use_id = use_id;
+                feedBack.Tip_id = tip_id;
+                feedBack.Content = Content;
+                feedBack.Recipes_id = null;
+                db.FeedBack.Add(feedBack);
+                await db.SaveChangesAsync();
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+            return Redirect(Request.Headers["Referer"].ToString());
+
+
+            //ViewBag.Recipes_id = new SelectList(db.Recipes, "id", "Title", feedBack.Recipes_id);
+            //ViewBag.Tip_id = new SelectList(db.Tips, "id", "Content", feedBack.Tip_id);
+            //ViewBag.Use_id = new SelectList(db.Users, "id", "UPhone", feedBack.Use_id);
+            //return View(feedBack);
+        }
         // GET: FeedBacks/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {

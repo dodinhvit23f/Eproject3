@@ -65,8 +65,8 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="500" />
-    <Property Name="Content" Type="text" />
-    <Property Name="Img" Type="nvarchar" MaxLength="500" />
+    <Property Name="Content" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Img" Type="nvarchar" MaxLength="1000" />
     <Property Name="Contester_id" Type="int" />
     <Property Name="R_Status" Type="int" />
     <Property Name="ingredent" Type="nvarchar" MaxLength="500" />

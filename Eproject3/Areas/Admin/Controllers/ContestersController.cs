@@ -187,7 +187,7 @@ namespace Eproject3.Areas.Admin.Controllers
             db.Exams.ToList().RemoveAll(p => p.Contester_id == id);
             db.Contester.Remove(contester);
             await db.SaveChangesAsync();
-            return RedirectToAction("Contesters/"+contest.id);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

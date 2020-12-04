@@ -91,13 +91,13 @@ namespace Eproject3.Controllers
                 return View();
             }
         }
-            public async Task<ActionResult> LoginView()
+        public ActionResult LoginView()
         {
             if (TempData["done"] != null)
             {
                 ViewBag.done = TempData["done"];
             }
-            if (TempData["AuErr"] !=null)
+            if (TempData["AuErr"] != null)
             {
                 ViewBag.AuErr = true;
             }
@@ -124,13 +124,13 @@ namespace Eproject3.Controllers
             TempData["URL"] = Request.Headers["Referer"].ToString();
             return View();
         }
-        public async Task<ActionResult> LogOut()
+        public ActionResult LogOut()
         {
             Session["user"] = null;
             Session["isAdmin"] = null;
             return RedirectToAction("index", "Home");
-        }        
-        public async Task<ActionResult> Login(string phones, string pwd)
+        }
+        public ActionResult Login(string phones, string pwd)
         {
             string hashed = r.HashPwd(pwd);
             var isValid = db.Users.Where(p => p.UPhone == phones && p.UPass.Equals(hashed)).FirstOrDefault();
@@ -206,14 +206,15 @@ namespace Eproject3.Controllers
                         ViewBag.FileStatus = "Error while file uploading.";
                     }
                     string ex = Path.GetExtension(Url.FileName);
-
                     if (!r.check(ex.ToLower(), formats))
                     {
                         ViewBag.FileStatus = ex + " is not an image";
                         return View();
                     }
                     users.Img = url_img.Substring(0, url_img.Length - 1);
-                    db.SaveChangesAsync();
+                    var u = db.Users.Find(users.id);
+                    u.Img = users.Img;
+                    db.SaveChanges();
                     Session["user"] = users;
                     return RedirectToAction("Edit/" + users.id);
                 }
@@ -464,7 +465,7 @@ namespace Eproject3.Controllers
                 db.Entry(users).State = EntityState.Modified;
                 Session["user"] = users;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Edit/"+users.id);
             }
             ViewBag.Pack_id = new SelectList(db.Packs, "id", "name", users.Pack_id);
             ViewBag.Roll_id = new SelectList(db.Roles, "id", "name", users.Roll_id);
